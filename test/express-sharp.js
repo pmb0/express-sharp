@@ -50,7 +50,6 @@ describe('GET /my-scale/resize', function() {
         res.body.byteLength.should.be.exactly(2472);
         sharp(res.body).metadata(function(err, metadata) {
           should(metadata.width).be.exactly(1110)
-          console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         });
       })
       .expect(200, done);
