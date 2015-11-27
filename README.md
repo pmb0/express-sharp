@@ -56,7 +56,7 @@ Supported options:
 
 ### `baseHost`
 
-Specify the HTTP base host from wich images are to be requested.
+Specify the HTTP base host from which images will be requested.
 
 ## Path and query params
 
@@ -70,13 +70,13 @@ Valid values: every valid [sharp output format string](http://sharp.dimens.io/en
 
 ### `progressive`
 
-Use progressive (interlace) scan for JPEG and PNG output. This typically reduces compression performance by 30% but results in an image that can be rendered sooner when decompressed.
+See [sharp docs](http://sharp.dimens.io/en/stable/api/#progressive).
 
 Use `&progressive=true` to enable progressive scan.
 
 ### `quality`
 
-The output quality to use for lossy JPEG, WebP and TIFF output formats. The default quality is 80.
+See [sharp docs](http://sharp.dimens.io/en/stable/api/#qualityquality).
 
 quality is a Number between 1 and 100.
 
