@@ -44,10 +44,13 @@ router.get('/resize/:width/:height?', function(req, res) {
   var width = parseInt(req.params.width, 10);
   var height = parseInt(req.params.height, 10);
 
-  var transformer = sharp().resize(width, height).on('error', function(err) {
-    console.error(err);
-    res.sendStatus(500);
-  });
+  var transformer = sharp()
+    .resize(width, height)
+    .withoutEnlargement()
+    .on('error', function(err) {
+      console.error(err);
+      res.sendStatus(500);
+    });
 
   if (req.query.progressive) {
     transformer.progressive();
