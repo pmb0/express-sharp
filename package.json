@@ -1,0 +1,33 @@
+{
+  "name": "express-sharp",
+  "version": "0.0.0",
+  "description": "Real-time image processing for your express application",
+  "main": "index.js",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "etag": "^1.7.0",
+    "express": "^4.13.3",
+    "sharp": "^0.12.0",
+    "validator": "^4.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmb0/express-sharp.git"
+  },
+  "keywords": [
+    "express",
+    "sharp",
+    "image",
+    "scale"
+  ],
+  "author": "Philipp Busse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pmb0/express-sharp/issues"
+  },
+  "homepage": "https://github.com/pmb0/express-sharp#readme"
+}
