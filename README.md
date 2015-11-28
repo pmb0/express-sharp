@@ -86,3 +86,8 @@ quality is a Number between 1 and 100.
 ### `url`
 
 URL/path to original image.
+
+## License
+
+  [MIT](LICENSE)
+
