@@ -1,8 +1,9 @@
 # express-sharp
 
-[![Build Status](https://travis-ci.org/pmb0/express-sharp.svg)](https://travis-ci.org/pmb0/express-sharp)
-
 express-sharp adds real-time image processing routes to your express application. Images are processed with [sharp](https://github.com/lovell/sharp), a fast Node.js module for resizing images.
+
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 ## Installation
 
@@ -85,3 +86,12 @@ quality is a Number between 1 and 100.
 ### `url`
 
 URL/path to original image.
+
+## License
+
+  [MIT](LICENSE)
+
+[travis-image]: https://img.shields.io/travis/pmb0/express-sharp/master.svg
+[travis-url]: https://travis-ci.org/pmb0/express-sharp
+[coveralls-image]: https://img.shields.io/coveralls/pmb0/express-sharp/master.svg
+[coveralls-url]: https://coveralls.io/r/pmb0/express-sharp?branch=master

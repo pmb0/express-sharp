@@ -11,12 +11,14 @@
     "validator": "^4.3.0"
   },
   "devDependencies": {
+    "istanbul": "^0.4.1",
     "mocha": "^2.3.4",
     "should": "^7.1.1",
     "supertest": "^1.1.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha ./test"
+    "test": "node_modules/.bin/mocha --reporter spec --bail --check-leaks test/",
+    "test-ci": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js"
   },
   "repository": {
     "type": "git",
