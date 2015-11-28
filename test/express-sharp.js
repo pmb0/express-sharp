@@ -35,7 +35,7 @@ describe('GET /my-scale/resize', function() {
     request(app)
       .get('/my-scale/resize/100?url=' + imgUrl('/images/a.jpg'))
       .expect(function(res) {
-        res.body.byteLength.should.be.exactly(3641);
+        res.body.byteLength.should.be.below(4000);
         sharp(res.body).metadata(function(err, metadata) {
           metadata.width.should.be.exactly(100);
         });
@@ -47,9 +47,9 @@ describe('GET /my-scale/resize', function() {
     request(app)
       .get('/my-scale/resize/110?quality=50&url=' + imgUrl('/images/a.jpg'))
       .expect(function(res) {
-        res.body.byteLength.should.be.exactly(2472);
+        res.body.byteLength.should.be.below(3000);
         sharp(res.body).metadata(function(err, metadata) {
-          should(metadata.width).be.exactly(1110)
+          should(metadata.width).be.exactly(110)
         });
       })
       .expect(200, done);
