@@ -91,3 +91,7 @@ URL/path to original image.
 
   [MIT](LICENSE)
 
+[travis-image]: https://img.shields.io/travis/pmb0/express-sharp/master.svg
+[travis-url]: https://travis-ci.org/pmb0/express-sharp
+[coveralls-image]: https://img.shields.io/coveralls/pmb0/express-sharp/master.svg
+[coveralls-url]: https://coveralls.io/r/pmb0/express-sharp?branch=master
