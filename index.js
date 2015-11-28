@@ -37,8 +37,7 @@ router.get('/resize/:width/:height?', function(req, res) {
   }
 
   var imageUrl = url.parse(req.query.url);
-  imageUrl.host = options.baseHost;
-  imageUrl.protocol = 'http';
+  imageUrl.host = options.baseHost + ':' + imageUrl.port;
   imageUrl = url.format(imageUrl);
 
   var width = parseInt(req.params.width, 10);

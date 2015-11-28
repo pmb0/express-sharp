@@ -1,5 +1,7 @@
 # express-sharp
 
+[![Build Status](https://travis-ci.org/pmb0/express-sharp.svg)](https://travis-ci.org/pmb0/express-sharp)
+
 express-sharp adds real-time image processing routes to your express application. Images are processed with [sharp](https://github.com/lovell/sharp), a fast Node.js module for resizing images.
 
 ## Installation
