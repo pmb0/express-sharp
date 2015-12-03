@@ -21,6 +21,12 @@ var validateWith = function(validator) {
   }
 };
 
+var transform = function(width, height) {
+  return sharp()
+    .resize(width, height)
+    .withoutEnlargement()
+};
+
 router.param('height', validateWith(validator.isNumeric));
 router.param('width', validateWith(validator.isNumeric));
 
@@ -46,12 +52,10 @@ router.get('/resize/:width/:height?', function(req, res) {
   var width = parseInt(req.params.width, 10);
   var height = parseInt(req.params.height, 10);
 
-  var transformer = sharp()
-    .resize(width, height)
-    .withoutEnlargement()
-    .on('error', function(err) {
-      console.error(err);
-      res.sendStatus(500);
+  var transformer = transform(width, height)
+    .on('error', function sharpError(err) {
+      res.status(500);
+      next(new Error(err));
     });
 
   if (req.query.progressive) {
