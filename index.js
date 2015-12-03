@@ -30,7 +30,7 @@ var transform = function(width, height) {
 router.param('height', validateWith(validator.isNumeric));
 router.param('width', validateWith(validator.isNumeric));
 
-router.get('/resize/:width/:height?', function(req, res) {
+router.get('/resize/:width/:height?', function(req, res, next) {
   var format = req.query.format;
   var quality = parseInt(req.query.quality, 10);
 
@@ -78,15 +78,14 @@ router.get('/resize/:width/:height?', function(req, res) {
 
   debug('Requesting:', imageUrl);
   http
-    .get(imageUrl, function(result) {
+    .get(imageUrl, function getImage(result) {
       debug(imageUrl, 'requested');
       res.status(result.statusCode)
       res.type(format || result.headers['content-type']);
       result.pipe(transformer).pipe(res);
     })
     .on('error', function(err) {
-      console.error('Error while fetching ' + imageUrl + ':', err);
-      res.sendStatus(500);
+      next(new Error(err));
     });
 });
 
