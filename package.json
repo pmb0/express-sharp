@@ -18,7 +18,9 @@
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --reporter spec --bail --check-leaks test/",
-    "test-ci": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js"
+    "test-ci": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js",
+    "test-cov": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
+    "test-tap": "node_modules/.bin/mocha --reporter tap --check-leaks test/"
   },
   "repository": {
     "type": "git",
