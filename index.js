@@ -6,20 +6,31 @@ var express = require('express');
 var http = require('http');
 var sharp = require('sharp');
 var url = require('url');
-var validator = require('validator');
+var expressValidator = require('express-validator');
 
 var router = express.Router();
+router.use(expressValidator({
+  customValidators: {
+    isSharpFormat: function(value) {
+      return sharp.format.hasOwnProperty(value);
+    },
+    isQuality: function(value) {
+      return value >= 0 && value <= 100;
+    },
+    isUrlPathQuery: function(value) {
+      if (!value) {
+        return false;
+      }
+      var u =  url.parse(value);
+      if (u.protocol || u.host || !u.path) {
+        return false;
+      }
+      return true;
+    },
+  },
+}));
 
 var options = {};
-
-var validateWith = function(validator) {
-  return function(req, res, next, val) {
-    if (validator(val)) {
-      return next();
-    }
-    res.sendStatus(400);
-  }
-};
 
 var transform = function(width, height) {
   return sharp()
@@ -27,26 +38,24 @@ var transform = function(width, height) {
     .withoutEnlargement()
 };
 
-router.param('height', validateWith(validator.isNumeric));
-router.param('width', validateWith(validator.isNumeric));
-
 router.get('/resize/:width/:height?', function(req, res, next) {
   var format = req.query.format;
   var quality = parseInt(req.query.quality, 10);
 
-  if (
-    !validator.isURL(req.query.url) ||
-    (format && !sharp.format.hasOwnProperty(format)) ||
-    (quality && !validator.isNumeric(quality))
-  ) {
-    return res.sendStatus(400);
+  req.checkParams('height').optional().isInt();
+  req.checkParams('width').isInt();
+  req.checkQuery('format').optional().isSharpFormat();
+  req.checkQuery('quality').optional().isQuality();
+  req.checkQuery('url').isUrlPathQuery();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json(errors);
   }
 
   var imageUrl = url.parse(req.query.url);
   imageUrl.host = options.baseHost;
-  if (imageUrl.port !== null) {
-    imageUrl.host += ':' + imageUrl.port;
-  }
+  imageUrl.protocol = imageUrl.protocol || 'http';
   imageUrl = url.format(imageUrl);
 
   var width = parseInt(req.params.width, 10);
@@ -79,7 +88,10 @@ router.get('/resize/:width/:height?', function(req, res, next) {
   debug('Requesting:', imageUrl);
   http
     .get(imageUrl, function getImage(result) {
-      debug(imageUrl, 'requested');
+      debug('Requested %s. Status: %s', imageUrl, result.statusCode);
+      if (result.statusCode >= 400) {
+        return res.sendStatus(result.statusCode);
+      }
       res.status(result.statusCode)
       res.type(format || result.headers['content-type']);
       result.pipe(transformer).pipe(res);
