@@ -61,6 +61,20 @@ Supported options:
 
 Specify the HTTP base host from which images will be requested.
 
+### `cors`
+
+Specify CORS options as described in [cors docs](https://github.com/expressjs/cors). Example:
+
+```js
+app.use('/some-path', scale({
+  cors: {
+    origin: 'http://example.com'
+  }
+}));
+```
+
+If not specified, a `Access-Control-Allow-Origin: *` header is being sent.
+
 ## Path and query params
 
 ### `format`
