@@ -33,7 +33,7 @@ app.listen(3000));
 Render `http://mybasehost.com/image.jpg` with 400x400 pixels:
 
 ```
-GET /my-scale/resize/400?url=http://mybasehost.com/image.jpg HTTP/1.1
+GET /my-scale/resize/400?url=%2Fimage.jpg HTTP/1.1
 Host: localhost:3000
 
 --> invokes in background:
@@ -44,7 +44,7 @@ Host: localhost:3000
 Same as above, but with 80% quality, `webp` image type and with progressive enabled:
 
 ```
-GET /my-scale/resize/400?format=webp&quality=80&progressive=true&url=http://mybasehost.com/image.jpg HTTP/1.1
+GET /my-scale/resize/400?format=webp&quality=80&progressive=true&url=%2Fimage.jpg HTTP/1.1
 Host: localhost:3000
 ```
 
