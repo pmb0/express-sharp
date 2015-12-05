@@ -1,5 +1,6 @@
 'use strict';
 
+var cors = require('cors');
 var debug = require('debug')('express-sharp')
 var etag = require('etag');
 var express = require('express');
@@ -8,100 +9,99 @@ var sharp = require('sharp');
 var url = require('url');
 var expressValidator = require('express-validator');
 
-var router = express.Router();
-router.use(expressValidator({
-  customValidators: {
-    isSharpFormat: function(value) {
-      return sharp.format.hasOwnProperty(value);
-    },
-    isQuality: function(value) {
-      return value >= 0 && value <= 100;
-    },
-    isUrlPathQuery: function(value) {
-      if (!value) {
-        return false;
-      }
-      var u =  url.parse(value);
-      if (u.protocol || u.host || !u.path) {
-        return false;
-      }
-      return true;
-    },
-  },
-}));
-
-var options = {};
-
 var transform = function(width, height) {
   return sharp()
     .resize(width, height)
     .withoutEnlargement()
 };
 
-router.get('/resize/:width/:height?', function(req, res, next) {
-  var format = req.query.format;
-  var quality = parseInt(req.query.quality, 10);
+module.exports = function(options) {
+  var router = express.Router();
+  router.use(expressValidator({
+    customValidators: {
+      isSharpFormat: function(value) {
+        return sharp.format.hasOwnProperty(value);
+      },
+      isQuality: function(value) {
+        return value >= 0 && value <= 100;
+      },
+      isUrlPathQuery: function(value) {
+        if (!value) {
+          return false;
+        }
+        var u =  url.parse(value);
+        if (u.protocol || u.host || !u.path) {
+          return false;
+        }
+        return true;
+      },
+    },
+  }));
 
-  req.checkParams('height').optional().isInt();
-  req.checkParams('width').isInt();
-  req.checkQuery('format').optional().isSharpFormat();
-  req.checkQuery('quality').optional().isQuality();
-  req.checkQuery('url').isUrlPathQuery();
+  var _cors = cors(options.cors || {});
 
-  var errors = req.validationErrors();
-  if (errors) {
-    return res.status(400).json(errors);
-  }
+  router.get('/resize/:width/:height?', _cors, function(req, res, next) {
+    var format = req.query.format;
+    var quality = parseInt(req.query.quality, 10);
 
-  var imageUrl = url.parse(req.query.url);
-  imageUrl.host = options.baseHost;
-  imageUrl.protocol = imageUrl.protocol || 'http';
-  imageUrl = url.format(imageUrl);
+    req.checkParams('height').optional().isInt();
+    req.checkParams('width').isInt();
+    req.checkQuery('format').optional().isSharpFormat();
+    req.checkQuery('quality').optional().isQuality();
+    req.checkQuery('url').isUrlPathQuery();
 
-  var width = parseInt(req.params.width, 10);
-  var height = parseInt(req.params.height, 10);
+    var errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json(errors);
+    }
 
-  var transformer = transform(width, height)
-    .on('error', function sharpError(err) {
-      res.status(500);
-      next(new Error(err));
-    });
+    var imageUrl = url.parse(req.query.url);
+    imageUrl.host = options.baseHost;
+    imageUrl.protocol = imageUrl.protocol || 'http';
+    imageUrl = url.format(imageUrl);
 
-  if (req.query.progressive) {
-    transformer.progressive();
-  }
+    var width = parseInt(req.params.width, 10);
+    var height = parseInt(req.params.height, 10);
 
-  if (format) {
-    transformer.toFormat(format);
-  }
+    var transformer = transform(width, height)
+      .on('error', function sharpError(err) {
+        res.status(500);
+        next(new Error(err));
+      });
 
-  if (quality) {
-    transformer.quality(quality)
-  }
+    if (req.query.progressive) {
+      transformer.progressive();
+    }
 
-  var etagBuffer = new Buffer([imageUrl, width, height, format, quality]);
-  res.setHeader('ETag', etag(etagBuffer, {weak: true}))
-  if (req.fresh) {
-    return res.sendStatus(304);
-  }
+    if (format) {
+      transformer.toFormat(format);
+    }
 
-  debug('Requesting:', imageUrl);
-  http
-    .get(imageUrl, function getImage(result) {
-      debug('Requested %s. Status: %s', imageUrl, result.statusCode);
-      if (result.statusCode >= 400) {
-        return res.sendStatus(result.statusCode);
-      }
-      res.status(result.statusCode)
-      res.type(format || result.headers['content-type']);
-      result.pipe(transformer).pipe(res);
-    })
-    .on('error', function(err) {
-      next(new Error(err));
-    });
-});
+    if (quality) {
+      transformer.quality(quality)
+    }
 
-module.exports = function(o) {
-  options = o;
+    var etagBuffer = new Buffer([imageUrl, width, height, format, quality]);
+    res.setHeader('ETag', etag(etagBuffer, {weak: true}))
+    if (req.fresh) {
+      return res.sendStatus(304);
+    }
+
+    debug('Requesting:', imageUrl);
+    http
+      .get(imageUrl, function getImage(result) {
+        debug('Requested %s. Status: %s', imageUrl, result.statusCode);
+        if (result.statusCode >= 400) {
+          return res.sendStatus(result.statusCode);
+        }
+        res.status(result.statusCode)
+        res.type(format || result.headers['content-type']);
+        result.pipe(transformer).pipe(res);
+      })
+      .on('error', function(err) {
+        next(new Error(err));
+      });
+  });
+
   return router;
 };
