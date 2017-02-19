@@ -49,7 +49,7 @@ describe('GET /my-scale/resize', function() {
 
   it('should respond with 200', function(done) {
     request(app)
-      .get(imageUrl(100, {url: '/images/a.jpg', quality: 0}))
+      .get(imageUrl(100, {url: '/images/a.jpg', quality: 1}))
       .expect(200, done);
   });
 
@@ -132,7 +132,7 @@ describe('GET /my-scale/resize', function() {
   it('should use If-None-Match header', function(done) {
     request(app)
       .get(imageUrl(110, {url: '/images/a.jpg'}))
-      .set('If-None-Match', 'W/"5-w0I8+4Eea/VOW/u14mYZ+Q"')
+      .set('If-None-Match', 'W/"5-aCz7x0guW5rFV9ReWQwLYg"')
       .expect(function(res) {
         res.body.should.be.empty();
       })

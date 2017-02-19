@@ -41,8 +41,8 @@ module.exports = function(options) {
   var _cors = cors(options.cors || {});
 
   router.get('/resize/:width/:height?', _cors, function(req, res, next) {
-    var format = req.query.format;
-    var quality = parseInt(req.query.quality, 10);
+    var format = req.query.format || 'jpeg';
+    var quality = parseInt(req.query.quality || 75, 10);
 
     req.checkParams('height').optional().isInt();
     req.checkParams('width').isInt();
@@ -72,13 +72,7 @@ module.exports = function(options) {
       transformer.progressive();
     }
 
-    if (format) {
-      transformer.toFormat(format);
-    }
-
-    if (quality) {
-      transformer.quality(quality)
-    }
+    transformer[format]({quality: quality})
 
     var etagBuffer = new Buffer([imageUrl, width, height, format, quality]);
     res.setHeader('ETag', etag(etagBuffer, {weak: true}))
