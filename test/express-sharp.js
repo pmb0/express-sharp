@@ -87,7 +87,7 @@ describe('GET /my-scale/resize', function() {
     request(app)
       .get(imageUrl(100, {url: '/images/a.jpg'}))
       .expect(function(res) {
-        res.body.byteLength.should.be.below(4000);
+        res.body.byteLength.should.be.below(5000);
         sharp(res.body).metadata(function(err, metadata) {
           metadata.width.should.be.exactly(100);
           done();
