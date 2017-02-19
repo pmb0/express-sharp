@@ -132,7 +132,7 @@ describe('GET /my-scale/resize', function() {
   it('should use If-None-Match header', function(done) {
     request(app)
       .get(imageUrl(110, {url: '/images/a.jpg'}))
-      .set('If-None-Match', 'W/"5-aCz7x0guW5rFV9ReWQwLYg"')
+      .set('If-None-Match', 'W/"5-GzEpAtzjLX6OxeVNsGzcRNFaG7E"')
       .expect(function(res) {
         res.body.should.be.empty();
       })
