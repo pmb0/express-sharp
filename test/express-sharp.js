@@ -37,7 +37,7 @@ describe('GET /my-scale/resize', function() {
   it('should respond with original image', function(done) {
     request(app)
       .get('/images/a.jpg')
-      .expect('Content-Length', 1970087)
+      .expect('Content-Length', '1970087')
       .expect(200, done);
   });
 
@@ -49,7 +49,7 @@ describe('GET /my-scale/resize', function() {
 
   it('should respond with 200', function(done) {
     request(app)
-      .get(imageUrl(100, {url: '/images/a.jpg', quality: 0}))
+      .get(imageUrl(100, {url: '/images/a.jpg', quality: 1}))
       .expect(200, done);
   });
 
@@ -87,7 +87,7 @@ describe('GET /my-scale/resize', function() {
     request(app)
       .get(imageUrl(100, {url: '/images/a.jpg'}))
       .expect(function(res) {
-        res.body.byteLength.should.be.below(4000);
+        res.body.byteLength.should.be.below(5000);
         sharp(res.body).metadata(function(err, metadata) {
           metadata.width.should.be.exactly(100);
           done();
@@ -125,14 +125,14 @@ describe('GET /my-scale/resize', function() {
   it('should contain ETag header', function(done) {
     request(app)
       .get(imageUrl(110, {url: '/images/a.jpg'}))
-      .expect('ETag', 'W/"5-ZEZEn0FuNReBmzSF38hwfQ"')
+      .expect('ETag', /W\/".*"/)
       .expect(200, done);
   });
 
   it('should use If-None-Match header', function(done) {
     request(app)
       .get(imageUrl(110, {url: '/images/a.jpg'}))
-      .set('If-None-Match', 'W/"5-ZEZEn0FuNReBmzSF38hwfQ"')
+      .set('If-None-Match', 'W/"5-GzEpAtzjLX6OxeVNsGzcRNFaG7E"')
       .expect(function(res) {
         res.body.should.be.empty();
       })
