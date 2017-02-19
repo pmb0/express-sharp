@@ -61,8 +61,7 @@ module.exports = function(options) {
     imageUrl = url.format(imageUrl);
 
     var width = parseInt(req.params.width, 10);
-    var height = parseInt(req.params.height, 10);
-
+    var height = parseInt(req.params.height || req.params.width, 10);
     var transformer = transform(width, height)
       .on('error', function sharpError(err) {
         res.status(500);
