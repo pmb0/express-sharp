@@ -5,6 +5,10 @@
 - Fixed image height to default to image width. Fixes #2.
 - Upgraded dependencies and tests.
 
+## v1.2.1, 2017-02-06
+
+- Upgraded `express-sharp` to `0.17.1`.
+
 ## v1.2.0, 2015-12-05
 
 - Added CORS support.
