@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Fixed image height to default to image width. Fixes #2.
 - Upgraded dependencies and tests.
 
 ## v1.2.0, 2015-12-05
