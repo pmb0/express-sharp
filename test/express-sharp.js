@@ -125,7 +125,7 @@ describe('GET /my-scale/resize', function() {
   it('should contain ETag header', function(done) {
     request(app)
       .get(imageUrl(110, {url: '/images/a.jpg'}))
-      .expect('ETag', 'W/"5-ZEZEn0FuNReBmzSF38hwfQ"')
+      .expect('ETag', /W\/".*"/)
       .expect(200, done);
   });
 
