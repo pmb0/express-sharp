@@ -37,7 +37,7 @@ describe('GET /my-scale/resize', function() {
   it('should respond with original image', function(done) {
     request(app)
       .get('/images/a.jpg')
-      .expect('Content-Length', 1970087)
+      .expect('Content-Length', '1970087')
       .expect(200, done);
   });
 
