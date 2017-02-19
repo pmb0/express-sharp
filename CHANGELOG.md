@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v1.2.2, 2017-02-19
 
 - Fixed original image test by comparing Content-Length header with a string.
 - Fixed image height to default to image width. Fixes #2.
