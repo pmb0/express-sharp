@@ -1,6 +1,6 @@
 {
   "name": "express-sharp",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Real-time image processing for your express application",
   "main": "index.js",
   "dependencies": {
