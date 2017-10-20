@@ -9,10 +9,15 @@ var sharp = require('sharp');
 var url = require('url');
 var expressValidator = require('express-validator');
 
-var transform = function(width, height) {
-  return sharp()
-    .resize(width, height)
-    .withoutEnlargement()
+var transform = function(width, height, crop, gravity) {
+  console.log(crop, gravity);
+  const transformer = sharp().resize(width, height);
+  if (crop) {
+    transformer.crop(gravity || 'northwest');
+  } else {
+    transformer.min();
+  }
+  return transformer;
 };
 
 module.exports = function(options) {
@@ -21,6 +26,9 @@ module.exports = function(options) {
     customValidators: {
       isSharpFormat: function(value) {
         return sharp.format.hasOwnProperty(value);
+      },
+      isGravity: function(value) {
+        return sharp.gravity.hasOwnProperty(value);
       },
       isQuality: function(value) {
         return value >= 0 && value <= 100;
@@ -41,13 +49,16 @@ module.exports = function(options) {
   var _cors = cors(options.cors || {});
 
   router.get('/resize/:width/:height?', _cors, function(req, res, next) {
-    var format = req.query.format || 'jpeg';
+    var format = req.query.format;
     var quality = parseInt(req.query.quality || 75, 10);
 
     req.checkParams('height').optional().isInt();
     req.checkParams('width').isInt();
     req.checkQuery('format').optional().isSharpFormat();
     req.checkQuery('quality').optional().isQuality();
+    req.checkQuery('progressive').optional().isBoolean();
+    req.checkQuery('crop').optional().isBoolean();
+    req.checkQuery('gravity').optional().isGravity();
     req.checkQuery('url').isUrlPathQuery();
 
     var errors = req.validationErrors();
@@ -61,21 +72,17 @@ module.exports = function(options) {
     imageUrl = url.format(imageUrl);
 
     var width = parseInt(req.params.width, 10);
-    var height = parseInt(req.params.height || req.params.width, 10);
-    var transformer = transform(width, height)
+    var height = parseInt(req.params.height, 10) || null;
+    var crop = req.query.crop === 'true';
+    var gravity = req.query.gravity;
+    var transformer = transform(width, height, crop, gravity)
       .on('error', function sharpError(err) {
         res.status(500);
         next(new Error(err));
       });
 
-    if (req.query.progressive) {
-      transformer.progressive();
-    }
-
-    transformer[format]({quality: quality})
-
     var etagBuffer = new Buffer([imageUrl, width, height, format, quality]);
-    res.setHeader('ETag', etag(etagBuffer, {weak: true}))
+    res.setHeader('ETag', etag(etagBuffer, {weak: true}));
     if (req.fresh) {
       return res.sendStatus(304);
     }
@@ -87,8 +94,17 @@ module.exports = function(options) {
         if (result.statusCode >= 400) {
           return res.sendStatus(result.statusCode);
         }
-        res.status(result.statusCode)
-        res.type(format || result.headers['content-type']);
+        res.status(result.statusCode);
+        var inputFormat = result.headers['content-type'] || '';
+        format = format || inputFormat.replace('image/', '');
+
+        transformer[format]({
+          quality: quality,
+          progressive: req.query.progressive === 'true',
+        });
+
+        res.type(inputFormat);
+        console.log(format);
         result.pipe(transformer).pipe(res);
       })
       .on('error', function(err) {
@@ -98,3 +114,4 @@ module.exports = function(options) {
 
   return router;
 };
+
