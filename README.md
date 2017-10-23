@@ -61,6 +61,12 @@ Supported options:
 
 Specify the HTTP base host from which images will be requested.
 
+### `cropMaxSize`
+
+The maximum length in pixels (width or height) a cropped Image is allowed to have.
+Note: if this value is too high an attacker 
+Default is `2000`
+
 ### `cors`
 
 Specify CORS options as described in [cors docs](https://github.com/expressjs/cors). Example:

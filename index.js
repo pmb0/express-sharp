@@ -9,12 +9,23 @@ var sharp = require('sharp');
 var url = require('url');
 var expressValidator = require('express-validator');
 
-var transform = function(width, height, crop, gravity) {
-  const transformer = sharp().resize(width, height);
+var transform = function(width, height, crop, gravity, cropMaxSize) {
+
+  const transformer = sharp();
   if (crop) {
-    transformer.crop(gravity || sharp.gravity.center);
+    var aspectRatio = width / height;
+    if (width > cropMaxSize || height > cropMaxSize) {
+      if (width > height) {
+        width = cropMaxSize;
+        height = Math.round(width / aspectRatio);
+      } else {
+        height = cropMaxSize;
+        width = Math.round(height * aspectRatio);
+      }
+    }
+    transformer.resize(width, height).crop(gravity || sharp.gravity.center);
   } else {
-    transformer.min();
+    transformer.resize(width, height).min().withoutEnlargement();
   }
   return transformer;
 };
@@ -46,6 +57,7 @@ module.exports = function(options) {
   }));
 
   var _cors = cors(options.cors || {});
+  var cropMaxSize = options.cropMaxSize || 2000;
 
   router.get('/resize/:width/:height?', _cors, function(req, res, next) {
     var format = req.query.format;
@@ -74,7 +86,7 @@ module.exports = function(options) {
     var height = parseInt(req.params.height, 10) || null;
     var crop = req.query.crop === 'true';
     var gravity = req.query.gravity;
-    var transformer = transform(width, height, crop, gravity)
+    var transformer = transform(width, height, crop, gravity, cropMaxSize)
       .on('error', function sharpError(err) {
         res.status(500);
         next(new Error(err));
