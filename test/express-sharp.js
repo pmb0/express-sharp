@@ -138,7 +138,11 @@ describe('GET /my-scale/resize', function() {
 
   it('should crop /images/a.jpg to 55px x 42px', function(done) {
     request(app)
-      .get(imageUrl(55, 42, {url: '/images/a.jpg', crop: true}))
+      .get(imageUrl(55, 42, {
+        url: '/images/a.jpg',
+        crop: true,
+        gravity: 'west',
+      }))
       .expect(function(res) {
         sharp(res.body).metadata(function(err, metadata) {
           should(metadata.width).be.exactly(55);
@@ -150,6 +154,54 @@ describe('GET /my-scale/resize', function() {
       .end(function(err, res) {
         if (err) {throw err;}
       });
+  });
+
+  it('should restrict crop to cropMaxSize', function(done) {
+    request(app)
+      .get(imageUrl(4000, 2000, {
+        url: '/images/a.jpg',
+        crop: true,
+      }))
+      .expect(function(res) {
+        sharp(res.body).metadata(function(err, metadata) {
+          should(metadata.width).be.exactly(2000);
+          should(metadata.height).be.exactly(1000);
+          done();
+        });
+      })
+      .expect(200)
+      .end(function(err, res) {
+        if (err) {throw err;}
+      });
+  });
+
+  it('should restrict crop to cropMaxSize', function(done) {
+    request(app)
+      .get(imageUrl(3000, 6000, {
+        url: '/images/a.jpg',
+        crop: true,
+      }))
+      .expect(function(res) {
+        sharp(res.body).metadata(function(err, metadata) {
+          should(metadata.width).be.exactly(1000);
+          should(metadata.height).be.exactly(2000);
+          done();
+        });
+      })
+      .expect(200)
+      .end(function(err, res) {
+        if (err) {throw err;}
+      });
+  });
+
+  it('should respond with 400 with wrong gravity', function(done) {
+    request(app)
+      .get(imageUrl(100, 100, {
+        url: '/images/a.jpg',
+        crop: true,
+        gravity: 'easter',
+      }))
+      .expect(400, done);
   });
 
   it('should contain ETag header', function(done) {
