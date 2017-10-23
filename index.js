@@ -10,10 +10,9 @@ var url = require('url');
 var expressValidator = require('express-validator');
 
 var transform = function(width, height, crop, gravity) {
-  console.log(crop, gravity);
   const transformer = sharp().resize(width, height);
   if (crop) {
-    transformer.crop(gravity || 'northwest');
+    transformer.crop(gravity || 'center');
   } else {
     transformer.min();
   }
@@ -94,17 +93,17 @@ module.exports = function(options) {
         if (result.statusCode >= 400) {
           return res.sendStatus(result.statusCode);
         }
-        res.status(result.statusCode);
+        res.status(result.statusCode)
         var inputFormat = result.headers['content-type'] || '';
         format = format || inputFormat.replace('image/', '');
 
+        format = sharp.format.hasOwnProperty(format) ? format : 'jpeg';
         transformer[format]({
           quality: quality,
           progressive: req.query.progressive === 'true',
         });
 
-        res.type(inputFormat);
-        console.log(format);
+        res.type('image/' + format);
         result.pipe(transformer).pipe(res);
       })
       .on('error', function(err) {
