@@ -83,19 +83,41 @@ Output image format.
 
 Default: output format of the requested image.
 
-Valid values: every valid [sharp output format string](http://sharp.dimens.io/en/stable/api/#toformatformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
+Valid values: every valid [sharp output format string](http://sharp.dimens.io/en/stable/api-output/#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
 
 ### `progressive`
 
-See [sharp docs](http://sharp.dimens.io/en/stable/api/#progressive).
+only available for jpeg and png formats:
+
+See [sharp docs for jpeg](http://sharp.dimens.io/en/stable/api-output/#jpeg).
+
+See [sharp docs for png](http://sharp.dimens.io/en/stable/api-output/#png).
 
 Use `&progressive=true` to enable progressive scan.
 
 ### `quality`
 
-See [sharp docs](http://sharp.dimens.io/en/stable/api/#qualityquality).
+See [sharp docs](http://sharp.dimens.io/en/stable/api-output/).
 
 quality is a Number between 1 and 100.
+
+### `crop`
+
+See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
+
+Use `&crop=true` to enable the sharp cropping feature. 
+
+Default is `false`.
+
+### `gravity`
+
+See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
+
+Possible attributes of the optional `gravity` are 
+`north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`.
+
+Default is `center`;
+
 
 ### `url`
 

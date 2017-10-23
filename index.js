@@ -12,7 +12,7 @@ var expressValidator = require('express-validator');
 var transform = function(width, height, crop, gravity) {
   const transformer = sharp().resize(width, height);
   if (crop) {
-    transformer.crop(gravity || 'center');
+    transformer.crop(gravity || sharp.gravity.center);
   } else {
     transformer.min();
   }
