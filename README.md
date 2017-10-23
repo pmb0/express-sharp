@@ -107,11 +107,15 @@ See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
 
 Use `&crop=true` to enable the sharp cropping feature. 
 
-Default is `false`.
+Default is `false.
+
+Note: Both `width` and `height` params are neccessary for crop to work.
 
 ### `gravity`
 
 See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
+
+When the crop option is activated you can specify the gravity of the cropping.
 
 Possible attributes of the optional `gravity` are 
 `north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`.
