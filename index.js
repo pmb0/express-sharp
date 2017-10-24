@@ -9,10 +9,25 @@ var sharp = require('sharp');
 var url = require('url');
 var expressValidator = require('express-validator');
 
-var transform = function(width, height) {
-  return sharp()
-    .resize(width, height)
-    .withoutEnlargement()
+var transform = function(width, height, crop, gravity, cropMaxSize) {
+
+  const transformer = sharp();
+  if (crop) {
+    var aspectRatio = width / height;
+    if (width > cropMaxSize || height > cropMaxSize) {
+      if (width > height) {
+        width = cropMaxSize;
+        height = Math.round(width / aspectRatio);
+      } else {
+        height = cropMaxSize;
+        width = Math.round(height * aspectRatio);
+      }
+    }
+    transformer.resize(width, height).crop(gravity || sharp.gravity.center);
+  } else {
+    transformer.resize(width, height).min().withoutEnlargement();
+  }
+  return transformer;
 };
 
 module.exports = function(options) {
@@ -21,6 +36,9 @@ module.exports = function(options) {
     customValidators: {
       isSharpFormat: function(value) {
         return sharp.format.hasOwnProperty(value);
+      },
+      isGravity: function(value) {
+        return sharp.gravity.hasOwnProperty(value);
       },
       isQuality: function(value) {
         return value >= 0 && value <= 100;
@@ -39,15 +57,19 @@ module.exports = function(options) {
   }));
 
   var _cors = cors(options.cors || {});
+  var cropMaxSize = options.cropMaxSize || 2000;
 
   router.get('/resize/:width/:height?', _cors, function(req, res, next) {
-    var format = req.query.format || 'jpeg';
+    var format = req.query.format;
     var quality = parseInt(req.query.quality || 75, 10);
 
     req.checkParams('height').optional().isInt();
     req.checkParams('width').isInt();
     req.checkQuery('format').optional().isSharpFormat();
     req.checkQuery('quality').optional().isQuality();
+    req.checkQuery('progressive').optional().isBoolean();
+    req.checkQuery('crop').optional().isBoolean();
+    req.checkQuery('gravity').optional().isGravity();
     req.checkQuery('url').isUrlPathQuery();
 
     var errors = req.validationErrors();
@@ -61,21 +83,17 @@ module.exports = function(options) {
     imageUrl = url.format(imageUrl);
 
     var width = parseInt(req.params.width, 10);
-    var height = parseInt(req.params.height || req.params.width, 10);
-    var transformer = transform(width, height)
+    var height = parseInt(req.params.height, 10) || null;
+    var crop = req.query.crop === 'true';
+    var gravity = req.query.gravity;
+    var transformer = transform(width, height, crop, gravity, cropMaxSize)
       .on('error', function sharpError(err) {
         res.status(500);
         next(new Error(err));
       });
 
-    if (req.query.progressive) {
-      transformer.progressive();
-    }
-
-    transformer[format]({quality: quality})
-
     var etagBuffer = new Buffer([imageUrl, width, height, format, quality]);
-    res.setHeader('ETag', etag(etagBuffer, {weak: true}))
+    res.setHeader('ETag', etag(etagBuffer, {weak: true}));
     if (req.fresh) {
       return res.sendStatus(304);
     }
@@ -88,7 +106,16 @@ module.exports = function(options) {
           return res.sendStatus(result.statusCode);
         }
         res.status(result.statusCode)
-        res.type(format || result.headers['content-type']);
+        var inputFormat = result.headers['content-type'] || '';
+        format = format || inputFormat.replace('image/', '');
+
+        format = sharp.format.hasOwnProperty(format) ? format : 'jpeg';
+        transformer[format]({
+          quality: quality,
+          progressive: req.query.progressive === 'true',
+        });
+
+        res.type('image/' + format);
         result.pipe(transformer).pipe(res);
       })
       .on('error', function(err) {
@@ -98,3 +125,4 @@ module.exports = function(options) {
 
   return router;
 };
+

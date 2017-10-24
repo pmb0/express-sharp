@@ -4,22 +4,22 @@
   "description": "Real-time image processing for your express application",
   "main": "index.js",
   "dependencies": {
-    "cors": "^2.7.1",
-    "debug": "^2.6.1",
-    "etag": "^1.8.0",
-    "express": "^4.13.3",
-    "express-validator": "^3.1.2",
-    "sharp": "^0.17.1"
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "etag": "^1.8.1",
+    "express": "^4.16.2",
+    "express-validator": "^4.2.1",
+    "sharp": "^0.18.4"
   },
   "devDependencies": {
-    "istanbul": "^0.4.1",
-    "mocha": "^3.2.0",
-    "should": "^11.2.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.1",
+    "should": "^13.1.2",
     "supertest": "^3.0.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --reporter spec --bail --check-leaks test/",
-    "test-ci": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js",
+    "test": "node_modules/.bin/mocha --reporter spec --bail --check-leaks test/ --exit",
+    "test-ci": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js --exit",
     "test-cov": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
     "test-tap": "node_modules/.bin/mocha --reporter tap --check-leaks test/"
   },
