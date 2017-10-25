@@ -61,6 +61,12 @@ Supported options:
 
 Specify the HTTP base host from which images will be requested.
 
+### `cropMaxSize`
+
+The maximum length in pixels (width or height) a cropped Image is allowed to have.
+Note: if this value is too high an attacker 
+Default is `2000`
+
 ### `cors`
 
 Specify CORS options as described in [cors docs](https://github.com/expressjs/cors). Example:
@@ -83,19 +89,45 @@ Output image format.
 
 Default: output format of the requested image.
 
-Valid values: every valid [sharp output format string](http://sharp.dimens.io/en/stable/api/#toformatformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
+Valid values: every valid [sharp output format string](http://sharp.dimens.io/en/stable/api-output/#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
 
 ### `progressive`
 
-See [sharp docs](http://sharp.dimens.io/en/stable/api/#progressive).
+only available for jpeg and png formats:
+
+See [sharp docs for jpeg](http://sharp.dimens.io/en/stable/api-output/#jpeg).
+
+See [sharp docs for png](http://sharp.dimens.io/en/stable/api-output/#png).
 
 Use `&progressive=true` to enable progressive scan.
 
 ### `quality`
 
-See [sharp docs](http://sharp.dimens.io/en/stable/api/#qualityquality).
+See [sharp docs](http://sharp.dimens.io/en/stable/api-output/).
 
 quality is a Number between 1 and 100.
+
+### `crop`
+
+See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
+
+Use `&crop=true` to enable the sharp cropping feature. 
+
+Default is `false.
+
+Note: Both `width` and `height` params are neccessary for crop to work.
+
+### `gravity`
+
+See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
+
+When the crop option is activated you can specify the gravity of the cropping.
+
+Possible attributes of the optional `gravity` are 
+`north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`.
+
+Default is `center`;
+
 
 ### `url`
 

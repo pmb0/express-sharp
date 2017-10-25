@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.0, 2017-10-25
+
+- Added support for cropping images. (michaseel, [#4](https://github.com/pmb0/express-sharp/pull/4))
+
+### Breaking changes
+
+The auto-enabled `withoutEnlargement` option is only used when cropping is disabled.
+
 ## v1.2.2, 2017-02-19
 
 - Fixed original image test by comparing Content-Length header with a string.
