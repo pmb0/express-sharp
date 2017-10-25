@@ -2,8 +2,9 @@
 
 var express = require('express');
 var imageUrl = require('../lib/image-url')('/my-scale');
-var request = require('supertest')
+var request = require('supertest');
 var scale = require('..');
+var getImageUrl = require('..').getImageUrl;
 var sharp = require('sharp');
 var should = require('should');
 
@@ -219,6 +220,18 @@ describe('GET /my-scale/resize', function() {
         res.body.should.be.empty();
       })
       .expect(304, done);
+  });
+
+  it('should generate the correct image URL', function() {
+
+    should(getImageUrl('domain.com', '/imageXY'))
+      .be.exactly('http://domain.com/imageXY');
+
+    should(getImageUrl('http://domain.com', '/imageXY'))
+      .be.exactly('http://domain.com/imageXY');
+
+    should(getImageUrl('https://domain.com', '/imageXY'))
+      .be.exactly('https://domain.com/imageXY');
   });
 
   // it('should respond with progressive image', function(done) {
