@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v2.0.0, 2017-10-25
 
 - Added support for cropping images. (michaseel, [#4](https://github.com/pmb0/express-sharp/pull/4))
 
