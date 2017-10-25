@@ -222,14 +222,18 @@ describe('GET /my-scale/resize', function() {
       .expect(304, done);
   });
 
-  it('should generate the correct image URL', function() {
+  it('should generate the correct image URL without protocol', function() {
 
     should(getImageUrl('domain.com', '/imageXY'))
       .be.exactly('http://domain.com/imageXY');
+  });
 
+  it('should generate the correct image URL with http', function() {
     should(getImageUrl('http://domain.com', '/imageXY'))
       .be.exactly('http://domain.com/imageXY');
+  });
 
+  it('should generate the correct image URL with https', function() {
     should(getImageUrl('https://domain.com', '/imageXY'))
       .be.exactly('https://domain.com/imageXY');
   });

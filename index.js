@@ -33,8 +33,8 @@ const transform = function(width, height, crop, gravity, cropMaxSize) {
 
 const getImageUrl = function(baseHost, inputUrl) {
   let imageUrl = url.parse(inputUrl);
-  imageUrl.host = baseHost;
-  imageUrl.protocol = baseHost.startsWith('http') ? '' : 'http';
+  imageUrl.host = baseHost.replace('https://', '').replace('http://', '');
+  imageUrl.protocol = baseHost.startsWith('https') ? 'https' : 'http';
   return url.format(imageUrl);
 };
 
