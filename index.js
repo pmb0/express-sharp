@@ -70,6 +70,9 @@ module.exports = function(options) {
 
   router.get('/resize/:width/:height?', _cors, function(req, res, next) {
     let format = req.query.format;
+    if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
+      format = format || 'webp';
+    }
     const quality = parseInt(req.query.quality || 75, 10);
 
     req.checkParams('height').optional().isInt();

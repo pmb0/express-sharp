@@ -137,6 +137,14 @@ describe('GET /my-scale/resize', function() {
       .expect(200, done);
   });
 
+  it('should use webp if supported', function(done) {
+    request(app)
+      .get(imageUrl(110, {url: '/images/a.jpg'}))
+      .set('Accept', 'image/webp')
+      .expect('Content-Type', 'image/webp')
+      .expect(200, done);
+  });
+
   it('should crop /images/a.jpg to 55px x 42px', function(done) {
     request(app)
       .get(imageUrl(55, 42, {
