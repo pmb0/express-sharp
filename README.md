@@ -87,7 +87,7 @@ If not specified, a `Access-Control-Allow-Origin: *` header is being sent.
 
 Output image format.
 
-Default: output format of the requested image.
+Default: `webp` if supported else the output format of the requested image.
 
 Valid values: every valid [sharp output format string](http://sharp.dimens.io/en/stable/api-output/#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
 
