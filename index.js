@@ -4,11 +4,14 @@ const cors = require('cors')
 const debug = require('debug')('express-sharp')
 const etag = require('etag')
 const express = require('express')
-const http = require('http')
-const https = require('https')
 const sharp = require('sharp')
 const url = require('url')
 const expressValidator = require('express-validator')
+
+// TODO: replace http/https with request-promise:
+// const request = require('request-promise')
+const http = require('http')
+const https = require('https')
 
 const transform = function(width, height, crop, gravity, cropMaxSize) {
   const transformer = sharp()
