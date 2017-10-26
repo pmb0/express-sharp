@@ -2,8 +2,9 @@
 
 var express = require('express');
 var imageUrl = require('../lib/image-url')('/my-scale');
-var request = require('supertest')
+var request = require('supertest');
 var scale = require('..');
+var getImageUrl = require('..').getImageUrl;
 var sharp = require('sharp');
 var should = require('should');
 
@@ -136,6 +137,14 @@ describe('GET /my-scale/resize', function() {
       .expect(200, done);
   });
 
+  it('should use webp if supported', function(done) {
+    request(app)
+      .get(imageUrl(110, {url: '/images/a.jpg'}))
+      .set('Accept', 'image/webp')
+      .expect('Content-Type', 'image/webp')
+      .expect(200, done);
+  });
+
   it('should crop /images/a.jpg to 55px x 42px', function(done) {
     request(app)
       .get(imageUrl(55, 42, {
@@ -219,6 +228,22 @@ describe('GET /my-scale/resize', function() {
         res.body.should.be.empty();
       })
       .expect(304, done);
+  });
+
+  it('should generate the correct image URL without protocol', function() {
+
+    should(getImageUrl('domain.com', '/imageXY'))
+      .be.exactly('http://domain.com/imageXY');
+  });
+
+  it('should generate the correct image URL with http', function() {
+    should(getImageUrl('http://domain.com', '/imageXY'))
+      .be.exactly('http://domain.com/imageXY');
+  });
+
+  it('should generate the correct image URL with https', function() {
+    should(getImageUrl('https://domain.com', '/imageXY'))
+      .be.exactly('https://domain.com/imageXY');
   });
 
   // it('should respond with progressive image', function(done) {
