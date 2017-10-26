@@ -1,14 +1,19 @@
 language: node_js
 node_js:
-  - "7"
-  - "8"
+- '7'
+- '8'
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-env:
-  CXX=g++-4.8
-script: "npm run-script test-ci"
-after_script: "npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls"
+env: CXX=g++-4.8
+script: npm run-script test-ci
+after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
+deploy:
+  - provider: npm
+    api_key:
+      secure: rwhgjiS9NuPIFRxWEyqZ9K3zEecHD+6zMLPWLdObqiMohKDkTOPLuhbquaMNJatmJYD5NUl4zb99ByCFt1k5hljxda2z/Iwx5SEFNqKyrJ37bzUaYvz9hy4/cLgCjfpSHoqgxMXtrDlOOiB44ohtMPt3EswYYlbr6m8CPz86fDDXpAbh+SReCG4oNbMyE26ufZ8Q3cr3RT4hl0bFAmgWhtlFlor3meoOMiGm9XM1CRJV3DSHA8N+SxJHlPrv8xxtJnWOu39dE9UzxZDl44dYaqV3Axq3O0L9GlDPw9wVeShx5nPw2tE7dE6qGlRRZrNHkS2zHdWl/BWvMzweclCL87TJ2/9dSQ+fus4D1sbZlW40RnLRUdG1lobMDC3C0oE4ByxCj2f8i+JQxNXtLB6edrHpRZpsMWKsYDFL2c1zgPvVGHZa3zmDF0yQz7SjpGkVPMFJ8jCfk0H24iemMlr1eY10t66s3l9M9dGhE8bbaIjSlJbpeoQUUEnhTCw4K5T37GdWMxrtb71abSVgPvRXXlXtJJAUXmYax4PRdyYZILiTLtK7xNOmRAnMvMNM2nq5M1Dt23zc5FA4fIuuW6/5e44aTUEn+eIvitCzOg8JGj+fq6OfpHrPXmoGPV9fPo2lYStUZtO1L8ZAoixRdFyTkxQ9ePsLiW2B/7RZEykztpQ=
+    on:
+      tags: true
