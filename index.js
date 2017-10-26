@@ -100,7 +100,7 @@ module.exports = function(options) {
         next(new Error(err))
       })
 
-    const etagBuffer = new Buffer([imageUrl, width, height, format, quality])
+    const etagBuffer = Buffer.from([imageUrl, width, height, format, quality])
     res.setHeader('ETag', etag(etagBuffer, {weak: true}))
     if (req.fresh) {
       return res.sendStatus(304)
