@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Added support for https image sources. (michaseel, [#5](https://github.com/pmb0/express-sharp/pull/5))
+- Changed default output to `image/webp` if no other format is specified.
+
 ## v2.0.0, 2017-10-25
 
 - Added support for cropping images. (michaseel, [#4](https://github.com/pmb0/express-sharp/pull/4))
