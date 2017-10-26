@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.1, 2017-10-26
+
+- Fixed Travis CI setup.
+
 ## v2.1.0, 2017-10-26
 
 - Added support for https image sources. (michaseel, [#5](https://github.com/pmb0/express-sharp/pull/5))
