@@ -87,9 +87,10 @@ describe('GET /my-scale/resize', function() {
   it('should resize /images/a.jpg to 100px', function(done) {
     request(app)
       .get(imageUrl(100, {url: '/images/a.jpg'}))
-      .expect(function(res) {
+      .expect(res => {
         res.body.byteLength.should.be.below(5000)
-        sharp(res.body).metadata(function(err, metadata) {
+        sharp(res.body).metadata((err, metadata) => {
+          if (err) return done(err)
           metadata.width.should.be.exactly(100)
           done()
         })
@@ -103,9 +104,10 @@ describe('GET /my-scale/resize', function() {
   it('should resize /images/a.jpg to 110px, 5% quality', function(done) {
     request(app)
       .get(imageUrl(110, {url: '/images/a.jpg', quality: 5}))
-      .expect(function(res) {
+      .expect(res => {
         res.body.byteLength.should.be.below(1000)
-        sharp(res.body).metadata(function(err, metadata) {
+        sharp(res.body).metadata((err, metadata) => {
+          if (err) return done(err)
           should(metadata.width).be.exactly(110)
           done()
         })
@@ -152,8 +154,9 @@ describe('GET /my-scale/resize', function() {
         crop: true,
         gravity: 'west',
       }))
-      .expect(function(res) {
-        sharp(res.body).metadata(function(err, metadata) {
+      .expect(res => {
+        sharp(res.body).metadata((err, metadata) => {
+          if (err) return done(err)
           should(metadata.width).be.exactly(55)
           should(metadata.height).be.exactly(42)
           done()
@@ -171,8 +174,9 @@ describe('GET /my-scale/resize', function() {
         url: '/images/a.jpg',
         crop: true,
       }))
-      .expect(function(res) {
-        sharp(res.body).metadata(function(err, metadata) {
+      .expect(res => {
+        sharp(res.body).metadata((err, metadata) => {
+          if (err) return done(err)
           should(metadata.width).be.exactly(2000)
           should(metadata.height).be.exactly(1000)
           done()
@@ -190,8 +194,9 @@ describe('GET /my-scale/resize', function() {
         url: '/images/a.jpg',
         crop: true,
       }))
-      .expect(function(res) {
-        sharp(res.body).metadata(function(err, metadata) {
+      .expect(res => {
+        sharp(res.body).metadata((err, metadata) => {
+          if (err) return done(err)
           should(metadata.width).be.exactly(1000)
           should(metadata.height).be.exactly(2000)
           done()
