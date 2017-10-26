@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v2.1.1, 2017-10-26
 
 - Fixed Travis CI setup.
 
