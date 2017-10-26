@@ -130,9 +130,7 @@ module.exports = function(options) {
         res.type('image/' + format)
         result.pipe(transformer).pipe(res)
       })
-      .on('error', function(err) {
-        next(new Error(err))
-      })
+      .on('error', next)
   })
 
   return router
