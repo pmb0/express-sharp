@@ -1,15 +1,15 @@
 'use strict'
 
-var express = require('express')
-var imageUrl = require('../lib/image-url')('/my-scale')
-var request = require('supertest')
-var scale = require('..')
-var getImageUrl = require('..').getImageUrl
-var sharp = require('sharp')
-var should = require('should')
+const {getImageUrl} = require('..')
+const express = require('express')
+const imageUrl = require('../lib/image-url')('/my-scale')
+const request = require('supertest')
+const scale = require('..')
+const sharp = require('sharp')
+const should = require('should')
 
-var app = express()
-var port = app.listen().address().port
+const app = express()
+const {port} = app.listen().address()
 
 app.use('/my-scale', scale({baseHost: 'localhost:' + port}))
 app.use('/images', express.static('test/images'))
@@ -84,37 +84,25 @@ describe('GET /my-scale/resize', function() {
       .expect(500, done)
   })
 
-  it('should resize /images/a.jpg to 100px', function(done) {
-    request(app)
+  it('should resize /images/a.jpg to 100px', () => {
+    return request(app)
       .get(imageUrl(100, {url: '/images/a.jpg'}))
-      .expect(res => {
-        res.body.byteLength.should.be.below(5000)
-        sharp(res.body).metadata((err, metadata) => {
-          if (err) return done(err)
-          metadata.width.should.be.exactly(100)
-          done()
-        })
-      })
       .expect(200)
-      .end(function(err, res) {
-        if (err) { throw err }
+      .then(async res => {
+        res.body.byteLength.should.be.below(5000)
+        let {width} = await sharp(res.body).metadata()
+        width.should.be.exactly(100)
       })
   })
 
-  it('should resize /images/a.jpg to 110px, 5% quality', function(done) {
-    request(app)
+  it('should resize /images/a.jpg to 110px, 5% quality', () => {
+    return request(app)
       .get(imageUrl(110, {url: '/images/a.jpg', quality: 5}))
-      .expect(res => {
-        res.body.byteLength.should.be.below(1000)
-        sharp(res.body).metadata((err, metadata) => {
-          if (err) return done(err)
-          should(metadata.width).be.exactly(110)
-          done()
-        })
-      })
       .expect(200)
-      .end(function(err, res) {
-        if (err) { throw err }
+      .then(async res => {
+        res.body.byteLength.should.be.below(1000)
+        let {width} = await sharp(res.body).metadata()
+        should(width).be.exactly(110)
       })
   })
 
@@ -147,64 +135,46 @@ describe('GET /my-scale/resize', function() {
       .expect(200, done)
   })
 
-  it('should crop /images/a.jpg to 55px x 42px', function(done) {
-    request(app)
+  it('should crop /images/a.jpg to 55px x 42px', () => {
+    return request(app)
       .get(imageUrl(55, 42, {
         url: '/images/a.jpg',
         crop: true,
         gravity: 'west',
       }))
-      .expect(res => {
-        sharp(res.body).metadata((err, metadata) => {
-          if (err) return done(err)
-          should(metadata.width).be.exactly(55)
-          should(metadata.height).be.exactly(42)
-          done()
-        })
-      })
       .expect(200)
-      .end(function(err, res) {
-        if (err) { throw err }
+      .then(async res => {
+        let {width, height} = await sharp(res.body).metadata()
+        should(width).be.exactly(55)
+        should(height).be.exactly(42)
       })
   })
 
-  it('should restrict crop to cropMaxSize', function(done) {
-    request(app)
+  it('should restrict crop to cropMaxSize', () => {
+    return request(app)
       .get(imageUrl(4000, 2000, {
         url: '/images/a.jpg',
         crop: true,
       }))
-      .expect(res => {
-        sharp(res.body).metadata((err, metadata) => {
-          if (err) return done(err)
-          should(metadata.width).be.exactly(2000)
-          should(metadata.height).be.exactly(1000)
-          done()
-        })
-      })
       .expect(200)
-      .end(function(err, res) {
-        if (err) { throw err }
+      .then(async res => {
+        let {width, height} = await sharp(res.body).metadata()
+        should(width).be.exactly(2000)
+        should(height).be.exactly(1000)
       })
   })
 
-  it('should restrict crop to cropMaxSize', function(done) {
-    request(app)
+  it('should restrict crop to cropMaxSize', () => {
+    return request(app)
       .get(imageUrl(3000, 6000, {
         url: '/images/a.jpg',
         crop: true,
       }))
-      .expect(res => {
-        sharp(res.body).metadata((err, metadata) => {
-          if (err) return done(err)
-          should(metadata.width).be.exactly(1000)
-          should(metadata.height).be.exactly(2000)
-          done()
-        })
-      })
       .expect(200)
-      .end(function(err, res) {
-        if (err) { throw err }
+      .then(async res => {
+        let {width, height} = await sharp(res.body).metadata()
+        should(width).be.exactly(1000)
+        should(height).be.exactly(2000)
       })
   })
 
