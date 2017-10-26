@@ -4,7 +4,6 @@ var express = require('express')
 var imageUrl = require('../lib/image-url')
 var request = require('supertest')
 var scale = require('..')
-var should = require('should')
 
 var app = express()
 var port = app.listen().address().port
