@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v2.1.0, 2017-10-26
 
 - Added support for https image sources. (michaseel, [#5](https://github.com/pmb0/express-sharp/pull/5))
 - Changed default output to `image/webp` if no other format is specified.
