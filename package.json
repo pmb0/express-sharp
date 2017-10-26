@@ -1,6 +1,6 @@
 {
   "name": "express-sharp",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Real-time image processing for your express application",
   "main": "index.js",
   "dependencies": {
@@ -12,16 +12,22 @@
     "sharp": "^0.18.4"
   },
   "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
     "should": "^13.1.2",
     "supertest": "^3.0.0"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha --reporter spec --bail --check-leaks test/ --exit",
-    "test-ci": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js --exit",
-    "test-cov": "node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
-    "test-tap": "node_modules/.bin/mocha --reporter tap --check-leaks test/"
+    "test": "eslint index.js lib test && mocha --reporter spec --bail --check-leaks test/ --exit",
+    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js --exit",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
+    "test-tap": "mocha --reporter tap --check-leaks test/"
   },
   "repository": {
     "type": "git",

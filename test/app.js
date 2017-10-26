@@ -1,14 +1,12 @@
-'use strict';
+'use strict'
 
-var express = require('express');
-var app = express();
-var scale = require('..');
+const express = require('express')
+const app = express()
+const scale = require('..')
 
-app.use('/scale', scale({baseHost: 'lorempixel.com'}));
+app.use('/scale', scale({baseHost: 'lorempixel.com'}))
 
-var server = app.listen(3000, function() {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('✔ Example app listening at http://%s:%s', host, port);
-});
+const server = app.listen(3000, function() {
+  const {address, port} = server.address()
+  console.log('✔ Example app listening at http://%s:%s', address, port)
+})

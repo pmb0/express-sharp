@@ -64,7 +64,7 @@ Specify the HTTP base host from which images will be requested.
 ### `cropMaxSize`
 
 The maximum length in pixels (width or height) a cropped Image is allowed to have.
-Note: if this value is too high an attacker 
+Note: if this value is too high an attacker could use this to slow down your server.
 Default is `2000`
 
 ### `cors`
@@ -87,7 +87,7 @@ If not specified, a `Access-Control-Allow-Origin: *` header is being sent.
 
 Output image format.
 
-Default: output format of the requested image.
+Default: `webp` if supported else the output format of the requested image.
 
 Valid values: every valid [sharp output format string](http://sharp.dimens.io/en/stable/api-output/#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
 
