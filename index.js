@@ -4,34 +4,11 @@ const cors = require('cors')
 const debug = require('debug')('express-sharp')
 const etag = require('etag')
 const express = require('express')
-const sharp = require('sharp')
-const url = require('url')
 const expressValidator = require('express-validator')
-
-// TODO: replace http/https with request-promise:
-// const request = require('request-promise')
-const http = require('http')
-const https = require('https')
-
-const transform = function(width, height, crop, gravity, cropMaxSize) {
-  const transformer = sharp()
-  if (crop) {
-    const aspectRatio = width / height
-    if (width > cropMaxSize || height > cropMaxSize) {
-      if (width > height) {
-        width = cropMaxSize
-        height = Math.round(width / aspectRatio)
-      } else {
-        height = cropMaxSize
-        width = Math.round(height * aspectRatio)
-      }
-    }
-    transformer.resize(width, height).crop(gravity || sharp.gravity.center)
-  } else {
-    transformer.resize(width, height).min().withoutEnlargement()
-  }
-  return transformer
-}
+const request = require('request-promise')
+const sharp = require('sharp')
+const transform = require('./lib/transform')
+const url = require('url')
 
 const getImageUrl = function(baseHost, inputUrl) {
   let imageUrl = url.parse(inputUrl)
@@ -68,9 +45,7 @@ module.exports = function(options) {
 
   const _cors = cors(options.cors || {})
   const cropMaxSize = options.cropMaxSize || 2000
-  const protocol = (options.baseHost.startsWith('https')) ? https : http
-
-  router.get('/resize/:width/:height?', _cors, function(req, res, next) {
+  router.get('/resize/:width/:height?', _cors, async (req, res, next) => {
     let format = req.query.format
     if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
       format = format || 'webp'
@@ -97,40 +72,44 @@ module.exports = function(options) {
     const height = parseInt(req.params.height, 10) || null
     const crop = req.query.crop === 'true'
     const gravity = req.query.gravity
-    const transformer = transform(width, height, crop, gravity, cropMaxSize)
-      .on('error', function sharpError(err) {
-        res.status(500)
-        next(new Error(err))
+
+    try {
+      const etagBuffer = Buffer.from([imageUrl, width, height, format, quality])
+      res.setHeader('ETag', etag(etagBuffer, {weak: true}))
+      if (req.fresh) return res.sendStatus(304)
+
+      debug('Requesting:', imageUrl)
+      let response = await request({
+        encoding: null,
+        uri: imageUrl,
+        resolveWithFullResponse: true,
       })
 
-    const etagBuffer = Buffer.from([imageUrl, width, height, format, quality])
-    res.setHeader('ETag', etag(etagBuffer, {weak: true}))
-    if (req.fresh) {
-      return res.sendStatus(304)
+      debug('Requested %s. Status: %s', imageUrl, response.statusCode)
+      if (response.statusCode >= 400) {
+        return res.sendStatus(response.statusCode)
+      }
+
+      res.status(response.statusCode)
+      const inputFormat = response.headers['content-type'] || ''
+      format = format || inputFormat.replace('image/', '')
+
+      format = sharp.format.hasOwnProperty(format) ? format : 'jpeg'
+
+      res.type(`image/${format}`)
+      const image = await transform(response.body, {
+        crop,
+        cropMaxSize,
+        gravity,
+        height,
+        quality,
+        width,
+      })
+      res.send(image)
+    } catch (e) {
+      if (e.statusCode === 404) return next()
+      next(e)
     }
-
-    debug('Requesting:', imageUrl)
-
-    protocol
-      .get(imageUrl, function getImage(result) {
-        debug('Requested %s. Status: %s', imageUrl, result.statusCode)
-        if (result.statusCode >= 400) {
-          return res.sendStatus(result.statusCode)
-        }
-        res.status(result.statusCode)
-        const inputFormat = result.headers['content-type'] || ''
-        format = format || inputFormat.replace('image/', '')
-
-        format = sharp.format.hasOwnProperty(format) ? format : 'jpeg'
-        transformer[format]({
-          quality: quality,
-          progressive: req.query.progressive === 'true',
-        })
-
-        res.type('image/' + format)
-        result.pipe(transformer).pipe(res)
-      })
-      .on('error', next)
   })
 
   return router

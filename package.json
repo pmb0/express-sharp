@@ -9,7 +9,8 @@
     "etag": "^1.8.1",
     "express": "^4.16.2",
     "express-validator": "^4.2.1",
-    "sharp": "^0.18.4"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "eslint": "^4.9.0",
