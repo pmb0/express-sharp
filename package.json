@@ -31,6 +31,9 @@
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
     "test-tap": "mocha --reporter tap --check-leaks test/"
   },
+  "engines" : {
+    "node" : ">= 8.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pmb0/express-sharp.git"
