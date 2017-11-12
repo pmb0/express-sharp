@@ -10,7 +10,8 @@
     "express": "^4.16.2",
     "express-validator": "^4.2.1",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "sharp": "^0.18.4"
   },
   "devDependencies": {
     "eslint": "^4.9.0",
