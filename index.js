@@ -51,6 +51,7 @@ module.exports = function(options) {
       format = format || 'webp'
     }
     const quality = parseInt(req.query.quality || 75, 10)
+    const baseHost = options.baseHost || req.headers.host
 
     req.checkParams('height').optional().isInt()
     req.checkParams('width').isInt()
@@ -66,7 +67,7 @@ module.exports = function(options) {
       return res.status(400).json(errors)
     }
 
-    const imageUrl = getImageUrl(options.baseHost, req.query.url)
+    const imageUrl = getImageUrl(baseHost, req.query.url)
 
     const width = parseInt(req.params.width, 10)
     const height = parseInt(req.params.height, 10) || null
