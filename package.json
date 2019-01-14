@@ -7,14 +7,13 @@
   "description": "Real-time image processing for your express application",
   "main": "index.js",
   "dependencies": {
-    "cors": "^2.8.5",
-    "debug": "^4.1.1",
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
     "etag": "^1.8.1",
-    "express": "^4.16.4",
-    "express-validator": "^5.3.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "sharp": "^0.21.2"
+    "express": "^4.16.2",
+    "express-validator": "^4.2.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "eslint": "^4.9.0",
@@ -25,8 +24,12 @@
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
+    "sharp": "^0.21.2",
     "should": "^13.1.2",
     "supertest": "^3.0.0"
+  },
+  "peerDependencies": {
+    "sharp": "^0.21.2"
   },
   "scripts": {
     "test": "eslint index.js lib test && mocha --reporter spec --bail --check-leaks test/ --exit",
@@ -35,11 +38,11 @@
     "test-tap": "mocha --reporter tap --check-leaks test/"
   },
   "engines" : {
-    "node" : ">= 10.x.x"
+    "node" : ">= 8.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/magento-research/express-sharp.git"
+    "url": "git+https://github.com/pmb0/express-sharp.git"
   },
   "keywords": [
     "express",
@@ -47,10 +50,10 @@
     "image",
     "scale"
   ],
-  "author": "Magento Commerce",
+  "author": "Philipp Busse",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/magento-research/express-sharp/issues"
+    "url": "https://github.com/pmb0/express-sharp/issues"
   },
-  "homepage": "https://github.com/magento-research/express-sharp#readme"
+  "homepage": "https://github.com/pmb0/express-sharp#readme"
 }
