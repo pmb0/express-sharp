@@ -44,7 +44,6 @@ module.exports = function(options) {
   }))
 
   const _cors = cors(options.cors || {})
-  const cropMaxSize = options.cropMaxSize || 2000
   router.get('/resize/:width/:height?', _cors, async (req, res, next) => {
     let format = req.query.format
     if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
@@ -97,15 +96,17 @@ module.exports = function(options) {
       format = sharp.format.hasOwnProperty(format) ? format : 'jpeg'
 
       res.type(`image/${format}`)
-      const image = await transform(response.body, {
+
+      const imageStream = transform(response.body, {
         crop,
-        cropMaxSize,
         gravity,
         height,
         quality,
-        width,
+        width
       })
-      res.send(image)
+
+      imageStream.on('error', e => res.send(500, e))
+      imageStream.pipe(res)
     } catch (e) {
       if (e.statusCode === 404) return next()
       next(e)
