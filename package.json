@@ -22,8 +22,8 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
+    "nyc": "^13.1.0",
     "sharp": "^0.21.2",
     "should": "^13.1.2",
     "supertest": "^3.0.0"
@@ -32,13 +32,12 @@
     "sharp": "^0.21.2"
   },
   "scripts": {
-    "test": "eslint index.js lib test && mocha --reporter spec --bail --check-leaks test/ --exit",
-    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js --exit",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
+    "test": "eslint index.js lib test && nyc mocha --reporter spec --bail --check-leaks test/ --exit",
+    "test-ci": "nyc mocha --report lcovonly --reporter spec --check-leaks test/express-sharp.js --exit",
     "test-tap": "mocha --reporter tap --check-leaks test/"
   },
-  "engines" : {
-    "node" : ">= 8.0.0"
+  "engines": {
+    "node": ">= 8.0.0"
   },
   "repository": {
     "type": "git",
