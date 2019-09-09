@@ -102,6 +102,7 @@ module.exports = function(options) {
         gravity,
         height,
         quality,
+        format,
         width
       })
 
