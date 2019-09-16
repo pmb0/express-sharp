@@ -1,7 +1,7 @@
+coverage
 test
 .editorconfig
 .jscsrc
-.eslintrc
+.eslintrc.js
 .travis.yml
 .nyc_output
-
