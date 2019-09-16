@@ -102,10 +102,11 @@ module.exports = function(options) {
         gravity,
         height,
         quality,
+        format,
         width
       })
 
-      imageStream.on('error', e => res.send(500, e))
+      imageStream.on('error', e => res.status(500).send(e))
       imageStream.pipe(res)
     } catch (e) {
       if (e.statusCode === 404) return next()
