@@ -1,0 +1,7 @@
+test
+.editorconfig
+.jscsrc
+.eslintrc
+.travis.yml
+.nyc_output
+
