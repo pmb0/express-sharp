@@ -79,7 +79,7 @@ module.exports = function(options) {
 
       debug('Requesting:', imageUrl)
       let response = await request({
-        rejectUnauthorized: !!process.env.NODE_TLS_REJECT_UNAUTHORIZED,
+        rejectUnauthorized: String(process.env.NODE_TLS_REJECT_UNAUTHORIZED) !== "0",
         encoding: null,
         uri: imageUrl,
         resolveWithFullResponse: true,
