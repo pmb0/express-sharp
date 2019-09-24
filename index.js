@@ -44,15 +44,15 @@ module.exports = function(options) {
   }))
 
   const _cors = cors(options.cors || {})
-  router.get('/resize/:width?/:height?', _cors, async (req, res, next) => {
+  router.get('/resize', _cors, async (req, res, next) => {
     let format = req.query.format
     if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
       format = format || 'webp'
     }
     const quality = parseInt(req.query.quality || 75, 10)
 
-    req.checkParams('height').optional().isInt()
-    req.checkParams('width').optional().isInt()
+    req.checkQuery('height').optional().isInt()
+    req.checkQuery('width').optional().isInt()
     req.checkQuery('format').optional().isSharpFormat()
     req.checkQuery('quality').optional().isQuality()
     req.checkQuery('progressive').optional().isBoolean()
@@ -67,8 +67,8 @@ module.exports = function(options) {
 
     const imageUrl = getImageUrl(options.baseHost, req.query.url)
 
-    const width = parseInt(req.params.width, 10) || null
-    const height = parseInt(req.params.height, 10) || null
+    const width = parseInt(req.query.width, 10) || null
+    const height = parseInt(req.query.height, 10) || null
     const crop = req.query.crop === 'true'
     const gravity = req.query.gravity
 
