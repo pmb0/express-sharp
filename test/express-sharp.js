@@ -19,16 +19,12 @@ app.use('/my-scale', scale({baseHost: `localhost:${port}`}))
 after(() => server.close())
 
 describe('GET /my-scale/resize', () => {
-  it('should respond with 404', async () => {
-    await request(app).get('/my-scale/resize').expect(404)
+  it('should respond with 400', async () => {
+    await request(app).get('/my-scale/resize').expect(400)
   })
 
   it('should respond with 400', async () => {
-    await request(app).get('/my-scale/resize/100').expect(400)
-  })
-
-  it('should respond with 400', async () => {
-    await request(app).get('/my-scale/resize/100a?url=/whatever').expect(400)
+    await request(app).get('/my-scale/resize?width=100a&url=/whatever').expect(400)
   })
 
   it('should respond with original image', async () => {

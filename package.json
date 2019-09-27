@@ -41,7 +41,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pmb0/express-sharp.git"
+    "url": "git+https://github.com/magento-research/express-sharp.git"
   },
   "keywords": [
     "express",
@@ -52,7 +52,7 @@
   "author": "Philipp Busse",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pmb0/express-sharp/issues"
+    "url": "https://github.com/magento-research/express-sharp/issues"
   },
-  "homepage": "https://github.com/pmb0/express-sharp#readme"
+  "homepage": "https://github.com/magento-research/express-sharp#readme"
 }
