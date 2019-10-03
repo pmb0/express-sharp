@@ -64,6 +64,7 @@ module.exports = function(options) {
     if (errors) {
       return res.status(400).json(errors)
     }
+    debug('query %o is valid', req.query)
 
     const imageUrl = getImageUrl(options.baseHost, req.query.url)
 
@@ -71,6 +72,8 @@ module.exports = function(options) {
     const height = parseInt(req.query.height, 10) || null
     const crop = req.query.crop === 'true'
     const gravity = req.query.gravity
+
+    debug('%o parsed from %s', { width, height, crop, gravity }, imageUrl)
 
     try {
       const etagBuffer = Buffer.from([imageUrl, width, height, format, quality])
@@ -110,6 +113,7 @@ module.exports = function(options) {
       imageStream.on('error', e => res.status(500).send(e))
       imageStream.pipe(res)
     } catch (e) {
+      debug('encountered error with %s: %s', imageUrl, e)
       if (e.statusCode === 404) return next()
       next(e)
     }
