@@ -34,7 +34,7 @@ app.listen(3000)
 Render `http://mybasehost.com/image.jpg` with 400x400 pixels:
 
 ```
-GET /my-scale/resize/400?url=%2Fimage.jpg HTTP/1.1
+GET /my-scale/image.jpg?width=400 HTTP/1.1
 Host: localhost:3000
 
 --> invokes in background:
@@ -45,7 +45,7 @@ Host: localhost:3000
 Same as above, but with 80% quality, `webp` image type and with progressive enabled:
 
 ```
-GET /my-scale/resize/400?format=webp&quality=80&progressive=true&url=%2Fimage.jpg HTTP/1.1
+GET /my-scale/image.jpg?format=webp&quality=80&progressive=true HTTP/1.1
 Host: localhost:3000
 ```
 
@@ -128,11 +128,6 @@ Possible attributes of the optional `gravity` are
 `north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`.
 
 Default is `center`;
-
-
-### `url`
-
-URL/path to original image.
 
 ## License
 
