@@ -17,7 +17,19 @@ const getImageUrl = function(baseHost, inputUrl) {
   return url.format(imageUrl)
 }
 
+const isUrlPathname = function(value) {
+  if (!value) {
+    return false
+  }
+  const u = url.parse(value)
+  if (u.protocol || u.host || !u.path) {
+    return false
+  }
+  return true
+}
+
 module.exports = function(options) {
+  debug('called with options: %O', options)
   const router = express.Router()
   router.use(expressValidator({
     customValidators: {
@@ -29,28 +41,13 @@ module.exports = function(options) {
       },
       isQuality: function(value) {
         return value >= 0 && value <= 100
-      },
-      isUrlPathQuery: function(value) {
-        if (!value) {
-          return false
-        }
-        const u = url.parse(value)
-        if (u.protocol || u.host || !u.path) {
-          return false
-        }
-        return true
-      },
+      }
     },
   }))
 
   const _cors = cors(options.cors || {})
-  router.get('/resize', _cors, async (req, res, next) => {
-    let format = req.query.format
-    if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
-      format = format || 'webp'
-    }
-    const quality = parseInt(req.query.quality || 75, 10)
 
+  const handler = async (req, res, next) => {
     req.checkQuery('height').optional().isInt()
     req.checkQuery('width').optional().isInt()
     req.checkQuery('format').optional().isSharpFormat()
@@ -58,15 +55,28 @@ module.exports = function(options) {
     req.checkQuery('progressive').optional().isBoolean()
     req.checkQuery('crop').optional().isBoolean()
     req.checkQuery('gravity').optional().isGravity()
-    req.checkQuery('url').isUrlPathQuery()
 
-    const errors = req.validationErrors()
-    if (errors) {
+    const errors = req.validationErrors() || []
+
+    if (!isUrlPathname(req.path)) {
+      errors.push({
+        message: `pathname ${req.path} is not a valid relative URL path`
+      })
+    }
+
+    if (errors.length > 0) {
       return res.status(400).json(errors)
     }
+
     debug('query %o is valid', req.query)
 
-    const imageUrl = getImageUrl(options.baseHost, req.query.url)
+    let format = req.query.format
+    if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
+      format = format || 'webp'
+    }
+    const quality = parseInt(req.query.quality || 75, 10)
+
+    const imageUrl = getImageUrl(options.baseHost, req.path)
 
     const width = parseInt(req.query.width, 10) || null
     const height = parseInt(req.query.height, 10) || null
@@ -117,7 +127,9 @@ module.exports = function(options) {
       if (e.statusCode === 404) return next()
       next(e)
     }
-  })
+  }
+
+  router.get('*', _cors, handler)
 
   return router
 }
