@@ -1,6 +1,8 @@
 'use strict'
 
 const {getImageUrl} = require('..')
+const path = require('path')
+const fs = require('fs')
 const express = require('express')
 const request = require('supertest')
 const expressSharp = require('..')
@@ -12,12 +14,13 @@ const images = express()
 images.use('/images', express.static('test/images'))
 images.get('/images-server-error', (_, res) => res.sendStatus(500))
 let imageServer
+let baseHost
 
 before(done => {
   imageServer = images.listen(0, '0.0.0.0', () => {
     app.get('/error', (_, res) => res.sendStatus(500))
     const { address, port } = imageServer.address()
-    const baseHost = `${address}:${port}`
+    baseHost = `${address}:${port}`
     app.use('/', expressSharp({baseHost}))
     done()
   })
@@ -181,18 +184,53 @@ describe('express-sharp', () => {
       .expect(304)
   })
 
+  it('should use an alternate fetch strategy', async () => {
+    const fsDrivenApp = express()
+    fsDrivenApp.use(expressSharp({
+      getImageUrl(req) {
+        return path.resolve(__dirname, 'altImages', req.path.slice(1))
+      },
+      async backendFetch(filePath) {
+        try {
+          if (!fs.existsSync(filePath)) {
+            throw new Error('404')
+          }
+          return {
+            statusCode: 200,
+            headers: {
+              'content-type': 'image/gif'
+            },
+            body: filePath
+          }
+        } catch (e) {
+          const httpError = new Error('Not Found')
+          httpError.statusCode = 404
+          throw httpError
+        }
+      }
+    }))
+
+    await request(fsDrivenApp)
+      .get('/images/a.jpg')
+      .expect(404)
+
+    await request(fsDrivenApp)
+      .get('/commander_keen.gif?width=20')
+      .expect(200)
+  })
+
   it('should generate the correct image URL without protocol', () => {
-    getImageUrl('domain.com', '/imageXY')
+    getImageUrl({ path: '/imageXY' }, { baseHost: 'domain.com' })
       .should.be.exactly('http://domain.com/imageXY')
   })
 
   it('should generate the correct image URL with http', () => {
-    getImageUrl('http://domain.com', '/imageXY')
+    getImageUrl({ path: '/imageXY' }, { baseHost: 'http://domain.com' })
       .should.be.exactly('http://domain.com/imageXY')
   })
 
   it('should generate the correct image URL with https', () => {
-    getImageUrl('https://domain.com', '/imageXY')
+    getImageUrl({ path: '/imageXY' }, { baseHost: 'https://domain.com' })
       .should.be.exactly('https://domain.com/imageXY')
   })
 })

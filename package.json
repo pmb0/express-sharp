@@ -24,6 +24,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^4.0.1",
+    "node-fetch": "^2.6.0",
     "nyc": "^13.1.0",
     "sharp": "^0.21.2",
     "should": "^13.1.2",

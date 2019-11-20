@@ -11,10 +11,10 @@ const sharp = require('sharp')
 const transform = require('./lib/transform')
 const url = require('url')
 
-const getImageUrl = function(baseHost, inputUrl) {
-  let imageUrl = url.parse(inputUrl)
-  imageUrl.host = baseHost.replace('https://', '').replace('http://', '')
-  imageUrl.protocol = baseHost.startsWith('https') ? 'https' : 'http'
+function defaultGetImageUrl(req, options) {
+  let imageUrl = url.parse(req.path)
+  imageUrl.host = options.baseHost.replace('https://', '').replace('http://', '')
+  imageUrl.protocol = options.baseHost.startsWith('https') ? 'https' : 'http'
   return url.format(imageUrl)
 }
 
@@ -34,6 +34,18 @@ module.exports = function(options) {
       }
     },
   }))
+
+  const getImageUrl = options.getImageUrl || defaultGetImageUrl
+
+  const backendFetch = options.backendFetch || (async imageUrl => {
+    const response = await request({
+      rejectUnauthorized: String(process.env.NODE_TLS_REJECT_UNAUTHORIZED) !== '0',
+      encoding: null,
+      uri: imageUrl,
+      resolveWithFullResponse: true,
+    })
+    return response
+  })
 
   const _cors = cors(options.cors || {})
 
@@ -60,7 +72,7 @@ module.exports = function(options) {
     }
     const quality = parseInt(req.query.quality || 75, 10)
 
-    const imageUrl = getImageUrl(options.baseHost, req.path)
+    const imageUrl = getImageUrl(req, options)
 
     const width = parseInt(req.query.width, 10) || null
     const height = parseInt(req.query.height, 10) || null
@@ -74,15 +86,10 @@ module.exports = function(options) {
       res.setHeader('ETag', etag(etagBuffer, {weak: true}))
       if (req.fresh) return res.sendStatus(304)
 
-      debug('Requesting:', imageUrl)
-      let response = await request({
-        rejectUnauthorized: String(process.env.NODE_TLS_REJECT_UNAUTHORIZED) !== '0',
-        encoding: null,
-        uri: imageUrl,
-        resolveWithFullResponse: true,
-      })
+      debug('Requesting %s', imageUrl)
+      const response = await backendFetch(imageUrl)
 
-      debug('Requested %s. Status: %s %s', imageUrl, typeof response.statusCode, response.statusCode)
+      debug('Requested %s. Status: %s %s, Body: %s of length %s', imageUrl, typeof response.statusCode, response.statusCode, typeof response.body, response.body.length)
 
       res.status(response.statusCode)
       const inputFormat = response.headers['content-type'].toString()
@@ -91,7 +98,7 @@ module.exports = function(options) {
         debug('Set format to %s from %s', format, inputFormat)
       }
 
-      if (!sharp.format.hasOwnProperty(format)) {
+      if (!sharp.format.hasOwnProperty(format) || !sharp.format[format].output.buffer) {
         debug('Provided format %s not found in legal formats %o. Fallback to jpeg', format, sharp.format)
         format = sharp.format.jpeg.id
       }
@@ -120,4 +127,4 @@ module.exports = function(options) {
 
   return router
 }
-module.exports.getImageUrl = getImageUrl
+module.exports.getImageUrl = defaultGetImageUrl
