@@ -7,6 +7,7 @@
   "description": "Real-time image processing for your express application",
   "main": "index.js",
   "dependencies": {
+    "accepts": "^1.3.7",
     "cors": "^2.8.4",
     "debug": "^3.1.0",
     "etag": "^1.8.1",
@@ -32,7 +33,7 @@
     "sharp": "^0.21.2"
   },
   "scripts": {
-    "test": "eslint index.js lib test && nyc mocha --reporter spec --bail --check-leaks test/ --exit",
+    "test": "eslint index.js lib test && nyc mocha --reporter spec --check-leaks test/ --exit",
     "test-ci": "nyc mocha --report lcovonly --reporter spec --check-leaks test/express-sharp.js --exit",
     "test-tap": "mocha --reporter tap --check-leaks test/"
   },

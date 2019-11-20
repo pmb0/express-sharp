@@ -2,83 +2,79 @@
 
 const {getImageUrl} = require('..')
 const express = require('express')
-const imageUrl = require('../lib/image-url')('/my-scale')
 const request = require('supertest')
-const scale = require('..')
+const expressSharp = require('..')
 const sharp = require('sharp')
 const should = require('should')
 
 const app = express()
-const server = app.listen()
-app.use('/images', express.static('test/images'))
-app.get('/error', (req, res) => res.sendStatus(500))
-app.get('/invalid-image', (req, res) => res.send('invalid image'))
-const {port} = server.address()
-app.use('/my-scale', scale({baseHost: `localhost:${port}`}))
+const images = express()
+images.use('/images', express.static('test/images'))
+images.get('/images-server-error', (_, res) => res.sendStatus(500))
+let imageServer
 
-after(() => server.close())
-
-describe('GET /my-scale/resize', () => {
-  it('should respond with 400', async () => {
-    await request(app).get('/my-scale/resize').expect(400)
+before(done => {
+  imageServer = images.listen(0, '0.0.0.0', () => {
+    app.get('/error', (_, res) => res.sendStatus(500))
+    const { address, port } = imageServer.address()
+    const baseHost = `${address}:${port}`
+    app.use('/', expressSharp({baseHost}))
+    done()
   })
+})
+after(done => imageServer.close(done))
 
-  it('should respond with 400', async () => {
-    await request(app).get('/my-scale/resize?width=100a&url=/whatever').expect(400)
-  })
-
-  it('should respond with original image', async () => {
+describe('express-sharp', () => {
+  it('responds with 400 when the query is invalid', async () => {
     await request(app)
-      .get('/images/a.jpg')
-      .expect('Content-Length', '1970087')
-      .expect(200)
-  })
-
-  it('should respond with 400', async () => {
-    await request(app)
-      .get(imageUrl(100, {url: '/images/a.jpg', quality: -1}))
+      .get('/images/a.jpg?width=100&quality=-1')
       .expect(400)
   })
 
   it('should respond with 200', async () => {
     await request(app)
-      .get(imageUrl(100, {url: '/images/a.jpg', quality: 1}))
+      .get('/images/a.jpg?width=100&quality=10')
       .expect(200)
   })
 
   it('should respond with 400', async () => {
     await request(app)
-      .get(imageUrl(100, {url: '/images/a.jpg', quality: 101}))
+      .get('/images/a.jpg?width=100&quality=101')
       .expect(400)
   })
 
   it('should respond with 200', async () => {
     await request(app)
-      .get(imageUrl(100, {url: '/images/a.jpg', quality: 100}))
+      .get('/images/a.jpg?width=100&quality=100')
       .expect(200)
   })
 
   it('should respond with 404', async () => {
     await request(app)
-      .get(imageUrl(100, {url: '/does-not-exist'}))
+      .get('/does-not-exist?width=100')
       .expect(404)
   })
 
   it('should respond with 500 (backend error)', async () => {
     await request(app)
-      .get(imageUrl(100, {url: '/error'}))
+      .get('/error?width=100')
       .expect(500)
   })
 
   it('should respond with 500 (sharp error)', async () => {
     await request(app)
-      .get(imageUrl(100, {url: '/invalid-image'}))
+      .get('/images/invalid.jpg?width=100')
       .expect(500)
   })
 
+  it('should respond with 500 (basehost error)', async () => {
+    await request(app)
+      .get('/images-server-error?width=500')
+      .expect(500)
+  })
   it('should resize /images/a.jpg to 100px', async () => {
     const res = await request(app)
-      .get(imageUrl(100, {url: '/images/a.jpg'}))
+      .get('/images/a.jpg?width=100')
       .expect(200)
     res.body.byteLength.should.be.below(5000)
     let {width} = await sharp(res.body).metadata()
@@ -87,7 +83,7 @@ describe('GET /my-scale/resize', () => {
 
   it('should resize /images/a.jpg to 110px, 5% quality', async () => {
     const res = await request(app)
-      .get(imageUrl(110, {url: '/images/a.jpg', quality: 5}))
+      .get('/images/a.jpg?width=110&quality=5')
       .expect(200)
     res.body.byteLength.should.be.below(1000)
     let {width} = await sharp(res.body).metadata()
@@ -96,28 +92,40 @@ describe('GET /my-scale/resize', () => {
 
   it('should change content type to image/png', async () => {
     await request(app)
-      .get(imageUrl(110, {url: '/images/a.jpg', format: 'png'}))
+      .get('/images/a.jpg?width=110&format=png')
       .expect('Content-Type', 'image/png')
       .expect(200)
   })
 
   it('should auto detect content type png', async () => {
     await request(app)
-      .get(imageUrl(110, {url: '/images/b.png'}))
+      .get('/images/b.png?width=100')
       .expect('Content-Type', 'image/png')
       .expect(200)
   })
 
   it('should auto detect content type jpeg', () => {
     return request(app)
-      .get(imageUrl(110, {url: '/images/a.jpg'}))
+      .get('/images/a.jpg?width=130')
       .expect('Content-Type', 'image/jpeg')
       .expect(200)
   })
 
-  it('should use webp if supported', async () => {
+  it('should fall back to jpeg', () => {
+    return request(app)
+      .get('/images/a.jpg?width=145&format=jpeg2')
+      .expect('Content-Type', 'image/jpeg')
+      .expect(200)
+  })
+  it('should use webp if supported and auto=webp', async () => {
     await request(app)
-      .get(imageUrl(110, {url: '/images/a.jpg'}))
+      .get('/images/a.jpg?width=110&auto=webp')
+      .set('Accept', 'image/jpeg')
+      .expect('Content-Type', 'image/jpeg')
+      .expect(200)
+
+    await request(app)
+      .get('/images/a.jpg?width=110&auto=webp')
       .set('Accept', 'image/webp')
       .expect('Content-Type', 'image/webp')
       .expect(200)
@@ -125,11 +133,7 @@ describe('GET /my-scale/resize', () => {
 
   it('should crop /images/a.jpg to 55px x 42px', async () => {
     await request(app)
-      .get(imageUrl(55, 42, {
-        url: '/images/a.jpg',
-        crop: true,
-        gravity: 'west',
-      }))
+      .get('/images/a.jpg?width=55&height=42&crop=true&gravity=west')
       .expect(200)
       .then(async res => {
         const {width, height} = await sharp(res.body).metadata()
@@ -140,10 +144,7 @@ describe('GET /my-scale/resize', () => {
 
   it('should restrict crop to cropMaxSize', async () => {
     let res = await request(app)
-      .get(imageUrl(4000, 2000, {
-        url: '/images/a.jpg',
-        crop: true,
-      }))
+      .get('/images/a.jpg?width=4000&height=2000&crop=true')
       .expect(200)
     const {width, height} = await sharp(res.body).metadata()
     should(width).be.exactly(2000)
@@ -152,7 +153,7 @@ describe('GET /my-scale/resize', () => {
 
   it('should restrict crop to cropMaxSize', async () => {
     const res = await request(app)
-      .get(imageUrl(3000, 6000, { url: '/images/a.jpg', crop: true }))
+      .get('/images/a.jpg?width=3000&height=6000&crop=true')
       .expect(200)
     const {width, height} = await sharp(res.body).metadata()
     width.should.be.exactly(1000)
@@ -161,24 +162,20 @@ describe('GET /my-scale/resize', () => {
 
   it('should respond with 400 with wrong gravity', async () => {
     await request(app)
-      .get(imageUrl(100, 100, {
-        url: '/images/a.jpg',
-        crop: true,
-        gravity: 'easter',
-      }))
+      .get('/images/a.jpg?width=100&height=100&crop=true&gravity=moon')
       .expect(400)
   })
 
   it('should contain ETag header', async () => {
     await request(app)
-      .get(imageUrl(110, {url: '/images/a.jpg'}))
+      .get('/images/a.jpg?width=110')
       .expect('ETag', /W\/".*"/)
       .expect(200)
   })
 
   it('should use If-None-Match header', async () => {
     await request(app)
-      .get(imageUrl(110, {url: '/images/a.jpg'}))
+      .get('/images/a.jpg?width=110')
       .set('If-None-Match', 'W/"5-7bbHFhm08wpZmpqEvZMZmEgN7IE"')
       .expect(res => res.body.should.be.empty())
       .expect(304)

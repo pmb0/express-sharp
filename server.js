@@ -9,7 +9,7 @@ const imageDir = path.resolve(__dirname, 'test', 'images')
 const files = fs.readdirSync(imageDir)
 
 function paramsFrom(dict) {
-  const params = new URLSearchParams();
+  const params = new URLSearchParams()
   Object.entries(dict).forEach(([name, value]) => params.set(name, value))
   return params
 }
@@ -28,7 +28,7 @@ function serve(middleware) {
     } catch (e) {
       reject(e)
     }
-  });
+  })
 }
 
 async function main() {
@@ -38,13 +38,10 @@ async function main() {
     baseHost
   }))
   files.forEach(filename => {
-    demo.get(`/${filename}/:width/:height`, (req, res) => {
+    demo.get(`/${filename}`, (req, res) => {
       const original = new URL(filename, baseHost).href
-      const params = paramsFrom({
-        ...req.query,
-        url: filename
-      })
-      const resized = `/express-sharp/resize/${req.params.width}/${req.params.height}?${params.toString()}`
+      const params = paramsFrom(req.query)
+      const resized = `/express-sharp/${filename}?${params.toString()}`
       res.status(200).send(`
 
 <html>
@@ -80,13 +77,7 @@ async function main() {
   })
   const demoURLBase = await serve(demo)
   files.forEach(filename => {
-    const original = new URL(filename, baseHost).href
-    const params = paramsFrom({
-      auto: 'webp',
-      progressive: true,
-      url: original
-    })
-    console.log(new URL(`/${filename}/500/300?${params.toString()}`, demoURLBase).href)
+    console.log(new URL(`/${filename}`, demoURLBase).href)
   })
 }
 

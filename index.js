@@ -1,5 +1,6 @@
 'use strict'
 
+const accepts = require('accepts')
 const cors = require('cors')
 const debug = require('debug')('express-sharp')
 const etag = require('etag')
@@ -17,24 +18,13 @@ const getImageUrl = function(baseHost, inputUrl) {
   return url.format(imageUrl)
 }
 
-const isUrlPathname = function(value) {
-  if (!value) {
-    return false
-  }
-  const u = url.parse(value)
-  if (u.protocol || u.host || !u.path) {
-    return false
-  }
-  return true
-}
-
 module.exports = function(options) {
   debug('called with options: %O', options)
   const router = express.Router()
   router.use(expressValidator({
     customValidators: {
-      isSharpFormat: function(value) {
-        return sharp.format.hasOwnProperty(value)
+      isValueWebP: function(value) {
+        return value === 'webp'
       },
       isGravity: function(value) {
         return sharp.gravity.hasOwnProperty(value)
@@ -48,21 +38,15 @@ module.exports = function(options) {
   const _cors = cors(options.cors || {})
 
   const handler = async (req, res, next) => {
+    req.checkQuery('auto').optional().isValueWebP()
     req.checkQuery('height').optional().isInt()
     req.checkQuery('width').optional().isInt()
-    req.checkQuery('format').optional().isSharpFormat()
     req.checkQuery('quality').optional().isQuality()
     req.checkQuery('progressive').optional().isBoolean()
     req.checkQuery('crop').optional().isBoolean()
     req.checkQuery('gravity').optional().isGravity()
 
     const errors = req.validationErrors() || []
-
-    if (!isUrlPathname(req.path)) {
-      errors.push({
-        message: `pathname ${req.path} is not a valid relative URL path`
-      })
-    }
 
     if (errors.length > 0) {
       return res.status(400).json(errors)
@@ -71,8 +55,8 @@ module.exports = function(options) {
     debug('query %o is valid', req.query)
 
     let format = req.query.format
-    if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
-      format = format || 'webp'
+    if (req.query.auto && accepts(req).type(['image/webp'])) {
+      format = sharp.format.webp.id
     }
     const quality = parseInt(req.query.quality || 75, 10)
 
@@ -98,16 +82,19 @@ module.exports = function(options) {
         resolveWithFullResponse: true,
       })
 
-      debug('Requested %s. Status: %s', imageUrl, response.statusCode)
-      if (response.statusCode >= 400) {
-        return res.sendStatus(response.statusCode)
-      }
+      debug('Requested %s. Status: %s %s', imageUrl, typeof response.statusCode, response.statusCode)
 
       res.status(response.statusCode)
-      const inputFormat = response.headers['content-type'] || ''
-      format = format || inputFormat.replace('image/', '')
+      const inputFormat = response.headers['content-type'].toString()
+      if (!format) {
+        format = inputFormat.replace('image/', '')
+        debug('Set format to %s from %s', format, inputFormat)
+      }
 
-      format = sharp.format.hasOwnProperty(format) ? format : 'jpeg'
+      if (!sharp.format.hasOwnProperty(format)) {
+        debug('Provided format %s not found in legal formats %o. Fallback to jpeg', format, sharp.format)
+        format = sharp.format.jpeg.id
+      }
 
       res.type(`image/${format}`)
 
