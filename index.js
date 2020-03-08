@@ -1,40 +1,20 @@
-'use strict'
+/* eslint-disable toplevel/no-toplevel-side-effect */
 
 const cors = require('cors')
 const debug = require('debug')('express-sharp')
 const etag = require('etag')
 const express = require('express')
-const sharp = require('sharp')
-const url = require('url')
 const expressValidator = require('express-validator')
+const request = require('request-promise')
+const sharp = require('sharp')
+const transform = require('./lib/transform')
+const url = require('url')
 
-// TODO: replace http/https with request-promise:
-// const request = require('request-promise')
-const http = require('http')
-const https = require('https')
-
-const transform = function(width, height, crop, gravity, cropMaxSize) {
-  const transformer = sharp()
-  if (crop) {
-    const aspectRatio = width / height
-    if (width > cropMaxSize || height > cropMaxSize) {
-      if (width > height) {
-        width = cropMaxSize
-        height = Math.round(width / aspectRatio)
-      } else {
-        height = cropMaxSize
-        width = Math.round(height * aspectRatio)
-      }
-    }
-    transformer.resize(width, height).crop(gravity || sharp.gravity.center)
-  } else {
-    transformer.resize(width, height).min().withoutEnlargement()
-  }
-  return transformer
-}
+const DEFAULT_QUALITY = 75
+const DEFAULT_CROP_MAX_SIZE = 2000
 
 const getImageUrl = function(baseHost, inputUrl) {
-  let imageUrl = url.parse(inputUrl)
+  const imageUrl = url.parse(inputUrl)
   imageUrl.host = baseHost.replace('https://', '').replace('http://', '')
   imageUrl.protocol = baseHost.startsWith('https') ? 'https' : 'http'
   return url.format(imageUrl)
@@ -42,53 +22,75 @@ const getImageUrl = function(baseHost, inputUrl) {
 
 module.exports = function(options) {
   const router = express.Router()
-  router.use(expressValidator({
-    customValidators: {
-      isSharpFormat: function(value) {
-        return sharp.format.hasOwnProperty(value)
+  router.use(
+    expressValidator({
+      customValidators: {
+        isSharpFormat: function(value) {
+          return sharp.format.hasOwnProperty(value)
+        },
+        isGravity: function(value) {
+          return sharp.gravity.hasOwnProperty(value)
+        },
+        isQuality: function(value) {
+          return value >= 0 && value <= 100
+        },
+        isUrlPathQuery: function(value) {
+          if (!value) {
+            return false
+          }
+          const u = url.parse(value)
+          if (u.protocol || u.host || !u.path) {
+            return false
+          }
+          return true
+        },
       },
-      isGravity: function(value) {
-        return sharp.gravity.hasOwnProperty(value)
-      },
-      isQuality: function(value) {
-        return value >= 0 && value <= 100
-      },
-      isUrlPathQuery: function(value) {
-        if (!value) {
-          return false
-        }
-        const u = url.parse(value)
-        if (u.protocol || u.host || !u.path) {
-          return false
-        }
-        return true
-      },
-    },
-  }))
+    })
+  )
 
   const _cors = cors(options.cors || {})
-  const cropMaxSize = options.cropMaxSize || 2000
-  const protocol = (options.baseHost.startsWith('https')) ? https : http
+  const cropMaxSize = options.cropMaxSize || DEFAULT_CROP_MAX_SIZE
 
-  router.get('/resize/:width/:height?', _cors, function(req, res, next) {
+  // TODO: Refactor to reduce complexity
+  // eslint-disable-next-line complexity, sonarjs/cognitive-complexity
+  router.get('/resize/:width/:height?', _cors, async (req, res, next) => {
     let format = req.query.format
-    if (req.headers.accept && req.headers.accept.indexOf('image/webp') !== -1) {
+    if (req.headers.accept && req.headers.accept.includes('image/webp')) {
       format = format || 'webp'
     }
-    const quality = parseInt(req.query.quality || 75, 10)
+    const quality = parseInt(req.query.quality || DEFAULT_QUALITY, 10)
 
-    req.checkParams('height').optional().isInt()
+    req
+      .checkParams('height')
+      .optional()
+      .isInt()
     req.checkParams('width').isInt()
-    req.checkQuery('format').optional().isSharpFormat()
-    req.checkQuery('quality').optional().isQuality()
-    req.checkQuery('progressive').optional().isBoolean()
-    req.checkQuery('crop').optional().isBoolean()
-    req.checkQuery('gravity').optional().isGravity()
+    req
+      .checkQuery('format')
+      .optional()
+      .isSharpFormat()
+    req
+      .checkQuery('quality')
+      .optional()
+      .isQuality()
+    req
+      .checkQuery('progressive')
+      .optional()
+      .isBoolean()
+    req
+      .checkQuery('crop')
+      .optional()
+      .isBoolean()
+    req
+      .checkQuery('gravity')
+      .optional()
+      .isGravity()
     req.checkQuery('url').isUrlPathQuery()
 
     const errors = req.validationErrors()
     if (errors) {
-      return res.status(400).json(errors)
+      res.status(400).json(errors)
+      return
     }
 
     const imageUrl = getImageUrl(options.baseHost, req.query.url)
@@ -97,40 +99,51 @@ module.exports = function(options) {
     const height = parseInt(req.params.height, 10) || null
     const crop = req.query.crop === 'true'
     const gravity = req.query.gravity
-    const transformer = transform(width, height, crop, gravity, cropMaxSize)
-      .on('error', function sharpError(err) {
-        res.status(500)
-        next(new Error(err))
+
+    try {
+      const etagBuffer = Buffer.from([imageUrl, width, height, format, quality])
+      res.setHeader('ETag', etag(etagBuffer, { weak: true }))
+      if (req.fresh) {
+        res.sendStatus(304)
+        return
+      }
+
+      debug('Requesting:', imageUrl)
+      const response = await request({
+        encoding: null,
+        uri: imageUrl,
+        resolveWithFullResponse: true,
       })
 
-    const etagBuffer = Buffer.from([imageUrl, width, height, format, quality])
-    res.setHeader('ETag', etag(etagBuffer, {weak: true}))
-    if (req.fresh) {
-      return res.sendStatus(304)
+      debug('Requested %s. Status: %s', imageUrl, response.statusCode)
+      if (response.statusCode >= 400) {
+        res.sendStatus(response.statusCode)
+        return
+      }
+
+      res.status(response.statusCode)
+      const inputFormat = response.headers['content-type'] || ''
+      format = format || inputFormat.replace('image/', '')
+
+      format = sharp.format.hasOwnProperty(format) ? format : 'jpeg'
+
+      res.type(`image/${format}`)
+      const image = await transform(response.body, {
+        crop,
+        cropMaxSize,
+        gravity,
+        height,
+        quality,
+        width,
+      })
+      res.send(image)
+    } catch (error) {
+      if (error.statusCode === 404) {
+        next()
+        return
+      }
+      next(error)
     }
-
-    debug('Requesting:', imageUrl)
-
-    protocol
-      .get(imageUrl, function getImage(result) {
-        debug('Requested %s. Status: %s', imageUrl, result.statusCode)
-        if (result.statusCode >= 400) {
-          return res.sendStatus(result.statusCode)
-        }
-        res.status(result.statusCode)
-        const inputFormat = result.headers['content-type'] || ''
-        format = format || inputFormat.replace('image/', '')
-
-        format = sharp.format.hasOwnProperty(format) ? format : 'jpeg'
-        transformer[format]({
-          quality: quality,
-          progressive: req.query.progressive === 'true',
-        })
-
-        res.type('image/' + format)
-        result.pipe(transformer).pipe(res)
-      })
-      .on('error', next)
   })
 
   return router

@@ -8,6 +8,7 @@ express-sharp adds real-time image processing routes to your express application
 ## Installation
 
 ```sh
+$ yarn add express-sharp
 $ npm install express-sharp --save
 ```
 
@@ -18,16 +19,16 @@ See [sharp installation](http://sharp.dimens.io/en/stable/install/) for addition
 Example *app.js*:
 
 ```js
-'use strict';
+'use strict'
 
-var express = require('express');
-var app = express();
-var scale = require('express-sharp');
+const express = require('express')
+const app = express()
+const scale = require('express-sharp')
 
-var options = {baseHost: 'mybasehost.com'};
-app.use('/my-scale', scale(options));
+const options = {baseHost: 'mybasehost.com'}
+app.use('/my-scale', scale(options))
 
-app.listen(3000));
+app.listen(3000)
 ```
 
 Render `http://mybasehost.com/image.jpg` with 400x400 pixels:
@@ -51,8 +52,8 @@ Host: localhost:3000
 ## Options
 
 ```js
-var scale = require('express-sharp');
-app.use('/some-path', scale(options));
+const scale = require('express-sharp')
+app.use('/some-path', scale(options))
 ```
 
 Supported options:
@@ -76,7 +77,7 @@ app.use('/some-path', scale({
   cors: {
     origin: 'http://example.com'
   }
-}));
+}))
 ```
 
 If not specified, a `Access-Control-Allow-Origin: *` header is being sent.
