@@ -14,18 +14,15 @@
     "sharp": "^0.25.1"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "@heise/eslint-config": "^8.0.1",
+    "eslint": "^6.8.0",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
     "should": "^13.1.2",
     "supertest": "^3.0.0"
   },
   "scripts": {
+    "lint": "eslint --cache .",
     "test": "eslint index.js lib test && mocha --reporter spec --bail --check-leaks test/ --exit",
     "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js --exit",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
