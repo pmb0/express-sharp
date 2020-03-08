@@ -15,18 +15,16 @@
   },
   "devDependencies": {
     "@heise/eslint-config": "^8.0.1",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^12",
     "eslint": "^6.8.0",
     "istanbul": "^0.4.5",
-    "mocha": "^4.0.1",
-    "should": "^13.1.2",
-    "supertest": "^3.0.0"
+    "jest": "^25.1.0",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "lint": "eslint --cache .",
-    "test": "eslint index.js lib test && mocha --reporter spec --bail --check-leaks test/ --exit",
-    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/express-sharp.js --exit",
-    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
-    "test-tap": "mocha --reporter tap --check-leaks test/"
+    "test": "jest"
   },
   "engines": {
     "node": ">= 10.0.0"
