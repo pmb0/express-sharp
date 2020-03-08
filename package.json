@@ -23,7 +23,7 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "lint": "eslint --cache .",
+    "lint": "eslint --cache --ignore-pattern coverage .",
     "test": "jest"
   },
   "engines": {
