@@ -104,6 +104,7 @@ module.exports = function(options) {
         height,
         quality,
         width,
+        format
       })
       res.send(image)
     } catch (e) {
