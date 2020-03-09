@@ -58,7 +58,9 @@ module.exports = function(options) {
     if (req.headers.accept && req.headers.accept.includes('image/webp')) {
       format = format || 'webp'
     }
+
     const quality = parseInt(req.query.quality || DEFAULT_QUALITY, 10)
+    const baseHost = options.baseHost || req.headers.host
 
     req
       .checkParams('height')
@@ -93,7 +95,7 @@ module.exports = function(options) {
       return
     }
 
-    const imageUrl = getImageUrl(options.baseHost, req.query.url)
+    const imageUrl = getImageUrl(baseHost, req.query.url)
 
     const width = parseInt(req.params.width, 10)
     const height = parseInt(req.params.height, 10) || null
