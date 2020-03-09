@@ -12,7 +12,7 @@ $ yarn add express-sharp
 $ npm install express-sharp --save
 ```
 
-See [sharp installation](http://sharp.dimens.io/en/stable/install/) for additional installation instructions.
+See [sharp installation](https://sharp.pixelplumbing.com/install) for additional installation instructions.
 
 ## Usage
 
@@ -90,27 +90,27 @@ Output image format.
 
 Default: `webp` if supported else the output format of the requested image.
 
-Valid values: every valid [sharp output format string](http://sharp.dimens.io/en/stable/api-output/#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
+Valid values: every valid [sharp output format string](https://sharp.pixelplumbing.com/api-output#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
 
 ### `progressive`
 
 only available for jpeg and png formats:
 
-See [sharp docs for jpeg](http://sharp.dimens.io/en/stable/api-output/#jpeg).
+See [sharp docs for jpeg](https://sharp.pixelplumbing.com/en/stable/api-output/#jpeg).
 
-See [sharp docs for png](http://sharp.dimens.io/en/stable/api-output/#png).
+See [sharp docs for png](https://sharp.pixelplumbing.com/en/stable/api-output/#png).
 
 Use `&progressive=true` to enable progressive scan.
 
 ### `quality`
 
-See [sharp docs](http://sharp.dimens.io/en/stable/api-output/).
+See [sharp docs](https://sharp.pixelplumbing.com/en/stable/api-output/).
 
 quality is a Number between 1 and 100.
 
 ### `crop`
 
-See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
+See [sharp docs](https://sharp.pixelplumbing.com/en/stable/api-resize/#crop).
 
 Use `&crop=true` to enable the sharp cropping feature. 
 
@@ -120,7 +120,7 @@ Note: Both `width` and `height` params are neccessary for crop to work.
 
 ### `gravity`
 
-See [sharp docs](http://sharp.dimens.io/en/stable/api-resize/#crop).
+See [sharp docs](https://sharp.pixelplumbing.com/en/stable/api-resize/#crop).
 
 When the crop option is activated you can specify the gravity of the cropping.
 
