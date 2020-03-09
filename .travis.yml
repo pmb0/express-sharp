@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- '7'
-- '8'
+- '10'
+- '12'
 addons:
   apt:
     sources:
@@ -9,7 +9,7 @@ addons:
     packages:
     - g++-4.8
 env: CXX=g++-4.8
-script: npm run-script test-ci
+script: yarn test
 after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
 deploy:
   - provider: npm

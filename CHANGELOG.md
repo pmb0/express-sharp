@@ -1,5 +1,15 @@
 # Changelog
 
+## v3.0.0, 2020-03-09
+
+This release contains breaking changes:
+
+- Dropped support for Node.js < 10
+
+Other changes:
+
+- Upgraded dependencies.
+
 ## v2.1.1, 2017-10-26
 
 - Fixed Travis CI setup.
