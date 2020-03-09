@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v3.1.0, 2020-03-09
 
 - Fixed express-sharp to not return always jpeg. (kriscarle, [#23](https://github.com/pmb0/express-sharp/pull/23))
 - Made `baseHost` an optional parameter. (northamerican, [#8](https://github.com/pmb0/express-sharp/pull/8))
