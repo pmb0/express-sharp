@@ -1,9 +1,10 @@
+[![Build Status](https://travis-ci.org/pmb0/express-sharp.svg?branch=develop)](https://travis-ci.org/pmb0/express-sharp)
+[![Test Coverage][coveralls-image]][coveralls-url]
+
 # express-sharp
 
 express-sharp adds real-time image processing routes to your express application. Images are processed with [sharp](https://github.com/lovell/sharp), a fast Node.js module for resizing images.
 
-[![Build Status][travis-image]][travis-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
 
 ## Installation
 
@@ -96,9 +97,9 @@ Valid values: every valid [sharp output format string](https://sharp.pixelplumbi
 
 only available for jpeg and png formats:
 
-See [sharp docs for jpeg](https://sharp.pixelplumbing.com/en/stable/api-output/#jpeg).
+See [sharp docs for jpeg](https://sharp.pixelplumbing.com/api-output#jpeg).
 
-See [sharp docs for png](https://sharp.pixelplumbing.com/en/stable/api-output/#png).
+See [sharp docs for png](https://sharp.pixelplumbing.com/api-output#png).
 
 Use `&progressive=true` to enable progressive scan.
 
@@ -110,7 +111,7 @@ quality is a Number between 1 and 100.
 
 ### `crop`
 
-See [sharp docs](https://sharp.pixelplumbing.com/en/stable/api-resize/#crop).
+See [sharp docs](https://sharp.pixelplumbing.com/api-resize#crop).
 
 Use `&crop=true` to enable the sharp cropping feature. 
 
@@ -120,7 +121,7 @@ Note: Both `width` and `height` params are neccessary for crop to work.
 
 ### `gravity`
 
-See [sharp docs](https://sharp.pixelplumbing.com/en/stable/api-resize/#crop).
+See [sharp docs](https://sharp.pixelplumbing.com/api-resize#resize).
 
 When the crop option is activated you can specify the gravity of the cropping.
 
