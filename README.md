@@ -20,14 +20,11 @@ See [sharp installation](https://sharp.pixelplumbing.com/install) for additional
 Example *app.js*:
 
 ```js
-'use strict'
-
 const express = require('express')
 const app = express()
 const scale = require('express-sharp')
 
-const options = {baseHost: 'mybasehost.com'}
-app.use('/my-scale', scale(options))
+app.use('/my-scale', scale())
 
 app.listen(3000)
 ```
@@ -61,7 +58,7 @@ Supported options:
 
 ### `baseHost`
 
-Specify the HTTP base host from which images will be requested.
+Specify the HTTP base host from which images will be requested. Default: Requested host.
 
 ### `cropMaxSize`
 
@@ -137,9 +134,7 @@ URL/path to original image.
 
 ## License
 
-  [MIT](LICENSE)
+[MIT](LICENSE)
 
-[travis-image]: https://img.shields.io/travis/pmb0/express-sharp/master.svg
-[travis-url]: https://travis-ci.org/pmb0/express-sharp
 [coveralls-image]: https://img.shields.io/coveralls/pmb0/express-sharp/master.svg
 [coveralls-url]: https://coveralls.io/r/pmb0/express-sharp?branch=master
