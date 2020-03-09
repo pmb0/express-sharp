@@ -1,13 +1,19 @@
 # Changelog
 
+## Unreleased
+
+- Fixed express-sharp to not return always jpeg. (kriscarle, [#23](https://github.com/pmb0/express-sharp/pull/23))
+- Made `baseHost` an optional parameter. (northamerican, [#8](https://github.com/pmb0/express-sharp/pull/8))
+
 ## v3.0.0, 2020-03-09
 
 This release contains breaking changes:
 
-- Dropped support for Node.js < 10
+- Dropped support for Node.js < 10. (kriscarle, [#15](https://github.com/pmb0/express-sharp/pull/15)/[#14](https://github.com/pmb0/express-sharp/issues/14))
 
 Other changes:
 
+- Upgraded `sharp@^0.24`.
 - Upgraded dependencies.
 
 ## v2.1.1, 2017-10-26
