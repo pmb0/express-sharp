@@ -20,7 +20,7 @@ const getImageUrl = function(baseHost, inputUrl) {
   return url.format(imageUrl)
 }
 
-module.exports = function(options) {
+module.exports = function(options = {}) {
   const router = express.Router()
   router.use(
     expressValidator({
