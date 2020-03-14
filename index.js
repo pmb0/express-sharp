@@ -5,7 +5,7 @@ const debug = require('debug')('express-sharp')
 const etag = require('etag')
 const express = require('express')
 const expressValidator = require('express-validator')
-const request = require('request-promise')
+const got = require('got')
 const sharp = require('sharp')
 const transform = require('./lib/transform')
 const url = require('url')
@@ -20,7 +20,7 @@ const getImageUrl = function(baseHost, inputUrl) {
   return url.format(imageUrl)
 }
 
-module.exports = function(options) {
+module.exports = function(options = {}) {
   const router = express.Router()
   router.use(
     expressValidator({
@@ -111,17 +111,17 @@ module.exports = function(options) {
       }
 
       debug('Requesting:', imageUrl)
-      const response = await request({
-        encoding: null,
-        uri: imageUrl,
-        resolveWithFullResponse: true,
-      })
-
-      debug('Requested %s. Status: %s', imageUrl, response.statusCode)
-      if (response.statusCode >= 400) {
-        res.sendStatus(response.statusCode)
+      let response
+      try {
+        response = await got(imageUrl, {
+          responseType: 'buffer',
+        })
+      } catch (error) {
+        res.sendStatus(error.response.statusCode)
         return
       }
+
+      debug('Requested %s. Status: %s', imageUrl, response.statusCode)
 
       res.status(response.statusCode)
       const inputFormat = response.headers['content-type'] || ''
