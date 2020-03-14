@@ -1,6 +1,6 @@
 {
   "name": "express-sharp",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Real-time image processing for your express application",
   "main": "index.js",
   "dependencies": {
@@ -9,8 +9,7 @@
     "etag": "^1.8.1",
     "express": "^4.16.2",
     "express-validator": "^4.2.1",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2",
+    "got": "^10.6.0",
     "sharp": "^0.25.1"
   },
   "devDependencies": {

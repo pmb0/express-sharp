@@ -1,0 +1,6 @@
+__tests__
+.*
+**/*.test.js
+coverage
+example
+node_modules
