@@ -111,15 +111,17 @@ module.exports = function(options = {}) {
       }
 
       debug('Requesting:', imageUrl)
-      const response = await got(imageUrl, {
-        responseType: 'buffer',
-      })
-
-      debug('Requested %s. Status: %s', imageUrl, response.statusCode)
-      if (response.statusCode >= 400) {
-        res.sendStatus(response.statusCode)
+      let response
+      try {
+        response = await got(imageUrl, {
+          responseType: 'buffer',
+        })
+      } catch (error) {
+        res.sendStatus(error.response.statusCode)
         return
       }
+
+      debug('Requested %s. Status: %s', imageUrl, response.statusCode)
 
       res.status(response.statusCode)
       const inputFormat = response.headers['content-type'] || ''
