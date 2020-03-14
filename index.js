@@ -5,7 +5,7 @@ const debug = require('debug')('express-sharp')
 const etag = require('etag')
 const express = require('express')
 const expressValidator = require('express-validator')
-const request = require('request-promise')
+const got = require('got')
 const sharp = require('sharp')
 const transform = require('./lib/transform')
 const url = require('url')
@@ -111,10 +111,8 @@ module.exports = function(options = {}) {
       }
 
       debug('Requesting:', imageUrl)
-      const response = await request({
-        encoding: null,
-        uri: imageUrl,
-        resolveWithFullResponse: true,
+      const response = await got(imageUrl, {
+        responseType: 'buffer',
       })
 
       debug('Requested %s. Status: %s', imageUrl, response.statusCode)
