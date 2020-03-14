@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v3.1.1, 2020-03-14
 
 - Fixed a bug that occurred when the express-sharp middleware was called without arguments (`scale()`).
 - Replaced [deprecated request module](https://github.com/request/request#deprecated) with `got`.
