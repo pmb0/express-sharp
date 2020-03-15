@@ -2,20 +2,21 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable toplevel/no-toplevel-side-effect */
 
-const { getImageUrl } = require('..')
-const express = require('express')
-const imageUrl = require('../lib/image-url')('/my-scale')
-const request = require('supertest')
-const scale = require('..')
-const sharp = require('sharp')
-const { join } = require('path')
+import scale, { getImageUrl } from '../src/middleware'
+import express from 'express'
+import imageUrl_ from '../src/image-url'
+import request from 'supertest'
+import sharp from 'sharp'
+import { join } from 'path'
+import { AddressInfo } from 'net'
 
+const imageUrl = imageUrl_('/my-scale')
 const app = express()
 const server = app.listen()
 app.use('/images', express.static(join(__dirname, 'images')))
 app.get('/error', (req, res) => res.sendStatus(500))
 app.get('/invalid-image', (req, res) => res.send('invalid image'))
-const { port } = server.address()
+const { port } = server.address() as AddressInfo
 app.use('/my-scale', scale({ baseHost: `localhost:${port}` }))
 
 afterAll(() => server.close())
@@ -140,7 +141,7 @@ describe('GET /my-scale/resize', () => {
   it('should crop /images/a.jpg to 55px x 42px', async () => {
     const response = await request(app)
       .get(
-        imageUrl(55, 42, {
+        imageUrl([55, 42], {
           url: '/images/a.jpg',
           crop: true,
           gravity: 'west',
@@ -156,7 +157,7 @@ describe('GET /my-scale/resize', () => {
   it('should restrict crop to cropMaxSize', async () => {
     const res = await request(app)
       .get(
-        imageUrl(4000, 2000, {
+        imageUrl([4000, 2000], {
           url: '/images/a.jpg',
           crop: true,
         })
@@ -169,7 +170,7 @@ describe('GET /my-scale/resize', () => {
 
   it('should restrict crop to cropMaxSize', async () => {
     const res = await request(app)
-      .get(imageUrl(3000, 6000, { url: '/images/a.jpg', crop: true }))
+      .get(imageUrl([3000, 6000], { url: '/images/a.jpg', crop: true }))
       .expect(200)
     const { width, height } = await sharp(res.body).metadata()
     expect(width).toBe(1000)
@@ -179,7 +180,7 @@ describe('GET /my-scale/resize', () => {
   it('should respond with 400 with wrong gravity', async () => {
     await request(app)
       .get(
-        imageUrl(100, 100, {
+        imageUrl([100, 100], {
           url: '/images/a.jpg',
           crop: true,
           gravity: 'easter',
@@ -198,7 +199,7 @@ describe('GET /my-scale/resize', () => {
   it('should use If-None-Match header', async () => {
     const response = await request(app)
       .get(imageUrl(110, { url: '/images/a.jpg' }))
-      .set('If-None-Match', 'W/"5-7bbHFhm08wpZmpqEvZMZmEgN7IE"')
+      .set('If-None-Match', 'W/"5-9ypA7Ehq6cgqVmqS7KYiRYREpCM"')
       .expect(304)
 
     expect(response.body).toEqual({})

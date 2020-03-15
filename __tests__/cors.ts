@@ -1,15 +1,17 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable toplevel/no-toplevel-side-effect */
 
-const express = require('express')
-const imageUrl = require('../lib/image-url')
-const request = require('supertest')
-const scale = require('..')
-const { join } = require('path')
+import express from 'express'
+import imageUrl from '../src/image-url'
+import request from 'supertest'
+import scale from '../src/middleware'
+import { join } from 'path'
+import { AddressInfo } from 'net'
 
 const app = express()
 const server = app.listen()
-const port = server.address().port
+const { port } = server.address() as AddressInfo
+
 app.use('/images', express.static(join(__dirname, 'images')))
 app.use('/scale1', scale({ baseHost: `localhost:${port}` }))
 app.use(

@@ -1,0 +1,20 @@
+// https://github.com/microsoft/TypeScript-Node-Starter
+
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "target": "ES2018"
+  },
+  "include": [
+    "src/**/*",
+    "example/**/*",
+  ]
+}

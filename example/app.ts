@@ -1,10 +1,10 @@
 /* eslint-disable toplevel/no-toplevel-side-effect */
+import { join } from 'path'
+import express from 'express'
+import scale from '../src/middleware'
+import { AddressInfo } from 'net'
 
-const { join } = require('path')
-const express = require('express')
 const app = express()
-const scale = require('..')
-
 const PORT = 3000
 
 app.use(express.static(join(__dirname, 'images')))
@@ -29,6 +29,6 @@ app.get('/', (req, res) => {
 })
 
 const server = app.listen(PORT, function() {
-  const { address, port } = server.address()
+  const { address, port } = server.address() as AddressInfo
   console.log('✔ Example app listening at http://%s:%s', address, port)
 })
