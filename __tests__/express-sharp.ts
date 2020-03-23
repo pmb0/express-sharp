@@ -2,7 +2,7 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable toplevel/no-toplevel-side-effect */
 
-import scale, { getImageUrl } from '../src/middleware'
+import { expressSharp, getImageUrl } from '../src/middleware'
 import express from 'express'
 import imageUrl_ from '../src/image-url'
 import request from 'supertest'
@@ -17,7 +17,7 @@ app.use('/images', express.static(join(__dirname, 'images')))
 app.get('/error', (req, res) => res.sendStatus(500))
 app.get('/invalid-image', (req, res) => res.send('invalid image'))
 const { port } = server.address() as AddressInfo
-app.use('/my-scale', scale({ baseHost: `localhost:${port}` }))
+app.use('/my-scale', expressSharp({ baseHost: `localhost:${port}` }))
 
 afterAll(() => server.close())
 

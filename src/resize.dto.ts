@@ -1,5 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import 'reflect-metadata'
+
 import {
   IsString,
   Min,
@@ -31,7 +32,7 @@ export default class ResizeDto {
   @IsInt()
   @Min(1)
   @Max(10000)
-  public width?: number
+  public width: number = 500
 
   @Type(() => Number)
   @IsInt()
@@ -61,9 +62,9 @@ export default class ResizeDto {
   ])
   @IsOptional()
   @IsString()
-  public gravity: string
+  public gravity?: string
 
   @Type(() => URL)
   @IsUrl({ require_host: false })
-  public url: URL
+  public url?: URL
 }

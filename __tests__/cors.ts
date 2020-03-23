@@ -4,7 +4,7 @@
 import express from 'express'
 import imageUrl from '../src/image-url'
 import request from 'supertest'
-import scale from '../src/middleware'
+import { expressSharp } from '../src/middleware'
 import { join } from 'path'
 import { AddressInfo } from 'net'
 
@@ -13,10 +13,10 @@ const server = app.listen()
 const { port } = server.address() as AddressInfo
 
 app.use('/images', express.static(join(__dirname, 'images')))
-app.use('/scale1', scale({ baseHost: `localhost:${port}` }))
+app.use('/scale1', expressSharp({ baseHost: `localhost:${port}` }))
 app.use(
   '/scale2',
-  scale({
+  expressSharp({
     baseHost: `localhost:${port}`,
     cors: { origin: 'http://example.com' },
   })
