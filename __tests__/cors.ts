@@ -4,7 +4,7 @@
 import express from 'express'
 import imageUrl from '../src/image-url'
 import request from 'supertest'
-import { expressSharp } from '../src/middleware'
+import { expressSharp, FsAdapter } from '..'
 import { join } from 'path'
 import { AddressInfo } from 'net'
 
@@ -12,30 +12,25 @@ const app = express()
 const server = app.listen()
 const { port } = server.address() as AddressInfo
 
-app.use('/images', express.static(join(__dirname, 'images')))
-app.use('/scale1', expressSharp({ baseHost: `localhost:${port}` }))
+const imageAdapter = new FsAdapter(join(__dirname, 'images'))
+
+app.use('/scale1', expressSharp({ imageAdapter }))
 app.use(
   '/scale2',
-  expressSharp({
-    baseHost: `localhost:${port}`,
-    cors: { origin: 'http://example.com' },
-  })
+  expressSharp({ imageAdapter, cors: { origin: 'http://example.com' } })
 )
 
 afterAll(() => server.close())
-
 describe('Test CORS', () => {
   it('should send Access-Control-Allow-Origin:* header', async () => {
-    await request(app)
+    const res = await request(app)
       .get(imageUrl('/scale1')(110, { url: '/images/a.jpg' }))
       .expect('Access-Control-Allow-Origin', '*')
-      .expect(200)
   })
 
-  it('should send ACAO:example.com header', async () => {
+  it('should send a custom Access-Control-Allow-Origin header', async () => {
     await request(app)
       .get(imageUrl('/scale2')(110, { url: '/images/a.jpg' }))
       .expect('Access-Control-Allow-Origin', 'http://example.com')
-      .expect(200)
   })
 })

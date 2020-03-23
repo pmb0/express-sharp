@@ -1,7 +1,6 @@
 /* eslint-disable toplevel/no-toplevel-side-effect */
 import { join } from 'path'
 import express from 'express'
-// import { getImageUrl } from '..'
 import { expressSharp, HttpAdapter, FsAdapter } from '..'
 import { AddressInfo } from 'net'
 import Keyv from 'keyv'
