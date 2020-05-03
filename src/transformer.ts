@@ -6,6 +6,7 @@ import Keyv from 'keyv'
 import crypto from 'crypto'
 
 const DEFAULT_CROP_MAX_SIZE = 2000
+const CACHE_KEY_HASH_LENGTH = 10
 
 export class Transformer {
   log = getLogger('transformer')
@@ -26,7 +27,7 @@ export class Transformer {
       .createHash('sha256')
       .update(JSON.stringify(options, Object.keys(options).sort()))
       .digest('hex')
-      .slice(0, 10)
+      .slice(0, CACHE_KEY_HASH_LENGTH)
     return `transform:${id}:${hash}`
   }
 
