@@ -2,14 +2,16 @@
 
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    // "baseUrl": ".",
     "declaration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
+    "noUnusedLocals": true,
     "outDir": "./dist",
     "sourceMap": true,
     "strict": true,
@@ -19,9 +21,5 @@
     "index.ts",
     "src/**/*",
     "example/**/*",
-  ],
-  "exclude": [
-    "node_modules",
-    "./dist"
   ]
 }

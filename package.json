@@ -40,6 +40,10 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
+    "build:test": "tsc --noEmit",
+    "build": "tsc --build tsconfig.build.json",
+    "prebuild": "yarn clean",
+    "clean": "rimraf dist",
     "lint": "eslint --cache --ignore-pattern coverage .",
     "test": "jest"
   },
