@@ -1,4 +1,3 @@
-/* eslint-disable toplevel/no-toplevel-side-effect */
 import { imageUrl as imageUrl_ } from './image-url'
 
 describe('ImaegUrl', () => {
