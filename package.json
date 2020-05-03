@@ -33,6 +33,7 @@
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
     "keyv": "^4.0.0",
+    "nodemon": "^2.0.3",
     "quick-lru": "^5.0.0",
     "supertest": "^4.0.2",
     "ts-jest": "^25.2.1",
@@ -44,6 +45,7 @@
     "build": "tsc --build tsconfig.build.json",
     "prebuild": "yarn clean",
     "clean": "rimraf dist",
+    "start:example": "DEBUG=express-sharp* nodemon --exec 'node -r ts-node/register' -w . --inspect example/app.ts",
     "lint": "eslint --cache .",
     "test": "jest"
   },
