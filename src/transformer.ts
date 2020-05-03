@@ -28,7 +28,7 @@ export class Transformer {
       .update(JSON.stringify(options, Object.keys(options).sort()))
       .digest('hex')
       .slice(0, CACHE_KEY_HASH_LENGTH)
-    return `transform:${id}:${hash}`
+    return `transform:${id}:${this.imageAdapter.constructor.name}:${hash}`
   }
 
   // TODO: Refactor
