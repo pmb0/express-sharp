@@ -7,7 +7,7 @@
   "dependencies": {
     "@types/cache-manager": "^2.10.2",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.12.2",
     "cors": "^2.8.4",
     "debug": "^4.1.1",
     "etag": "^1.8.1",
