@@ -8,7 +8,6 @@ import imageUrl_ from '../src/image-url'
 import request from 'supertest'
 import sharp from 'sharp'
 import { join } from 'path'
-import { AddressInfo } from 'net'
 
 const imageAdapter = new FsAdapter(join(__dirname, 'images'))
 const imageUrl = imageUrl_('/my-scale')
