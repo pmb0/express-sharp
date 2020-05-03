@@ -1,7 +1,6 @@
 import { ImageAdapter } from '../interfaces'
-import { URL } from 'url'
 import got, { Got, ExtendOptions } from 'got'
-import LRU from 'quick-lru'
+// import LRU from 'quick-lru'
 import { getLogger } from '../logger'
 
 export class HttpAdapter implements ImageAdapter {
@@ -10,7 +9,7 @@ export class HttpAdapter implements ImageAdapter {
 
   constructor(gotOptions: ExtendOptions) {
     this.client = got.extend({
-      cache: new LRU({ maxSize: 50 }),
+      // cache: new LRU({ maxSize: 50 }),
       ...gotOptions,
     })
     this.log(`Using prefixUrl: ${this.getPrefixUrl()}`)
@@ -21,13 +20,13 @@ export class HttpAdapter implements ImageAdapter {
   }
 
   async fetch(url: string): Promise<Buffer | null> {
+    url = url.slice(1)
     this.log(`Fetching: ${this.getPrefixUrl()}${url}`)
     try {
-      return (
-        await this.client.get(url, {
-          responseType: 'buffer',
-        })
-      ).body
+      const response = await this.client.get(url, {
+        responseType: 'buffer',
+      })
+      return response.body
     } catch (error) {
       if (error.response?.statusCode === 404) return null
 

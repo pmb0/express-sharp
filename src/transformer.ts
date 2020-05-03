@@ -1,8 +1,9 @@
-import { ImageAdapter, Result } from './interfaces'
+import { ImageAdapter, Result, format } from './interfaces'
 import ResizeDto from './resize.dto'
 import sharp from 'sharp'
 import { getLogger } from './logger'
 import Keyv from 'keyv'
+import crypto from 'crypto'
 
 const DEFAULT_CROP_MAX_SIZE = 2000
 
@@ -20,11 +21,25 @@ export class Transformer {
     return [maxSize * aspectRatio, maxSize]
   }
 
+  buildCacheKey(id: string, options: ResizeDto): string {
+    const hash = crypto
+      .createHash('sha256')
+      .update(JSON.stringify(options, Object.keys(options).sort()))
+      .digest('hex')
+      .slice(0, 10)
+    return `transform:${id}:${hash}`
+  }
+
   // TODO: Refactor
   // eslint-disable-next-line complexity, sonarjs/cognitive-complexity
   async transform(id: string, options: ResizeDto): Promise<Result> {
-    const cachedImage = await this.cache.get(`transform:${id}`)
+    const cacheKey = this.buildCacheKey(id, options)
+
+    this.log({ cacheKey })
+
+    const cachedImage = await this.cache.get(cacheKey)
     if (cachedImage) {
+      this.log(`Serving ${id} from cache ...`)
       return cachedImage
     }
 
@@ -35,13 +50,14 @@ export class Transformer {
     if (!originalImage) {
       return {
         image: null,
-        format: options.format || '',
+        format: options.format! || '',
       }
     }
 
     const transformer = sharp(originalImage)
 
-    options.format = options.format || (await transformer.metadata()).format
+    if (!options.format)
+      options.format = (await transformer.metadata()).format as format
 
     if (!options.format) {
       throw new Error('Unknown format')
@@ -73,7 +89,9 @@ export class Transformer {
     this.log('Resizing done')
 
     const result = { image, format: options.format }
-    this.cache.set(`transform:${id}`, result)
+
+    this.log(`Caching ${cacheKey} ...`)
+    this.cache.set(cacheKey, result)
     return result
   }
 }

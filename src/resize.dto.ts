@@ -11,15 +11,16 @@ import {
   IsOptional,
   IsIn,
 } from 'class-validator'
-import { Gravity } from 'sharp'
+import { GravityEnum } from 'sharp'
 import { URL } from 'url'
-import { Type, Transform } from 'class-transformer'
+import { Type } from 'class-transformer'
+import { format } from './interfaces'
 
 export default class ResizeDto {
   @IsOptional()
   @IsIn(['heic', 'heif', 'jpeg', 'jpg', 'png', 'raw', 'tiff', 'webp'])
   @IsString()
-  public format?: string
+  public format?: format
 
   @IsOptional()
   @Type(() => Number)
@@ -62,7 +63,7 @@ export default class ResizeDto {
   ])
   @IsOptional()
   @IsString()
-  public gravity?: string
+  public gravity?: keyof GravityEnum
 
   @Type(() => URL)
   @IsUrl({ require_host: false })

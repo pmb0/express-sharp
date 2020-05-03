@@ -6,7 +6,7 @@ import { ValidationError, validate as validate_ } from 'class-validator'
 export function validate<T>(type: any): RequestHandler {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const dto = plainToClass(type, {
+      const dto = plainToClass<typeof type, any>(type, {
         ...req.query,
         ...req.params,
       })
@@ -17,7 +17,7 @@ export function validate<T>(type: any): RequestHandler {
 
       if (errors.length > 0) {
         const message = errors
-          .map((error: ValidationError) => Object.values(error.constraints))
+          .map((error: ValidationError) => Object.values(error.constraints!))
           .join(', ')
         next(new HttpException(400, message))
       } else {
