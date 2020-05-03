@@ -1,7 +1,7 @@
 import url from 'url'
 
-export default function(basePath: string) {
-  return function(width: number | number[], query?: any) {
+export default function (basePath: string) {
+  return function (width: number | number[], query?: any) {
     let height
 
     if (typeof width !== 'number') [width, height] = width
