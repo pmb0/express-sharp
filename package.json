@@ -44,7 +44,7 @@
     "build": "tsc --build tsconfig.build.json",
     "prebuild": "yarn clean",
     "clean": "rimraf dist",
-    "lint": "eslint --cache --ignore-pattern coverage .",
+    "lint": "eslint --cache .",
     "test": "jest"
   },
   "engines": {
