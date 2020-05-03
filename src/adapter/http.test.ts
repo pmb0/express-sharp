@@ -12,12 +12,12 @@ describe('HttpAdapter', () => {
 
   test('constructor()', () => {
     expect(got.extend).toBeCalledWith({
-      cache: {
-        _size: 0,
-        cache: expect.any(Map),
-        maxSize: 50,
-        oldCache: expect.any(Map),
-      },
+      // cache: {
+      //   _size: 0,
+      //   cache: expect.any(Map),
+      //   maxSize: 50,
+      //   oldCache: expect.any(Map),
+      // },
       prefixUrl: 'http://example.com/foo',
     })
   })
@@ -27,7 +27,7 @@ describe('HttpAdapter', () => {
     expect(image?.toString()).toBe('test')
 
     // @ts-ignore
-    expect(adapter.client.get).toBeCalledWith('/foo/bar', {
+    expect(adapter.client.get).toBeCalledWith('foo/bar', {
       responseType: 'buffer',
     })
   })

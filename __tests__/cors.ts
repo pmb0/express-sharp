@@ -2,7 +2,7 @@
 /* eslint-disable toplevel/no-toplevel-side-effect */
 
 import express from 'express'
-import imageUrl from '../src/image-url'
+import { imageUrl } from '../src/image-url'
 import request from 'supertest'
 import { expressSharp, FsAdapter } from '..'
 import { join } from 'path'

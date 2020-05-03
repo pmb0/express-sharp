@@ -1,6 +1,6 @@
 import url from 'url'
 
-export default function (basePath: string) {
+export function imageUrl(basePath: string) {
   return function (width: number | number[], query?: any) {
     let height
 

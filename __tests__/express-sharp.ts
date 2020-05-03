@@ -4,7 +4,7 @@
 
 import { expressSharp, FsAdapter } from '..'
 import express from 'express'
-import imageUrl_ from '../src/image-url'
+import { imageUrl as imageUrl_ } from '../src/image-url'
 import request from 'supertest'
 import sharp from 'sharp'
 import { join } from 'path'
