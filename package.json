@@ -46,7 +46,7 @@
     "prebuild": "yarn clean",
     "clean": "rimraf dist",
     "start:example": "DEBUG=express-sharp* nodemon --exec 'node -r ts-node/register' -w . --inspect example/app.ts",
-    "lint": "eslint --cache .",
+    "lint": "eslint --cache --ext .js,.ts .",
     "test": "jest"
   },
   "engines": {
