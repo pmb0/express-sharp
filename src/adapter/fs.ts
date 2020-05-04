@@ -1,0 +1,23 @@
+import { ImageAdapter } from '../interfaces'
+import { promises as fs } from 'fs'
+import { join } from 'path'
+import { getLogger } from '../logger'
+
+export class FsAdapter implements ImageAdapter {
+  private log = getLogger('adapter:fs')
+
+  constructor(public rootPath: string) {
+    this.log(`Using rootPath: ${rootPath}`)
+  }
+
+  async fetch(path: string): Promise<Buffer | null> {
+    const imagePath = join(this.rootPath, path)
+    this.log(`Fetching: ${imagePath}`)
+    try {
+      return await fs.readFile(imagePath)
+    } catch (error) {
+      if (error.code === 'ENOENT') return null
+      throw error
+    }
+  }
+}

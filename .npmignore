@@ -1,6 +1,12 @@
+__mocks__
 __tests__
 .*
+*.log
+*.tgz
 **/*.test.js
+**/*.ts
+**/example
 coverage
-example
+jest.config.js
 node_modules
+tsconfig.json
