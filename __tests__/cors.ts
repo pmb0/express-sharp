@@ -1,6 +1,3 @@
-/* eslint-disable no-magic-numbers */
-/* eslint-disable toplevel/no-toplevel-side-effect */
-
 import express from 'express'
 import { imageUrl } from '../src/image-url'
 import request from 'supertest'

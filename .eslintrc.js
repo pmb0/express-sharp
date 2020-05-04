@@ -13,7 +13,7 @@ module.exports = {
     es6: true
   },
   overrides: [{
-    files: [ '*.test.ts', '*.js' ],
+    files: [ '*.test.ts', '*.js', '__tests__/**/*.ts' ],
     rules: {
       'toplevel/no-toplevel-side-effect': 'off',
       'no-magic-numbers': 'off'

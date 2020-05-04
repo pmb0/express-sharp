@@ -1,7 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
-/* eslint-disable no-magic-numbers */
-/* eslint-disable toplevel/no-toplevel-side-effect */
-
 import { expressSharp, FsAdapter } from '..'
 import express from 'express'
 import { imageUrl as imageUrl_ } from '../src/image-url'
