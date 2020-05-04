@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1 #{title}
+
+  test-example(
+     base="/fs"
+     url="/1.jpeg"
+     width="2000"
+  )
+
+  test-example(
+    base="/fs"
+    url="/1.jpeg"
+    quality="5"
+    width="200"
+    height="300"
+    crop="east"
+  )
+
+  test-example(
+    base="/fs"
+    url="/1.jpeg"
+    quality="90"
+    width="200"
+    height="400"
+    crop="east"
+  )
+
+  test-example(
+    base="/lorempixel"
+    url="/500/500"
+    width="500"
+  )

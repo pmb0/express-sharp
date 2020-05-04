@@ -1,32 +1,79 @@
 /* eslint-disable toplevel/no-toplevel-side-effect */
 
 import { TestImage } from './image.mjs'
+import { setValue } from './utils.mjs'
 
 const template = document.createElement('template')
 
 template.innerHTML = `
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 <style>
 :host {
   display: block;
   width: 100%;
-  border: 1px solid black;
-  margin: 10px 0;
-  overflow: scroll;
+  border: 1px solid #999;
+  margin: 30px 0;
+  padding: 10px;
+}
+#scrollable {
+  overflow: auto;
+  overflow-y: hidden;
+  margin: -10px;
+  width: 100%;
 }
 </style>
 
-<label for="base">base</label>
-<select id="base">
-  <option>local-http</option>
-  <option>lorempixel</option>
-  <option>fs</option>
-</select>
+<div class="form-group">
+  <label for="base">Adapter</label>
+  <select id="base" class="form-control">
+    <option value="/local-http">local-http</option>
+    <option value="/lorempixel">lorempixel</option>
+    <option value="/fs">fs</option>
+  </select>
+</div>
 
-<label for="quality">quality</label>
-<input id="quality" name="quality" type="range" min="1" max="100">
+<div class="form-group">
+  <label for="url">ID/URL</label>
+  <input id="url" name="url" class="form-control">
+</div>
 
-<pre>URL: <code></code></p>
-<test-image></test-image>
+<div class="form-group">
+  <label for="width">Width</label>
+  <input class="form-control" type="number" id="width" name="width">
+</div>
+
+<div class="form-group">
+  <label for="height">Height</label>
+  <input class="form-control" type="number" id="height" name="height" placeholder="Defaults to width">
+</div>
+
+<div class="form-group">
+  <label for="quality">Quality</label>
+  <input class="form-control" id="quality" name="quality" type="range" min="1" max="100">
+</div>
+
+<div class="form-group">
+  <label for="crop">Crop</label>
+  <select id="crop" class="form-control">
+    <option value="">(None)</option>
+    <option>north</option>
+    <option>northeast</option>
+    <option>southeast</option>
+    <option>south</option>
+    <option>southwest</option>
+    <option>west</option>
+    <option>northwest</option>
+    <option>east</option>
+    <option>center</option>
+    <option>centre</option>
+  </select>
+</div>
+
+<p>URL: <code></code></p>
+<div id="scrollable">
+  <test-image></test-image>
+</div>
 `
 
 export class TestExample extends HTMLElement {
@@ -59,11 +106,12 @@ export class TestExample extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     this.testImage.setAttribute(name, newValue)
+
     this.shadowRoot.querySelector(
       'code'
     ).textContent = this.testImage.buildUrl()
-    console.log(name, newValue)
-    // this.shadowRoot.querySelector(`#${name}`)?.value = newValue
+
+    setValue(this.shadowRoot.querySelector(`#${name}`), newValue)
   }
 
   get testImage() {

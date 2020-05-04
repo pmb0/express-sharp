@@ -2,6 +2,16 @@
 
 const template = document.createElement('template')
 
+template.innerHTML = `
+<style>
+:host {
+  display: block;
+}
+</style>
+
+<img>
+`
+
 export class TestImage extends HTMLElement {
   static observedAttributes = [
     'base',
@@ -16,7 +26,7 @@ export class TestImage extends HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.append(document.createElement('img'))
+    this.shadowRoot.append(template.content.cloneNode(true))
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
