@@ -1,6 +1,5 @@
 import { ImageAdapter } from '../interfaces'
 import got, { Got, ExtendOptions } from 'got'
-// import LRU from 'quick-lru'
 import { getLogger } from '../logger'
 
 export class HttpAdapter implements ImageAdapter {
@@ -9,7 +8,6 @@ export class HttpAdapter implements ImageAdapter {
 
   constructor(gotOptions: ExtendOptions) {
     this.client = got.extend({
-      // cache: new LRU({ maxSize: 50 }),
       ...gotOptions,
     })
     this.log(`Using prefixUrl: ${this.getPrefixUrl()}`)
