@@ -10,34 +10,49 @@ express-sharp adds real-time image processing routes to your express application
 
 ```sh
 $ yarn add express-sharp
-$ npm install express-sharp --save
 ```
 
 See [sharp installation](https://sharp.pixelplumbing.com/install) for additional installation instructions.
 
 ## Usage
 
-Example *app.js*:
+Example *app.js* (See also `example/app.ts` in this project):
 
 ```js
 const express = require('express')
 const app = express()
-const scale = require('express-sharp')
+const { expressSharp, FsAdapter, HttpAdapter } = require('express-sharp')
 
-app.use('/my-scale', scale())
+app.use(
+  '/some-http-endpoint',
+  expressSharp({
+    imageAdapter: new HttpAdapter({
+      prefixUrl: 'http://example.com/images',
+    }),
+  })
+)
+
+// and/or:
+app.use(
+  '/fs-endpoint',
+  expressSharp({
+    cache,
+    imageAdapter: new FsAdapter(path.join(__dirname, 'images')),
+  })
+)
 
 app.listen(3000)
 ```
 
-Render `http://mybasehost.com/image.jpg` with 400x400 pixels:
+Render `http://example.com/images/image.jpg` with 400x400 pixels:
 
 ```
-GET /my-scale/resize/400?url=%2Fimage.jpg HTTP/1.1
+GET /some-http-endpoint/resize/400?url=%2Fimages%2Fimage.jpg HTTP/1.1
 Host: localhost:3000
 
 --> invokes in background:
-  GET image.jpg HTTP/1.1
-  Host: mybasehost.com
+  GET /images/image.jpg HTTP/1.1
+  Host: example.com
 ```
 
 Same as above, but with 80% quality, `webp` image type and with progressive enabled:
@@ -51,7 +66,7 @@ Host: localhost:3000
 
 ```js
 const scale = require('express-sharp')
-app.use('/some-path', scale(options))
+app.use('/some-http-endpoint', scale(options))
 ```
 
 Supported options:
@@ -71,7 +86,7 @@ Default is `2000`
 Specify CORS options as described in [cors docs](https://github.com/expressjs/cors). Example:
 
 ```js
-app.use('/some-path', scale({
+app.use('/some-http-endpoint', scale({
   cors: {
     origin: 'http://example.com'
   }
