@@ -5,8 +5,11 @@ import { expressSharp, HttpAdapter, FsAdapter } from '..'
 import { AddressInfo } from 'net'
 import Keyv from 'keyv'
 
-// const cache = new Keyv({ namespace: 'express-sharp' })
-const cache = new Keyv('redis://', { namespace: 'express-sharp' })
+// Cache in-memory
+const cache = new Keyv({ namespace: 'express-sharp' })
+
+// Cache using Redis
+// const cache = new Keyv('redis://', { namespace: 'express-sharp' })
 
 const app = express()
 const PORT = 3000
