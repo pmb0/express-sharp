@@ -4,6 +4,7 @@ import sharp from 'sharp'
 import { getLogger } from './logger'
 import Keyv from 'keyv'
 import crypto from 'crypto'
+import { CachedImage } from './cached-image'
 
 const DEFAULT_CROP_MAX_SIZE = 2000
 const CACHE_KEY_HASH_LENGTH = 10
@@ -12,7 +13,11 @@ export class Transformer {
   log = getLogger('transformer')
   cropMaxSize = DEFAULT_CROP_MAX_SIZE
 
-  constructor(private imageAdapter: ImageAdapter, private cache = new Keyv()) {}
+  constructor(
+    private readonly imageAdapter: ImageAdapter,
+    private readonly cache = new Keyv(),
+    private readonly cachedImage = new CachedImage(cache, imageAdapter)
+  ) {}
 
   getCropDimensions(maxSize: number, width: number, height?: number) {
     height = height || width
@@ -36,8 +41,6 @@ export class Transformer {
   async transform(id: string, options: ResizeDto): Promise<Result> {
     const cacheKey = this.buildCacheKey(id, options)
 
-    this.log({ cacheKey })
-
     const cachedImage = await this.cache.get(cacheKey)
     if (cachedImage) {
       this.log(`Serving ${id} from cache ...`)
@@ -46,7 +49,7 @@ export class Transformer {
 
     this.log(`Resizing ${id} with options:`, options)
 
-    const originalImage = await this.imageAdapter.fetch(id)
+    const originalImage = await this.cachedImage.fetch(id)
 
     if (!originalImage) {
       return {
