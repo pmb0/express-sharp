@@ -53,7 +53,7 @@
     "test": "jest"
   },
   "engines": {
-    "node": ">= 12.0.0"
+    "node": ">= v12.18.0"
   },
   "repository": {
     "type": "git",
