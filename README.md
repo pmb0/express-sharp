@@ -131,7 +131,10 @@ express-sharp comes with a client that can be used to generate URLs for images.
 const { createClient } = require('express-sharp')
 
 const client = createClient('http://my-base-host', 'optional secret')
-const fooUrl = client.url('/foo.png', { width: 500 })
+
+const originalImageUrl = '/foo.png'
+const options = { width: 500 }
+const fooUrl = client.url(originalImageUrl, options)
 ```
 
 Currently the following transformations can be applied to images:
