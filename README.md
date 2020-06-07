@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/pmb0/express-sharp.svg?branch=develop)](https://travis-ci.org/pmb0/express-sharp)
+[![Build Status][build-image]](build-image)
 [![Test Coverage][coveralls-image]][coveralls-url]
 
 # express-sharp
@@ -155,3 +155,5 @@ Currently the following transformations can be applied to images:
 
 [coveralls-image]: https://img.shields.io/coveralls/pmb0/express-sharp/master.svg
 [coveralls-url]: https://coveralls.io/r/pmb0/express-sharp?branch=master
+[build-image]: https://github.com/pmb0/express-sharp/workflows/Tests/badge.svg
+[build-url]: https://github.com/pmb0/express-sharp/actions?query=workflow%3ATests
