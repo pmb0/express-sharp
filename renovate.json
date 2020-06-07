@@ -15,7 +15,6 @@
     "helpers:disableTypesNodeMajor"
   ],
   "rangeStrategy": "update-lockfile",
-  "supportPolicy": ["lts_latest"],
   "packageRules": [
     {
       "depTypeList": ["devDependencies"],
