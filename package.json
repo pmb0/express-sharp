@@ -33,7 +33,7 @@
     "@types/reflect-metadata": "^0.1.0",
     "@types/sharp": "^0.25.0",
     "@types/supertest": "^2.0.8",
-    "@typescript-eslint/parser": "^2.23.0",
+    "@typescript-eslint/parser": "^3.0.0",
     "jest": "^26.0.0",
     "keyv": "^4.0.0",
     "nodemon": "^2.0.3",
