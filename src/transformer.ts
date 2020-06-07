@@ -1,10 +1,10 @@
-import { ImageAdapter, Result, format } from './interfaces'
-import ResizeDto from './resize.dto'
-import sharp from 'sharp'
-import { getLogger } from './logger'
-import Keyv from 'keyv'
 import crypto from 'crypto'
+import Keyv from 'keyv'
+import sharp from 'sharp'
 import { CachedImage } from './cached-image'
+import { format, ImageAdapter, Result } from './interfaces'
+import { getLogger } from './logger'
+import { ResizeDto } from './resize.dto'
 
 const DEFAULT_CROP_MAX_SIZE = 2000
 const CACHE_KEY_HASH_LENGTH = 10
@@ -50,9 +50,9 @@ export class Transformer {
     this.log(`Resizing ${id} with options:`, options)
 
     const originalImage = await this.cachedImage.fetch(id)
-
     if (!originalImage) {
       return {
+        // eslint-disable-next-line unicorn/no-null
         image: null,
         format: options.format! || '',
       }
@@ -60,8 +60,9 @@ export class Transformer {
 
     const transformer = sharp(originalImage)
 
-    if (!options.format)
+    if (!options.format) {
       options.format = (await transformer.metadata()).format as format
+    }
 
     if (!options.format) {
       throw new Error('Unknown format')

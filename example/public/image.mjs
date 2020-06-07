@@ -35,11 +35,11 @@ export class TestImage extends HTMLElement {
 
   buildUrl() {
     if (!this.url) return null
-    const url = new URL(
-      `${this.base}/resize/${this.width}/${this.height || this.width}`,
-      document.location.href
-    )
-    url.searchParams.set('url', this.url)
+
+    const url = new URL(`${this.base}${this.url}`, document.location.href)
+    if (this.width) url.searchParams.set('w', this.width)
+    if (this.height) url.searchParams.set('h', this.height)
+
     if (this.quality) url.searchParams.set('quality', this.quality)
     if (this.crop) {
       url.searchParams.set('crop', 'true')

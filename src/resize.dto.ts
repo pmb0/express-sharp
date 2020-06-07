@@ -1,22 +1,20 @@
 /* eslint-disable no-magic-numbers */
-import 'reflect-metadata'
-
+import { Type } from 'class-transformer'
 import {
-  IsString,
-  Min,
-  Max,
   IsBoolean,
-  IsUrl,
+  IsIn,
   IsInt,
   IsOptional,
-  IsIn,
+  IsString,
+  IsUrl,
+  Max,
+  Min,
 } from 'class-validator'
+import 'reflect-metadata'
 import { GravityEnum } from 'sharp'
-import { URL } from 'url'
-import { Type } from 'class-transformer'
 import { format } from './interfaces'
 
-export default class ResizeDto {
+export class ResizeDto {
   @IsOptional()
   @IsIn(['heic', 'heif', 'jpeg', 'jpg', 'png', 'raw', 'tiff', 'webp'])
   @IsString()
@@ -65,7 +63,6 @@ export default class ResizeDto {
   @IsString()
   public gravity?: keyof GravityEnum
 
-  @Type(() => URL)
-  @IsUrl({ require_host: false })
-  public url?: URL
+  @IsUrl({ require_host: false, require_tld: false })
+  public url?: string
 }

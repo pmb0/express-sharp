@@ -21,14 +21,14 @@ describe('FsAdapter', () => {
       expect(fs.readFile).toBeCalledWith('/tmp/foo/bar')
     })
 
-    it('returns null if the image does not exist', async () => {
+    it('returns undefined if the image does not exist', async () => {
       mocked(fs.readFile).mockImplementation(() => {
         const error = new Error() as any
         error.code = 'ENOENT'
         throw error
       })
 
-      expect(await adapter.fetch('/foo/bar')).toBeNull()
+      expect(await adapter.fetch('/foo/bar')).toBeUndefined()
     })
 
     it('re-throws other HTTP errors', async () => {
