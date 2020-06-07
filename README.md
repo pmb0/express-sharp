@@ -1,4 +1,4 @@
-[![Build Status][build-image]](build-image)
+[![Build Status][build-image]][build-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
 # express-sharp
