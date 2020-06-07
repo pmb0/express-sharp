@@ -1,13 +1,8 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: Tests
 
-name: Node.js CI
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
+env:
+  CI: true
 
 jobs:
   build:
@@ -15,10 +10,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+
     - name: Install dependencies
       run: yarn --frozen-lockfile
-    - run: yarn test
+
+    - name: Run lint
+      run: yarn lint
+
+    - name: Run tests
+      run: yarn test
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
