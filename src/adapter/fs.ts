@@ -10,13 +10,13 @@ export class FsAdapter implements ImageAdapter {
     this.log(`Using rootPath: ${rootPath}`)
   }
 
-  async fetch(path: string): Promise<Buffer | null> {
+  async fetch(path: string): Promise<Buffer | undefined> {
     const imagePath = join(this.rootPath, path)
     this.log(`Fetching: ${imagePath}`)
     try {
       return await fs.readFile(imagePath)
     } catch (error) {
-      if (error.code === 'ENOENT') return null
+      if (error.code === 'ENOENT') return undefined
       throw error
     }
   }

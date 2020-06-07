@@ -1,11 +1,16 @@
 import express from 'express'
-import { imageUrl } from '../src/image-url'
 import request from 'supertest'
 import { expressSharp, FsAdapter } from '..'
 import { join } from 'path'
+import { createClient } from '../src/express-sharp-client'
+import { AddressInfo } from 'net'
 
 const app = express()
 const server = app.listen()
+const { address, port } = server.address() as AddressInfo
+
+const scale1Url = createClient(`http://[${address}]:${port}/scale1`)
+const scale2Url = createClient(`http://[${address}]:${port}/scale2`)
 
 const imageAdapter = new FsAdapter(join(__dirname, 'images'))
 
@@ -19,13 +24,13 @@ afterAll(() => server.close())
 describe('Test CORS', () => {
   it('should send Access-Control-Allow-Origin:* header', async () => {
     await request(app)
-      .get(imageUrl('/scale1')(110, { url: '/images/a.jpg' }))
+      .get(scale1Url.pathQuery('/a.jpg', { width: 110 }))
       .expect('Access-Control-Allow-Origin', '*')
   })
 
   it('should send a custom Access-Control-Allow-Origin header', async () => {
     await request(app)
-      .get(imageUrl('/scale2')(110, { url: '/images/a.jpg' }))
+      .get(scale2Url.pathQuery('/a.jpg', { width: 110 }))
       .expect('Access-Control-Allow-Origin', 'http://example.com')
   })
 })

@@ -1,27 +1,31 @@
-import { etagCaching } from './etag-caching'
-import { ExpressSharpOptions } from '../interfaces'
-import { Request, Response, Router, NextFunction } from 'express'
-import { Transformer } from '../transformer'
-import { validate } from './validator'
 import cors from 'cors'
-import ResizeDto from '../resize.dto'
+import { NextFunction, Request, Response, Router } from 'express'
+import { ExpressSharpOptions } from '../interfaces'
+import { ResizeDto } from '../resize.dto'
+import { Transformer } from '../transformer'
+import { etagCaching } from './etag-caching'
+import { transformQueryParams } from './transform-query-params'
+import { useWebpIfSupported } from './use-webp-if-supported'
+import { validate } from './validator'
 
 export function expressSharp(options: ExpressSharpOptions) {
   options.autoUseWebp = options.autoUseWebp ?? true
 
+  const middlewares = [
+    transformQueryParams,
+    validate<ResizeDto>(ResizeDto),
+    cors(options.cors),
+    useWebpIfSupported,
+    etagCaching,
+  ]
+
   const router = Router()
 
   router.get(
-    '/resize/:width/:height?',
-    validate(ResizeDto),
-    cors(options.cors),
-    etagCaching,
+    '/:url',
+    ...middlewares,
     async (req: Request, res: Response, next: NextFunction) => {
       const { dto } = res.locals
-
-      if (options.autoUseWebp && req.headers.accept?.includes('image/webp'))
-        dto.format = 'webp'
-
       const transformer = new Transformer(options.imageAdapter, options.cache)
 
       try {

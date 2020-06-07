@@ -5,18 +5,20 @@ module.exports = {
   rules: {
     'no-prototype-builtins': 'off',
     'no-unused-vars': 'off',
-    'security/detect-non-literal-fs-filename': 'off'
+    'security/detect-non-literal-fs-filename': 'off',
   },
   env: {
     node: true,
     browser: true,
-    es6: true
+    es6: true,
   },
-  overrides: [{
-    files: [ '*.test.ts', '*.js', '__tests__/**/*.ts' ],
-    rules: {
-      'toplevel/no-toplevel-side-effect': 'off',
-      'no-magic-numbers': 'off'
-    }
-  }]
+  overrides: [
+    {
+      files: ['*.test.ts', '*.js', '__tests__/**/*.ts'],
+      rules: {
+        'toplevel/no-toplevel-side-effect': 'off',
+        'no-magic-numbers': 'off',
+      },
+    },
+  ],
 }

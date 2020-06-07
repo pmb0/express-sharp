@@ -18,7 +18,7 @@ export interface Result {
 }
 
 export interface ImageAdapter {
-  fetch(id: string): Promise<Buffer | null>
+  fetch(id: string): Promise<Buffer | undefined>
 }
 
 export interface ExpressSharpOptions {
@@ -26,4 +26,19 @@ export interface ExpressSharpOptions {
   cors?: CorsOptions
   imageAdapter: ImageAdapter
   cache?: Keyv<any>
+}
+
+export enum QueryParams {
+  quality = 'q',
+  width = 'w',
+  height = 'h',
+  format = 'f',
+  progressive = 'p',
+  crop = 'c',
+  gravity = 'g',
+}
+
+export interface Signer {
+  sign(string: string | URL): string
+  verify(string: string): boolean
 }

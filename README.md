@@ -5,6 +5,28 @@
 
 express-sharp adds real-time image processing routes to your express application. Images are processed with [sharp](https://github.com/lovell/sharp), a fast Node.js module for resizing images.
 
+```
+                      express-sharp
+    Express app         endpoint          image path    transformation                
+┌─────────────────┐┌────────────────┐┌──────────────────┐ ┌────────┐
+https://example.com/path/to/my-scaler/images/my-image.jpg?w=100&h=50
+```
+
+Original images are loaded via an image adapter. Currently this includes HTTP and file system adapters.
+
+<!-- TOC -->
+
+- [Installation](#installation)
+- [Express server integration](#express-server-integration)
+    - [Server configuration](#server-configuration)
+    - [Image Adapters](#image-adapters)
+        - [FsAdapter](#fsadapter)
+        - [HttpAdapter](#httpadapter)
+- [Client integration](#client-integration)
+- [License](#license)
+
+<!-- /TOC -->
+
 
 ## Installation
 
@@ -14,7 +36,7 @@ $ yarn add express-sharp
 
 See [sharp installation](https://sharp.pixelplumbing.com/install) for additional installation instructions.
 
-## Usage
+## Express server integration
 
 Example *app.js* (See also `example/app.ts` in this project):
 
@@ -23,6 +45,7 @@ const express = require('express')
 const app = express()
 const { expressSharp, FsAdapter, HttpAdapter } = require('express-sharp')
 
+// Fetch original images via HTTP
 app.use(
   '/some-http-endpoint',
   expressSharp({
@@ -32,7 +55,7 @@ app.use(
   })
 )
 
-// and/or:
+// Alternative: Load original images from disk
 app.use(
   '/fs-endpoint',
   expressSharp({
@@ -44,108 +67,87 @@ app.use(
 app.listen(3000)
 ```
 
-Render `http://example.com/images/image.jpg` with 400x400 pixels:
+Render `/images/image.jpg` with 400x400 pixels:
 
-```
-GET /some-http-endpoint/resize/400?url=%2Fimages%2Fimage.jpg HTTP/1.1
-Host: localhost:3000
-
---> invokes in background:
-  GET /images/image.jpg HTTP/1.1
-  Host: example.com
+```sh
+curl http://my-server/express-sharp-endpoint/images/image.jpg?w=400&h=400
 ```
 
 Same as above, but with 80% quality, `webp` image type and with progressive enabled:
 
-```
-GET /my-scale/resize/400?format=webp&quality=80&progressive=true&url=%2Fimage.jpg HTTP/1.1
-Host: localhost:3000
+```sh
+curl http://my-server/express-sharp-endpoint/images/image.jpg?w=400&h=400&f=webp&q=80&p
 ```
 
-## Options
+### Server configuration
 
 ```js
 const scale = require('express-sharp')
-app.use('/some-http-endpoint', scale(options))
+app.use('/some-http-endpoint', expressSharp(options))
 ```
 
 Supported options:
 
-### `baseHost`
+| Name | Description | Default |
+|------|-------------|---------|
+| `imageAdapter` | Configures the image adapter to be used (see below). Must be specified. | - |
+| `autoUseWebp` | Specifies whether images should automatically be rendered in webp format when supported by the browser. | `true` |
+| `cors` | Any valid [CORS configuration option](https://expressjs.com/en/resources/middleware/cors.html) | - |
+| `cache` | If specified, the [keyv cache]((https://github.com/lukechilds/keyv)) configured here is used to cache the retrieval of the original images and the transformations. | - |
 
-Specify the HTTP base host from which images will be requested. Default: Requested host.
+### Image Adapters
 
-### `cropMaxSize`
+express-sharp contains the following two standard image adapters.
 
-The maximum length in pixels (width or height) a cropped Image is allowed to have.
-Note: if this value is too high an attacker could use this to slow down your server.
-Default is `2000`
+#### FsAdapter
 
-### `cors`
-
-Specify CORS options as described in [cors docs](https://github.com/expressjs/cors). Example:
+With this adapter original images are loaded from the hard disk.
 
 ```js
-app.use('/some-http-endpoint', scale({
-  cors: {
-    origin: 'http://example.com'
-  }
-}))
+const { FsAdapter } = require('express-sharp')
+
+const adapter = new FsAdapter('/path/to/images')
 ```
 
-If not specified, a `Access-Control-Allow-Origin: *` header is being sent.
+#### HttpAdapter
 
-## Path and query params
+Loads original images via HTTP.
 
-### `format`
+```js
+const { HttpAdapter } = require('express-sharp')
 
-Output image format.
+const adapter = new HttpAdapter({
+  prefixUrl: 'http://localhost:3000/images',
+})
+```
 
-Default: `webp` if supported else the output format of the requested image.
+The constructor can be passed any [got options](https://github.com/sindresorhus/got#options).
 
-Valid values: every valid [sharp output format string](https://sharp.pixelplumbing.com/api-output#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`.
+## Client integration
 
-### `progressive`
+express-sharp comes with a client that can be used to generate URLs for images.
 
-only available for jpeg and png formats:
+```js
+const { createClient } = require('express-sharp')
 
-See [sharp docs for jpeg](https://sharp.pixelplumbing.com/api-output#jpeg).
+const client = createClient('http://my-base-host', 'optional secret')
 
-See [sharp docs for png](https://sharp.pixelplumbing.com/api-output#png).
+const originalImageUrl = '/foo.png'
+const options = { width: 500 }
+const fooUrl = client.url(originalImageUrl, options)
+```
 
-Use `&progressive=true` to enable progressive scan.
+Currently the following transformations can be applied to images:
 
-### `quality`
-
-See [sharp docs](https://sharp.pixelplumbing.com/en/stable/api-output/).
-
-quality is a Number between 1 and 100.
-
-### `crop`
-
-See [sharp docs](https://sharp.pixelplumbing.com/api-resize#crop).
-
-Use `&crop=true` to enable the sharp cropping feature. 
-
-Default is `false.
-
-Note: Both `width` and `height` params are neccessary for crop to work.
-
-### `gravity`
-
-See [sharp docs](https://sharp.pixelplumbing.com/api-resize#resize).
-
-When the crop option is activated you can specify the gravity of the cropping.
-
-Possible attributes of the optional `gravity` are 
-`north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`.
-
-Default is `center`;
-
-
-### `url`
-
-URL/path to original image.
+| Client option name | Query param name | Description |
+|--------------------|------------------|-------------|
+| quality | `q` | Quality is a number between 1 and 100 (see [sharp docs](https://sharp.pixelplumbing.com/en/stable/api-output/)). |
+| width | `w` |
+| height | `h` |
+| format | `f` | Output image format. Valid values: every valid [sharp output format string](https://sharp.pixelplumbing.com/api-output#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`. |
+| progressive | `p` | Only available for jpeg and png formats. Enable progressive scan by passing `true`. |
+| crop | `c` | Setting crop to `true` enables the [sharp cropping feature](https://sharp.pixelplumbing.com/api-resize#crop). Note: Both `width` and `height` params are neccessary for crop to work. Default is `false`. |
+| gravity | `g` | When the crop option is activated you can specify the gravity of the cropping. Possible attributes of the optional `gravity` are `north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`. Default is `center`. |
 
 ## License
 

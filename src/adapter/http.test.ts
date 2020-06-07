@@ -26,7 +26,7 @@ describe('HttpAdapter', () => {
       })
     })
 
-    it('returns null on 404', async () => {
+    it('returns undefined on 404', async () => {
       const error = new Error() as any
       error.response = { statusCode: 404 }
 
@@ -35,7 +35,7 @@ describe('HttpAdapter', () => {
         throw error
       })
 
-      expect(await adapter.fetch('/foo/bar')).toBeNull()
+      expect(await adapter.fetch('/foo/bar')).toBeUndefined()
     })
 
     it('re-throws other HTTP errors', async () => {

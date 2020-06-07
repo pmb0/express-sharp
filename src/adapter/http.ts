@@ -17,7 +17,7 @@ export class HttpAdapter implements ImageAdapter {
     return this.client.defaults.options.prefixUrl
   }
 
-  async fetch(url: string): Promise<Buffer | null> {
+  async fetch(url: string): Promise<Buffer | undefined> {
     url = url.slice(1)
     this.log(`Fetching: ${this.getPrefixUrl()}${url}`)
     try {
@@ -26,7 +26,7 @@ export class HttpAdapter implements ImageAdapter {
       })
       return response.body
     } catch (error) {
-      if (error.response?.statusCode === 404) return null
+      if (error.response?.statusCode === 404) return undefined
 
       throw error
     }

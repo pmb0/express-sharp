@@ -1,11 +1,11 @@
+import Keyv from 'keyv'
 import { CachedImage } from './cached-image'
 import { ImageAdapter } from './interfaces'
-import Keyv from 'keyv'
 
 class ImageAdapterMock implements ImageAdapter {
-  fetchMock: Buffer | null = null
+  fetchMock: Buffer | undefined = undefined
 
-  async fetch(id: string): Promise<Buffer | null> {
+  async fetch(id: string): Promise<Buffer | undefined> {
     return this.fetchMock
   }
 }
