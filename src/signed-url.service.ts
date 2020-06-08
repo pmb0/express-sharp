@@ -15,7 +15,7 @@ export class UrlSigner {
     const secret = this.config.get('signedUrl.secret')
     if (!secret) {
       throw new TypeError(
-        `secret missing. Please set ${ConfigService.GLOBAL_PREFIX}SECRET`
+        `Secret is missing. Please set ${ConfigService.GLOBAL_PREFIX}SIGNED_URL_SECRET`
       )
     }
 

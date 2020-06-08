@@ -24,20 +24,43 @@ describe('URLSigner', () => {
     )
   })
 
-  test('verify()', () => {
-    config.set('signedUrl.secret', 'foo')
-    config.set('signedUrl.paramName', 'bar')
+  describe('verify()', () => {
+    beforeEach(() => {
+      config.set('signedUrl.secret', 'foo')
+      config.set('signedUrl.paramName', 'bar')
+    })
 
-    expect(
-      signer.verify(
-        'https://example.com/?foo=bar&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk'
-      )
-    ).toBeTruthy()
+    it('detects a valid signature', () => {
+      expect(
+        signer.verify(
+          'https://example.com/?foo=bar&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk'
+        )
+      ).toBeTruthy()
+    })
 
-    expect(
-      signer.verify(
-        'https://example.com/?foo=bar&additional-param&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk'
+    it('detects an invalid signature', () => {
+      expect(
+        signer.verify(
+          'https://example.com/?foo=bar&additional-param&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk'
+        )
+      ).toBeFalsy()
+    })
+
+    it('accepts an URL object', () => {
+      expect(() => {
+        signer.verify(new URL('https://example.com/foo.png'))
+      }).not.toThrow()
+    })
+
+    it('throws an error if no secret is configured', () => {
+      config.set('signedUrl.secret', '')
+      expect(() => {
+        signer.verify('https://example.com/?foo=bar&bar=whatever')
+      }).toThrow(
+        new Error(
+          'Secret is missing. Please set EXPRESS_SHARP_SIGNED_URL_SECRET'
+        )
       )
-    ).toBeFalsy()
+    })
   })
 })
