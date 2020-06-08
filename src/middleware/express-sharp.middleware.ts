@@ -1,5 +1,11 @@
 import cors from 'cors'
-import { NextFunction, Request, Response, Router } from 'express'
+import {
+  NextFunction,
+  Request,
+  Response,
+  Router,
+  RequestHandler,
+} from 'express'
 import Keyv from 'keyv'
 import { container } from 'tsyringe'
 import { ExpressSharpOptions } from '../interfaces'
@@ -37,31 +43,32 @@ export async function getImage(
   }
 }
 
-// eslint-disable-next-line complexity
+function extractActiveMiddlewares(
+  middlewaresDefinitions: [RequestHandler, boolean?][]
+): RequestHandler[] {
+  return middlewaresDefinitions
+    .filter(([middleware, active]) => active ?? true)
+    .map(([middleware]) => middleware)
+}
+
 export function expressSharp(options: ExpressSharpOptions) {
   const configService = container.resolve(ConfigService)
-
-  const middlewares = [
-    transformQueryParams,
-    validate<ResizeDto>(ResizeDto),
-    cors(options.cors),
-    etagCaching,
-  ]
-
-  if (options.autoUseWebp ?? true) {
-    middlewares.push(useWebpIfSupported)
-  }
 
   if (options.secret) {
     configService.set('signedUrl.secret', options.secret)
   }
 
-  if (configService.get('signedUrl.secret')) {
-    middlewares.push(signedUrl)
-  }
-
   container.register<Keyv>(Keyv, { useValue: options.cache || new Keyv() })
   container.registerInstance('imageAdapter', options.imageAdapter)
+
+  const middlewares = extractActiveMiddlewares([
+    [transformQueryParams],
+    [validate<ResizeDto>(ResizeDto)],
+    [useWebpIfSupported, options.autoUseWebp ?? true],
+    [cors(options.cors)],
+    [signedUrl, configService.get('signedUrl.secret') !== undefined],
+    [etagCaching],
+  ])
 
   const router = Router()
   router.get('/:url', ...middlewares, getImage)
