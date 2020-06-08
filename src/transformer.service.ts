@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import Keyv from 'keyv'
 import sharp from 'sharp'
+import { injectable, inject } from 'tsyringe'
 import { CachedImage } from './cached-image'
 import { format, ImageAdapter, Result } from './interfaces'
 import { getLogger } from './logger'
@@ -9,15 +10,18 @@ import { ResizeDto } from './resize.dto'
 const DEFAULT_CROP_MAX_SIZE = 2000
 const CACHE_KEY_HASH_LENGTH = 10
 
+@injectable()
 export class Transformer {
   log = getLogger('transformer')
   cropMaxSize = DEFAULT_CROP_MAX_SIZE
+  private readonly cachedImage: CachedImage
 
   constructor(
-    private readonly imageAdapter: ImageAdapter,
-    private readonly cache = new Keyv(),
-    private readonly cachedImage = new CachedImage(cache, imageAdapter)
-  ) {}
+    @inject('imageAdapter') private readonly imageAdapter: ImageAdapter,
+    private readonly cache: Keyv
+  ) {
+    this.cachedImage = new CachedImage(cache, imageAdapter)
+  }
 
   getCropDimensions(maxSize: number, width: number, height?: number) {
     height = height || width
