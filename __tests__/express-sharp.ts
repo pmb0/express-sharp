@@ -1,12 +1,10 @@
 import express from 'express'
 import { AddressInfo } from 'net'
-// import sharp from 'sharp'
 import { join } from 'path'
-import request from 'supertest'
-import { expressSharp, FsAdapter } from '..'
-import { createClient } from '../src/express-sharp-client'
-import { URL } from 'url'
 import sharp from 'sharp'
+import request from 'supertest'
+import { URL } from 'url'
+import { createClient, expressSharp, FsAdapter } from '../src'
 
 const imageAdapter = new FsAdapter(join(__dirname, 'images'))
 const app = express()

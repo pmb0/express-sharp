@@ -1,9 +1,8 @@
 import express from 'express'
-import request from 'supertest'
-import { expressSharp, FsAdapter } from '..'
-import { join } from 'path'
-import { createClient } from '../src/express-sharp-client'
 import { AddressInfo } from 'net'
+import { join } from 'path'
+import request from 'supertest'
+import { createClient, expressSharp, FsAdapter } from '../src'
 
 const app = express()
 const server = app.listen()
