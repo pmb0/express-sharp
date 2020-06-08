@@ -130,7 +130,7 @@ The constructor can be passed any [got options](https://github.com/sindresorhus/
 
 ### Caching
 
-The fetching of the original images and the transformations can be cached. To enable this feature, the [cache] option must be passed to the [expressSharp] middleware. Any [keyv cache stores](https://github.com/lukechilds/keyv) can be passed.
+The fetching of the original images and the transformations can be cached. To enable this feature, the `cache` option must be passed to the `expressSharp` middleware. Any [keyv cache stores](https://github.com/lukechilds/keyv) can be passed.
 
 
 In-memory cache example:
