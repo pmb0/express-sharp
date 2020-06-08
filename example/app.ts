@@ -3,7 +3,7 @@ import express from 'express'
 import Keyv from 'keyv'
 import { AddressInfo } from 'net'
 import { join } from 'path'
-import { expressSharp, FsAdapter, HttpAdapter } from '..'
+import { expressSharp, FsAdapter, HttpAdapter } from '../src'
 
 // Cache in-memory
 const cache = new Keyv({ namespace: 'express-sharp' })

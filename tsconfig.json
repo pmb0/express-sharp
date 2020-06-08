@@ -2,7 +2,7 @@
 
 {
   "compilerOptions": {
-    // "baseUrl": ".",
+    "rootDir": "src",
     "declaration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -20,6 +20,5 @@
   "include": [
     "index.ts",
     "src/**/*",
-    "example/**/*",
   ]
 }
