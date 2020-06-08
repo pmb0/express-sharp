@@ -2,6 +2,7 @@ import { IsDefined, IsOptional, Min } from 'class-validator'
 import { NextFunction } from 'express'
 import { BadRequestException, HttpException } from '../http-exception'
 import { validate } from './validator.middleware'
+import * as ClassTransformer from 'class-transformer'
 
 class TestDto {
   @IsDefined()
@@ -60,5 +61,18 @@ describe('Validator', () => {
     expect(next).toBeCalledWith(
       new BadRequestException('bar must not be less than 10')
     )
+  })
+
+  test('catches all errors', async () => {
+    const plainToClassSpy = jest
+      .spyOn(ClassTransformer, 'plainToClass')
+      .mockImplementation(() => {
+        throw new Error('ohoh')
+      })
+
+    await handle({ foo: '' })
+    expect(next).toBeCalledWith(new Error('ohoh'))
+
+    plainToClassSpy.mockRestore()
   })
 })
