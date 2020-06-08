@@ -26,6 +26,7 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
     - [FsAdapter](#fsadapter)
     - [HttpAdapter](#httpadapter)
   - [Caching](#caching)
+  - [URL signing](#url-signing)
 - [Client integration](#client-integration)
 - [License](#license)
 
