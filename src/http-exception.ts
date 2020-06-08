@@ -15,3 +15,9 @@ export class NotFoundException extends HttpException {
     super(404, message)
   }
 }
+
+export class ForbiddenException extends HttpException {
+  constructor(message: string) {
+    super(403, message)
+  }
+}

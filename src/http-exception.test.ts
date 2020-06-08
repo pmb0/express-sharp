@@ -2,6 +2,7 @@ import {
   HttpException,
   BadRequestException,
   NotFoundException,
+  ForbiddenException,
 } from './http-exception'
 
 describe('HttpExceptioin', () => {
@@ -20,6 +21,12 @@ describe('HttpExceptioin', () => {
   test('NotFoundException', () => {
     const exception = new NotFoundException('test')
     expect(exception.status).toBe(404)
+    expect(exception.message).toBe('test')
+  })
+
+  test('ForbiddenException', () => {
+    const exception = new ForbiddenException('test')
+    expect(exception.status).toBe(403)
     expect(exception.message).toBe('test')
   })
 })

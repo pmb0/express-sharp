@@ -10,6 +10,7 @@ import { signedUrl } from './signed-url.middleware'
 import { transformQueryParams } from './transform-query-params.middleware'
 import { useWebpIfSupported } from './use-webp-if-supported.middleware'
 import { validate } from './validator.middleware'
+import { ConfigService } from '../config.service'
 
 export async function getImage(
   req: Request,
@@ -37,6 +38,7 @@ export async function getImage(
 }
 
 export function expressSharp(options: ExpressSharpOptions) {
+  const configService = container.resolve(ConfigService)
   options.autoUseWebp = options.autoUseWebp ?? true
 
   const middlewares = [
@@ -47,7 +49,13 @@ export function expressSharp(options: ExpressSharpOptions) {
     etagCaching,
   ]
 
-  if (options.secret) middlewares.push(signedUrl)
+  if (options.secret) {
+    configService.set('signedUrl.secret', options.secret)
+  }
+
+  if (configService.get('signedUrl.secret')) {
+    middlewares.push(signedUrl)
+  }
 
   container.register<Keyv>(Keyv, { useValue: options.cache || new Keyv() })
   container.registerInstance('imageAdapter', options.imageAdapter)

@@ -33,7 +33,7 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
 
 - Fast resizing of images
 - [Supports multiple caching backends](#caching)
-<!-- - [Image URLs can be signed to prevent attacks](#url-signing) -->
+- [Image URLs can be signed to prevent attacks](#url-signing)
 
 # Install
 
@@ -96,10 +96,11 @@ Supported options:
 
 | Name | Description | Default |
 |------|-------------|---------|
-| `imageAdapter` | Configures the image adapter to be used (see below). Must be specified. | - |
 | `autoUseWebp` | Specifies whether images should automatically be rendered in webp format when supported by the browser. | `true` |
-| `cors` | Any valid [CORS configuration option](https://expressjs.com/en/resources/middleware/cors.html) | - |
 | `cache` | If specified, the [keyv cache]((https://github.com/lukechilds/keyv)) configured here is used to cache the retrieval of the original images and the transformations. | - |
+| `cors` | Any valid [CORS configuration option](https://expressjs.com/en/resources/middleware/cors.html) | - |
+| `imageAdapter` | Configures the image adapter to be used (see below). Must be specified. | - |
+| `secret` | If specified, express-sharp will validate the incoming request to verify that a valid signature has been provided. The secret is used to compute this signature. | - |
 
 ## Image Adapters
 
@@ -162,7 +163,23 @@ app.use(
 )
 ```
 
-<!-- ### URL signing -->
+## URL signing
+
+By setting the environment variable `EXPRESS_SHARP_SIGNED_URL_SECRET` or by specifying the `secret` option when calling the `express-sharp` middleware, signed URLs are activated. This reduces the attack surface on the server, since the caller cannot produce an unlimited number of URLs that cause load on the server.
+
+In order to compute the signature, the supplied client should be used:
+
+```js
+const { createClient } = require('express-sharp')
+
+const endpoint = 'https://example.com/my-express-sharp-endpoint'
+const secret = 'test'
+const client = createClient(endpoint, secret)
+
+const imageUrl = client.url('/foo.png', { width: 500 })
+
+// https://example.com/my-express-sharp-endpoint/foo.png?w=500&s=Of3ty8QY-NDhCsIrgIHvPvbokkDcxV8KtaYUB4NFRd8
+```
 
 # Client integration
 

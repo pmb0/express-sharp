@@ -26,6 +26,7 @@ export interface ExpressSharpOptions {
   cors?: CorsOptions
   imageAdapter: ImageAdapter
   cache?: Keyv<any>
+  secret?: string
 }
 
 export enum QueryParams {
