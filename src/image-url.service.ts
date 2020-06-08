@@ -3,7 +3,7 @@ import { URL } from 'url'
 import { ConfigService } from './config.service'
 import { QueryParams, Signer } from './interfaces'
 import { ResizeDto } from './resize.dto'
-import { UrlSigner } from './signed-url.service.service'
+import { UrlSigner } from './signed-url.service'
 
 @injectable()
 export class ImageUrl {
