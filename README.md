@@ -16,17 +16,24 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
 
 ## Table of contents <!-- omit in toc -->
 
-- [Installation](#installation)
+- [Highlights](#highlights)
+- [Install](#install)
 - [Express server integration](#express-server-integration)
   - [Server configuration](#server-configuration)
   - [Image Adapters](#image-adapters)
     - [FsAdapter](#fsadapter)
     - [HttpAdapter](#httpadapter)
+  - [Caching](#caching)
 - [Client integration](#client-integration)
 - [License](#license)
 
+## Highlights
 
-## Installation
+- Fast resizing of images
+- [Supports multiple caching backends](#caching)
+<!-- - [Image URLs can be signed to prevent attacks](#url-signing) -->
+
+## Install
 
 ```sh
 $ yarn add express-sharp
@@ -120,6 +127,41 @@ const adapter = new HttpAdapter({
 ```
 
 The constructor can be passed any [got options](https://github.com/sindresorhus/got#options).
+
+### Caching
+
+The fetching of the original images and the transformations can be cached. To enable this feature, the [cache] option must be passed to the [expressSharp] middleware. Any [keyv cache stores](https://github.com/lukechilds/keyv) can be passed.
+
+
+In-memory cache example:
+
+```js
+const cache = new Keyv({ namespace: 'express-sharp' })
+
+app.use(
+  '/my-endpoint',
+  expressSharp({
+    cache,
+    imageAdapter: ...
+  })
+)
+```
+
+Redis example:
+
+```js
+const cache = new Keyv('redis://', { namespace: 'express-sharp' }
+
+app.use(
+  '/my-endpoint',
+  expressSharp({
+    cache,
+    imageAdapter: ...
+  })
+)
+```
+
+<!-- ### URL signing -->
 
 ## Client integration
 
