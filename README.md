@@ -16,6 +16,14 @@ https://example.com/path/to/my-scaler/images/my-image.jpg?w=100&h=50
 
 Original images are loaded via an image adapter. Currently this includes HTTP and file system adapters.
 
+# Highlights
+
+- Fast resizing of images (see [sharp Performance](https://sharp.pixelplumbing.com/performance))
+- [Supports multiple backends, from which the original images are downloaded](#image-adapters)
+- [Supports multiple caching backends](#caching)
+- [Image URLs can be signed to prevent attacks](#url-signing)
+
+
 # Table of contents <!-- omit in toc -->
 
 - [Highlights](#highlights)
@@ -29,12 +37,6 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
   - [URL signing](#url-signing)
 - [Client integration](#client-integration)
 - [License](#license)
-
-# Highlights
-
-- Fast resizing of images
-- [Supports multiple caching backends](#caching)
-- [Image URLs can be signed to prevent attacks](#url-signing)
 
 # Install
 
