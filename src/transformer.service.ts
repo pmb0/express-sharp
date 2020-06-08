@@ -18,12 +18,12 @@ export class Transformer {
 
   constructor(
     @inject('imageAdapter') private readonly imageAdapter: ImageAdapter,
-    private readonly cache: Keyv
+    private readonly cache: Keyv<Result>
   ) {
-    this.cachedImage = new CachedImage(cache, imageAdapter)
+    this.cachedImage = new CachedImage(cache as Keyv, imageAdapter)
   }
 
-  getCropDimensions(maxSize: number, width: number, height?: number) {
+  getCropDimensions(maxSize: number, width: number, height?: number): number[] {
     height = height || width
     if (width <= maxSize && height <= maxSize) return [width, height]
     const aspectRatio = width / height
@@ -58,7 +58,7 @@ export class Transformer {
       return {
         // eslint-disable-next-line unicorn/no-null
         image: null,
-        format: options.format! || '',
+        format: options.format,
       }
     }
 
@@ -100,7 +100,7 @@ export class Transformer {
     const result = { image, format: options.format }
 
     this.log(`Caching ${cacheKey} ...`)
-    this.cache.set(cacheKey, result)
+    await this.cache.set(cacheKey, result)
     return result
   }
 }

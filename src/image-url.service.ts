@@ -30,7 +30,7 @@ export class ImageUrl {
       .forEach(([name, value]) => {
         url.searchParams.set(
           QueryParams[name as Exclude<keyof ResizeDto, 'url'>],
-          value!.toString()
+          value?.toString() || ''
         )
       })
 

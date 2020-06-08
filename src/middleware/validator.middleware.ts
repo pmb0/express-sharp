@@ -7,7 +7,7 @@ import { ClassType } from 'class-transformer/ClassTransformer'
 export function validate<T>(Dto: ClassType<T>): RequestHandler {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const dto = plainToClass<T, any>(Dto, {
+      const dto = plainToClass<T, typeof req.query>(Dto, {
         ...req.query,
         ...req.params,
       })
@@ -18,10 +18,13 @@ export function validate<T>(Dto: ClassType<T>): RequestHandler {
 
       if (errors.length > 0) {
         const message = errors
-          .map((error: ValidationError) => Object.values(error.constraints!))
+          .map((error: ValidationError) =>
+            Object.values(error.constraints || {})
+          )
           .join(', ')
         next(new BadRequestException(message))
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         res.locals.dto = dto
         next()
       }

@@ -31,21 +31,21 @@ export class ResizeDto {
   @IsInt()
   @Min(1)
   @Max(10000)
-  public width: number = 500
+  public width = 500
 
   @Type(() => Number)
   @IsInt()
   @Min(0)
   @Max(100)
-  public quality: number = 80
+  public quality = 80
 
   @Type(() => Boolean)
   @IsBoolean()
-  public progressive: boolean = false
+  public progressive = false
 
   @Type(() => Boolean)
   @IsBoolean()
-  public crop: boolean = false
+  public crop = false
 
   @IsIn([
     'north',

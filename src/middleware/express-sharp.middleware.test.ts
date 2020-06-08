@@ -60,12 +60,16 @@ describe('expressSharp', () => {
     })
 
     it('calls the next error middleware on error', async () => {
-      transformSpy.mockImplementation(async () => {
+      transformSpy.mockImplementation(() => {
         throw new Error('ohoh')
       })
 
-      // @ts-ignore
-      await getImage({}, { locals: { dto: {} } }, next)
+      await getImage(
+        // @ts-ignore
+        {},
+        { locals: { dto: { url: 'http://example.com/foo.png' } } },
+        next
+      )
 
       expect(next).toBeCalledWith(new Error('ohoh'))
     })

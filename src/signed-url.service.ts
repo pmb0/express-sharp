@@ -21,14 +21,14 @@ export class UrlSigner {
 
     return this.makeUrlSafe(
       crypto
-        .createHmac(this.config.get('signedUrl.algorithm', 'sha256')!, secret)
+        .createHmac(this.config.get('signedUrl.algorithm', 'sha256'), secret)
         .update(string)
         .digest('base64')
     )
   }
 
   private getParamName(): string {
-    return this.config.get('signedUrl.paramName', 's') as string
+    return this.config.get('signedUrl.paramName', 's')
   }
 
   sign(url: string | URL): string {

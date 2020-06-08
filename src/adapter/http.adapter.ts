@@ -1,5 +1,5 @@
 import { ImageAdapter } from '../interfaces'
-import got, { Got, ExtendOptions } from 'got'
+import got, { Got, ExtendOptions, RequestError } from 'got'
 import { getLogger } from '../logger'
 
 export class HttpAdapter implements ImageAdapter {
@@ -26,7 +26,7 @@ export class HttpAdapter implements ImageAdapter {
       })
       return response.body
     } catch (error) {
-      if (error.response?.statusCode === 404) return undefined
+      if ((error as RequestError).response?.statusCode === 404) return undefined
 
       throw error
     }

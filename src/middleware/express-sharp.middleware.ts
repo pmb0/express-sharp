@@ -22,15 +22,17 @@ export async function getImage(
   req: Request,
   res: Response,
   next: NextFunction
-) {
-  const { dto } = res.locals
+): Promise<void> {
+  const { dto } = res.locals as { dto: ResizeDto }
 
   try {
     const transformer = container.resolve(Transformer)
 
+    if (!dto.url) throw new Error('Image url missing')
+
     const { format, image } = await transformer.transform(dto.url, dto)
 
-    if (!image) {
+    if (!image || !format) {
       next()
       return
     }
@@ -47,11 +49,11 @@ function extractActiveMiddlewares(
   middlewaresDefinitions: [RequestHandler, boolean?][]
 ): RequestHandler[] {
   return middlewaresDefinitions
-    .filter(([middleware, active]) => active ?? true)
+    .filter(([, active]) => active ?? true)
     .map(([middleware]) => middleware)
 }
 
-export function expressSharp(options: ExpressSharpOptions) {
+export function expressSharp(options: ExpressSharpOptions): Router {
   const configService = container.resolve(ConfigService)
 
   if (options.secret) {

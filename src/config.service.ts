@@ -23,6 +23,8 @@ export class ConfigService {
     )
   }
 
+  get(name: string, defaultValue: string): string
+  get(name: string): string | undefined
   get(name: string, defaultValue?: string): string | undefined {
     const key = this.expand(name)
     const config = this.getConfig()

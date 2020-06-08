@@ -1,11 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
+import { ResizeDto } from '../resize.dto'
 
 export function useWebpIfSupported(
   req: Request,
   res: Response,
   next: NextFunction
-) {
-  const { dto } = res.locals
+): void {
+  const { dto } = res.locals as { dto: ResizeDto }
 
   if (req.headers.accept?.includes('image/webp')) {
     dto.format = 'webp'

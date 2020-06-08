@@ -13,7 +13,7 @@ export type format =
 
 export interface Result {
   // format: 'heic' | 'heif' | 'jpeg' | 'jpg' | 'png' | 'raw' | 'tiff' | 'webp'
-  format: format
+  format: format | undefined
   image: Buffer | null
 }
 
@@ -25,7 +25,7 @@ export interface ExpressSharpOptions {
   autoUseWebp?: boolean
   cors?: CorsOptions
   imageAdapter: ImageAdapter
-  cache?: Keyv<any>
+  cache?: Keyv
   secret?: string
 }
 
