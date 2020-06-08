@@ -66,7 +66,6 @@ app.use(
 app.use(
   '/fs-endpoint',
   expressSharp({
-    cache,
     imageAdapter: new FsAdapter(path.join(__dirname, 'images')),
   })
 )
@@ -89,7 +88,7 @@ curl http://my-server/express-sharp-endpoint/images/image.jpg?w=400&h=400&f=webp
 ## Server configuration
 
 ```js
-const scale = require('express-sharp')
+const { expressSharp } = require('express-sharp')
 app.use('/some-http-endpoint', expressSharp(options))
 ```
 
