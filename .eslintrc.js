@@ -6,6 +6,7 @@ module.exports = {
     'no-prototype-builtins': 'off',
     'no-unused-vars': 'off',
     'security/detect-non-literal-fs-filename': 'off',
+    'unicorn/no-null': 'off',
   },
   env: {
     node: true,

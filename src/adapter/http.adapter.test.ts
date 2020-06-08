@@ -54,5 +54,20 @@ describe('HttpAdapter', () => {
         expect(error.response.statusCode).toBe(500)
       }
     })
+
+    it('re-throws other errors', async () => {
+      expect.assertions(1)
+
+      // @ts-ignore
+      adapter.client.get.mockImplementation(() => {
+        throw new Error('ohoh')
+      })
+
+      try {
+        await adapter.fetch('/foo/bar')
+      } catch (error) {
+        expect((error as Error).message).toBe('ohoh')
+      }
+    })
   })
 })

@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import Keyv from 'keyv'
 import sharp from 'sharp'
-import { injectable, inject } from 'tsyringe'
+import { inject, singleton } from 'tsyringe'
 import { CachedImage } from './cached-image'
 import { format, ImageAdapter, Result } from './interfaces'
 import { getLogger } from './logger'
@@ -10,7 +10,7 @@ import { ResizeDto } from './resize.dto'
 const DEFAULT_CROP_MAX_SIZE = 2000
 const CACHE_KEY_HASH_LENGTH = 10
 
-@injectable()
+@singleton()
 export class Transformer {
   log = getLogger('transformer')
   cropMaxSize = DEFAULT_CROP_MAX_SIZE

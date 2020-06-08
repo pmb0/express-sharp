@@ -20,9 +20,9 @@ export async function getImage(
   const { dto } = res.locals
 
   try {
-    const { format, image } = await container
-      .resolve(Transformer)
-      .transform(dto.url, dto)
+    const transformer = container.resolve(Transformer)
+
+    const { format, image } = await transformer.transform(dto.url, dto)
 
     if (!image) {
       next()
@@ -37,17 +37,20 @@ export async function getImage(
   }
 }
 
+// eslint-disable-next-line complexity
 export function expressSharp(options: ExpressSharpOptions) {
   const configService = container.resolve(ConfigService)
-  options.autoUseWebp = options.autoUseWebp ?? true
 
   const middlewares = [
     transformQueryParams,
     validate<ResizeDto>(ResizeDto),
     cors(options.cors),
-    useWebpIfSupported,
     etagCaching,
   ]
+
+  if (options.autoUseWebp ?? true) {
+    middlewares.push(useWebpIfSupported)
+  }
 
   if (options.secret) {
     configService.set('signedUrl.secret', options.secret)
