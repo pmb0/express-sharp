@@ -1,7 +1,9 @@
-[![Build Status][build-image]][build-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
+<p align="center">Real-time image processing for your express application.</p>
 
-# express-sharp <!-- omit in toc -->
+[![Test Coverage][coveralls-image]][coveralls-url]
+[![Build Status][build-image]][build-url]
+
+# Description <!-- omit in toc -->
 
 express-sharp adds real-time image processing routes to your express application. Images are processed with [sharp](https://github.com/lovell/sharp), a fast Node.js module for resizing images.
 
@@ -14,7 +16,7 @@ https://example.com/path/to/my-scaler/images/my-image.jpg?w=100&h=50
 
 Original images are loaded via an image adapter. Currently this includes HTTP and file system adapters.
 
-## Table of contents <!-- omit in toc -->
+# Table of contents <!-- omit in toc -->
 
 - [Highlights](#highlights)
 - [Install](#install)
@@ -27,13 +29,13 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
 - [Client integration](#client-integration)
 - [License](#license)
 
-## Highlights
+# Highlights
 
 - Fast resizing of images
 - [Supports multiple caching backends](#caching)
 <!-- - [Image URLs can be signed to prevent attacks](#url-signing) -->
 
-## Install
+# Install
 
 ```sh
 $ yarn add express-sharp
@@ -41,7 +43,7 @@ $ yarn add express-sharp
 
 See [sharp installation](https://sharp.pixelplumbing.com/install) for additional installation instructions.
 
-## Express server integration
+# Express server integration
 
 Example *app.js* (See also `example/app.ts` in this project):
 
@@ -84,7 +86,7 @@ Same as above, but with 80% quality, `webp` image type and with progressive enab
 curl http://my-server/express-sharp-endpoint/images/image.jpg?w=400&h=400&f=webp&q=80&p
 ```
 
-### Server configuration
+## Server configuration
 
 ```js
 const scale = require('express-sharp')
@@ -100,11 +102,11 @@ Supported options:
 | `cors` | Any valid [CORS configuration option](https://expressjs.com/en/resources/middleware/cors.html) | - |
 | `cache` | If specified, the [keyv cache]((https://github.com/lukechilds/keyv)) configured here is used to cache the retrieval of the original images and the transformations. | - |
 
-### Image Adapters
+## Image Adapters
 
 express-sharp contains the following two standard image adapters.
 
-#### FsAdapter
+### FsAdapter
 
 With this adapter original images are loaded from the hard disk.
 
@@ -114,7 +116,7 @@ const { FsAdapter } = require('express-sharp')
 const adapter = new FsAdapter('/path/to/images')
 ```
 
-#### HttpAdapter
+### HttpAdapter
 
 Loads original images via HTTP.
 
@@ -128,7 +130,7 @@ const adapter = new HttpAdapter({
 
 The constructor can be passed any [got options](https://github.com/sindresorhus/got#options).
 
-### Caching
+## Caching
 
 The fetching of the original images and the transformations can be cached. To enable this feature, the `cache` option must be passed to the `expressSharp` middleware. Any [keyv cache stores](https://github.com/lukechilds/keyv) can be passed.
 
@@ -163,7 +165,7 @@ app.use(
 
 <!-- ### URL signing -->
 
-## Client integration
+# Client integration
 
 express-sharp comes with a client that can be used to generate URLs for images.
 
@@ -189,7 +191,7 @@ Currently the following transformations can be applied to images:
 | crop | `c` | Setting crop to `true` enables the [sharp cropping feature](https://sharp.pixelplumbing.com/api-resize#crop). Note: Both `width` and `height` params are neccessary for crop to work. Default is `false`. |
 | gravity | `g` | When the crop option is activated you can specify the gravity of the cropping. Possible attributes of the optional `gravity` are `north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`. Default is `center`. |
 
-## License
+# License
 
 [MIT](LICENSE)
 
