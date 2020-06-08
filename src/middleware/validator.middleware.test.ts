@@ -1,7 +1,7 @@
 import { IsDefined, IsOptional, Min } from 'class-validator'
 import { NextFunction } from 'express'
 import { BadRequestException, HttpException } from '../http-exception'
-import { validate } from './validator'
+import { validate } from './validator.middleware'
 
 class TestDto {
   @IsDefined()

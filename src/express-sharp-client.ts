@@ -1,5 +1,5 @@
 import { container } from 'tsyringe'
-import { ImageUrl } from './image-url'
+import { ImageUrl } from './image-url.service'
 import { ConfigService } from './config.service'
 
 export function createClient(endpoint: string, secret?: string) {

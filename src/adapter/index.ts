@@ -1,2 +1,2 @@
-export * from './http'
-export * from './fs'
+export * from './http.adapter'
+export * from './fs.adapter'

@@ -1,4 +1,4 @@
-import { useWebpIfSupported } from './use-webp-if-supported'
+import { useWebpIfSupported } from './use-webp-if-supported.middleware'
 import { NextFunction, Response } from 'express'
 
 describe('useWebpIfSupported()', () => {

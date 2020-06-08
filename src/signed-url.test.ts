@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 import { ConfigService } from './config.service'
-import { UrlSigner } from './signed-url'
+import { UrlSigner } from './signed-url.service.service'
 
 describe('URLSigner', () => {
   let config: ConfigService

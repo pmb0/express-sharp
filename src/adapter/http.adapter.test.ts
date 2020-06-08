@@ -1,4 +1,4 @@
-import { HttpAdapter } from './http'
+import { HttpAdapter } from './http.adapter'
 import got from 'got'
 
 jest.mock('got')

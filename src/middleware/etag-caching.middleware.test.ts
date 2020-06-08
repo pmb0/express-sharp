@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express'
-import { etagCaching } from './etag-caching'
+import { etagCaching } from './etag-caching.middleware'
 
 describe('etagCaching()', () => {
   let next: jest.Mock<NextFunction>

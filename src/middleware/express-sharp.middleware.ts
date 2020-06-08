@@ -2,11 +2,11 @@ import cors from 'cors'
 import { NextFunction, Request, Response, Router } from 'express'
 import { ExpressSharpOptions } from '../interfaces'
 import { ResizeDto } from '../resize.dto'
-import { Transformer } from '../transformer'
-import { etagCaching } from './etag-caching'
-import { transformQueryParams } from './transform-query-params'
-import { useWebpIfSupported } from './use-webp-if-supported'
-import { validate } from './validator'
+import { Transformer } from '../transformer.service'
+import { etagCaching } from './etag-caching.middleware'
+import { transformQueryParams } from './transform-query-params.middleware'
+import { useWebpIfSupported } from './use-webp-if-supported.middleware'
+import { validate } from './validator.middleware'
 
 export function expressSharp(options: ExpressSharpOptions) {
   options.autoUseWebp = options.autoUseWebp ?? true

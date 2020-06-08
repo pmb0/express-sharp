@@ -1,4 +1,4 @@
-import { FsAdapter } from './fs'
+import { FsAdapter } from './fs.adapter'
 import { promises as fs } from 'fs'
 import { mocked } from 'ts-jest/utils'
 

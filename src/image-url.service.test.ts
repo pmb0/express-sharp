@@ -1,4 +1,4 @@
-import { ImageUrl } from './image-url'
+import { ImageUrl } from './image-url.service'
 import { container } from 'tsyringe'
 import { ConfigService } from './config.service'
 
