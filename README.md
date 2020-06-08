@@ -1,7 +1,7 @@
 [![Build Status][build-image]][build-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 
-# express-sharp
+# express-sharp <!-- omit in toc -->
 
 express-sharp adds real-time image processing routes to your express application. Images are processed with [sharp](https://github.com/lovell/sharp), a fast Node.js module for resizing images.
 
@@ -14,18 +14,16 @@ https://example.com/path/to/my-scaler/images/my-image.jpg?w=100&h=50
 
 Original images are loaded via an image adapter. Currently this includes HTTP and file system adapters.
 
-<!-- TOC -->
+## Table of contents <!-- omit in toc -->
 
 - [Installation](#installation)
 - [Express server integration](#express-server-integration)
-    - [Server configuration](#server-configuration)
-    - [Image Adapters](#image-adapters)
-        - [FsAdapter](#fsadapter)
-        - [HttpAdapter](#httpadapter)
+  - [Server configuration](#server-configuration)
+  - [Image Adapters](#image-adapters)
+    - [FsAdapter](#fsadapter)
+    - [HttpAdapter](#httpadapter)
 - [Client integration](#client-integration)
 - [License](#license)
-
-<!-- /TOC -->
 
 
 ## Installation
