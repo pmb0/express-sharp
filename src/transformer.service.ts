@@ -40,8 +40,6 @@ export class Transformer {
     return `transform:${id}:${this.imageAdapter.constructor.name}:${hash}`
   }
 
-  // TODO: Refactor
-  // eslint-disable-next-line complexity, sonarjs/cognitive-complexity
   async transform(id: string, options: ResizeDto): Promise<Result> {
     const cacheKey = this.buildCacheKey(id, options)
 
@@ -66,10 +64,6 @@ export class Transformer {
 
     if (!options.format) {
       options.format = (await transformer.metadata()).format as format
-    }
-
-    if (!options.format) {
-      throw new Error('Unknown format')
     }
 
     if (options.crop) {

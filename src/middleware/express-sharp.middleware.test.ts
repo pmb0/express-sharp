@@ -73,6 +73,17 @@ describe('expressSharp', () => {
 
       expect(next).toBeCalledWith(new Error('ohoh'))
     })
+
+    it('throws an error if the image url is missing', async () => {
+      await getImage(
+        // @ts-ignore
+        {},
+        { locals: { dto: {} } },
+        next
+      )
+
+      expect(next).toBeCalledWith(new Error('Image url missing'))
+    })
   })
 
   describe('expressSharp()', () => {
