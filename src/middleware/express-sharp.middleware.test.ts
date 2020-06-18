@@ -4,7 +4,7 @@ import { container } from 'tsyringe'
 import { HttpAdapter } from '../adapter'
 import { ConfigService } from '../config.service'
 import { Transformer } from '../transformer.service'
-import { expressSharp, getImage } from './express-sharp.middleware'
+import { expressSharp } from './express-sharp.middleware'
 import { signedUrl } from './signed-url.middleware'
 import { useWebpIfSupported } from './use-webp-if-supported.middleware'
 
@@ -24,66 +24,6 @@ describe('expressSharp', () => {
   afterEach(() => {
     next.mockClear()
     transformSpy.mockClear()
-  })
-
-  describe('getImage()', () => {
-    it('renders the next middleware (aka 404) if no image is returned', async () => {
-      const response = {
-        locals: { dto: { url: 'http://example.com/foo.png' } },
-      }
-
-      transformSpy.mockResolvedValue({ format: 'jpeg', image: null })
-
-      // @ts-ignore
-      await getImage({}, response, next)
-
-      expect(next).toBeCalledWith()
-    })
-
-    it('sends the transformed iamge', async () => {
-      const response = {
-        locals: { dto: { url: 'http://example.com/foo.png' } },
-        type: jest.fn(),
-        send: jest.fn(),
-      }
-
-      const image = Buffer.from('image mock')
-
-      transformSpy.mockResolvedValue({ format: 'jpeg', image })
-
-      // @ts-ignore
-      await getImage({}, response, next)
-
-      expect(next).not.toBeCalled()
-      expect(response.type).toBeCalledWith('image/jpeg')
-      expect(response.send).toBeCalledWith(image)
-    })
-
-    it('calls the next error middleware on error', async () => {
-      transformSpy.mockImplementation(() => {
-        throw new Error('ohoh')
-      })
-
-      await getImage(
-        // @ts-ignore
-        {},
-        { locals: { dto: { url: 'http://example.com/foo.png' } } },
-        next
-      )
-
-      expect(next).toBeCalledWith(new Error('ohoh'))
-    })
-
-    it('throws an error if the image url is missing', async () => {
-      await getImage(
-        // @ts-ignore
-        {},
-        { locals: { dto: {} } },
-        next
-      )
-
-      expect(next).toBeCalledWith(new Error('Image url missing'))
-    })
   })
 
   describe('expressSharp()', () => {
