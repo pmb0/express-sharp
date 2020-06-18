@@ -1,3 +1,10 @@
+## [4.1.2](https://github.com/pmb0/express-sharp/compare/v4.1.1...v4.1.2) (2020-06-18)
+
+
+### Bug Fixes
+
+* **npm:** add missing build artifacts ([63012f9](https://github.com/pmb0/express-sharp/commit/63012f9ef76442bba347d294fd1d771bc8dc7476))
+
 ## [4.1.1](https://github.com/pmb0/express-sharp/compare/v4.1.0...v4.1.1) (2020-06-18)
 
 
