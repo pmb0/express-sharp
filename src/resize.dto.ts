@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable no-magic-numbers */
-import { Type } from 'class-transformer'
 import {
   IsBoolean,
   IsIn,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   IsUrl,
@@ -12,40 +13,46 @@ import {
 } from 'class-validator'
 import 'reflect-metadata'
 import { GravityEnum } from 'sharp'
+import { Transform } from './decorators'
 import { format } from './interfaces'
 
 export class ResizeDto {
+  constructor(args: Partial<ResizeDto>) {
+    Object.assign(this, args)
+  }
+
   @IsOptional()
   @IsIn(['heic', 'heif', 'jpeg', 'jpg', 'png', 'raw', 'tiff', 'webp'])
   @IsString()
   public format?: format
 
+  @Transform(Number)
   @IsOptional()
-  @Type(() => Number)
+  @IsNumber({ allowInfinity: false, allowNaN: false })
   @IsInt()
   @Min(1)
   @Max(10000)
   public height?: number
 
-  @Type(() => Number)
-  @IsInt()
+  @Transform(Number)
+  @IsNumber()
   @Min(1)
   @Max(10000)
-  public width = 500
+  public width: number = 500
 
-  @Type(() => Number)
+  @Transform(Number)
   @IsInt()
   @Min(0)
   @Max(100)
-  public quality = 80
+  public quality: number = 80
 
-  @Type(() => Boolean)
+  @Transform((value) => value === 'true')
   @IsBoolean()
-  public progressive = false
+  public progressive: boolean = false
 
-  @Type(() => Boolean)
+  @Transform((value) => value === 'true')
   @IsBoolean()
-  public crop = false
+  public crop: boolean = false
 
   @IsIn([
     'north',
@@ -60,7 +67,6 @@ export class ResizeDto {
     'centre',
   ])
   @IsOptional()
-  @IsString()
   public gravity?: keyof GravityEnum
 
   @IsUrl({ require_host: false, require_tld: false })

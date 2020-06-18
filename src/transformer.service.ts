@@ -1,14 +1,13 @@
-import crypto from 'crypto'
 import Keyv from 'keyv'
 import sharp from 'sharp'
 import { inject, singleton } from 'tsyringe'
 import { CachedImage } from './cached-image'
 import { format, ImageAdapter, Result } from './interfaces'
 import { getLogger } from './logger'
+import { ObjectHash } from './object-hash.service'
 import { ResizeDto } from './resize.dto'
 
 const DEFAULT_CROP_MAX_SIZE = 2000
-const CACHE_KEY_HASH_LENGTH = 10
 
 @singleton()
 export class Transformer {
@@ -18,6 +17,7 @@ export class Transformer {
 
   constructor(
     @inject('imageAdapter') private readonly imageAdapter: ImageAdapter,
+    private readonly objectHasher: ObjectHash,
     private readonly cache: Keyv<Result>
   ) {
     this.cachedImage = new CachedImage(cache as Keyv, imageAdapter)
@@ -32,11 +32,7 @@ export class Transformer {
   }
 
   buildCacheKey(id: string, options: ResizeDto): string {
-    const hash = crypto
-      .createHash('sha256')
-      .update(JSON.stringify(options, Object.keys(options).sort()))
-      .digest('hex')
-      .slice(0, CACHE_KEY_HASH_LENGTH)
+    const hash = this.objectHasher.hash(options)
     return `transform:${id}:${this.imageAdapter.constructor.name}:${hash}`
   }
 
@@ -49,7 +45,7 @@ export class Transformer {
       return cachedImage
     }
 
-    this.log(`Resizing ${id} with options:`, options)
+    this.log(`Resizing ${id} with options:`, JSON.stringify(options))
 
     const originalImage = await this.cachedImage.fetch(id)
     if (!originalImage) {

@@ -1,6 +1,7 @@
 import express from 'express'
 import { AddressInfo } from 'net'
 import { join } from 'path'
+import 'reflect-metadata'
 import sharp from 'sharp'
 import request from 'supertest'
 import { URL } from 'url'

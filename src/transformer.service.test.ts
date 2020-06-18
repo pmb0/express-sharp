@@ -1,6 +1,8 @@
-import { ImageAdapter } from './interfaces'
-import { Transformer } from './transformer.service'
 import Keyv from 'keyv'
+import { container } from 'tsyringe'
+import { ImageAdapter } from './interfaces'
+import { ObjectHash } from './object-hash.service'
+import { Transformer } from './transformer.service'
 
 class ImageMockAdapter implements ImageAdapter {
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -14,7 +16,11 @@ describe('Transformer', () => {
     let transformer: Transformer
 
     beforeEach(() => {
-      transformer = new Transformer(new ImageMockAdapter(), new Keyv())
+      transformer = new Transformer(
+        new ImageMockAdapter(),
+        container.resolve(ObjectHash),
+        new Keyv()
+      )
     })
 
     it('throws an exception if the format can not be determined', async () => {

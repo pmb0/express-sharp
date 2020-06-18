@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "cors": "^2.8.4",
     "debug": "^4.1.1",

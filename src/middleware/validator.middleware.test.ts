@@ -2,15 +2,20 @@ import { IsDefined, IsOptional, Min } from 'class-validator'
 import { NextFunction } from 'express'
 import { BadRequestException, HttpException } from '../http-exception'
 import { validate } from './validator.middleware'
-import * as ClassTransformer from 'class-transformer'
+import { ToNumber } from '../decorators'
 
 class TestDto {
   @IsDefined()
   foo?: string
 
+  @ToNumber()
   @IsOptional()
   @Min(10)
   bar?: number
+
+  constructor(data: Partial<TestDto>) {
+    Object.assign(this, data)
+  }
 }
 
 describe('Validator', () => {
@@ -64,15 +69,13 @@ describe('Validator', () => {
   })
 
   test('catches all errors', async () => {
-    const plainToClassSpy = jest
-      .spyOn(ClassTransformer, 'plainToClass')
-      .mockImplementation(() => {
-        throw new Error('ohoh')
-      })
+    const assignSpy = jest.spyOn(Object, 'assign').mockImplementation(() => {
+      throw new Error('ohoh')
+    })
 
     await handle({ foo: '' })
     expect(next).toBeCalledWith(new Error('ohoh'))
 
-    plainToClassSpy.mockRestore()
+    assignSpy.mockRestore()
   })
 })

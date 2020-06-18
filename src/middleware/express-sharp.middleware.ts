@@ -2,12 +2,13 @@ import cors from 'cors'
 import {
   NextFunction,
   Request,
+  RequestHandler,
   Response,
   Router,
-  RequestHandler,
 } from 'express'
 import Keyv from 'keyv'
 import { container } from 'tsyringe'
+import { ConfigService } from '../config.service'
 import { ExpressSharpOptions } from '../interfaces'
 import { ResizeDto } from '../resize.dto'
 import { Transformer } from '../transformer.service'
@@ -16,7 +17,6 @@ import { signedUrl } from './signed-url.middleware'
 import { transformQueryParams } from './transform-query-params.middleware'
 import { useWebpIfSupported } from './use-webp-if-supported.middleware'
 import { validate } from './validator.middleware'
-import { ConfigService } from '../config.service'
 
 export async function getImage(
   req: Request,

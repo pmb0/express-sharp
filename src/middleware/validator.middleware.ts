@@ -1,16 +1,11 @@
-import { plainToClass } from 'class-transformer'
-import { ClassType } from 'class-transformer/ClassTransformer'
 import { validate as validate_, ValidationError } from 'class-validator'
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { BadRequestException } from '../http-exception'
 
-export function validate<T>(Dto: ClassType<T>): RequestHandler {
+export function validate<T>(Dto: { new (...args: any[]): T }): RequestHandler {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const dto = plainToClass<T, typeof req.query>(Dto, {
-        ...req.query,
-        ...req.params,
-      })
+      const dto = new Dto({ ...req.query, ...req.params })
 
       const errors: ValidationError[] = await validate_(dto, {
         forbidUnknownValues: true,
