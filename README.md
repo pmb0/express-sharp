@@ -1,5 +1,6 @@
 <p align="center">Real-time image processing for your express application.</p>
 
+[![npm version](https://badge.fury.io/js/express-sharp.svg)](https://www.npmjs.com/package/express-sharp)
 [![Test Coverage][coveralls-image]][coveralls-url]
 [![Build Status][build-image]][build-url]
 
