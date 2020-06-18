@@ -54,7 +54,7 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "express": "^4.0.0"
+    "express": "^4.17.1"
   },
   "scripts": {
     "build:test": "tsc --noEmit",
