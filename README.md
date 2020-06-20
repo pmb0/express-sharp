@@ -110,7 +110,7 @@ Supported options:
 
 ## Image Adapters
 
-express-sharp contains the following some standard image adapters.
+express-sharp contains the following standard image adapters.
 
 ### File System
 
@@ -141,7 +141,7 @@ The constructor can be passed any [got options](https://github.com/sindresorhus/
 Loads images from Amazon S3. To use this adapter, the optional dependency `aws-sdk` must be installed:
 
 ```sh
-$ yarn add `aws-sdk`
+$ yarn add aws-sdk
 ```
 
 ```js
