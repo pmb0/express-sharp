@@ -30,6 +30,7 @@ template.innerHTML = `
     <option value="/local-http">local-http</option>
     <option value="/lorempixel">lorempixel</option>
     <option value="/fs">fs</option>
+    <option value="/s3">s3</option>
   </select>
 </div>
 

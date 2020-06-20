@@ -3,7 +3,7 @@ import express from 'express'
 import Keyv from 'keyv'
 import { AddressInfo } from 'net'
 import { join } from 'path'
-import { expressSharp, FsAdapter, HttpAdapter } from '../src'
+import { expressSharp, FsAdapter, HttpAdapter, S3Adapter } from '../src'
 
 // Cache in-memory
 const cache = new Keyv({ namespace: 'express-sharp' })
@@ -26,6 +26,15 @@ app.use(
     }),
   })
 )
+
+app.use(
+  '/s3',
+  expressSharp({
+    cache: new Keyv(),
+    imageAdapter: new S3Adapter(process.env.AWS_BUCKET!),
+  })
+)
+
 app.use(
   '/lorempixel',
   expressSharp({
