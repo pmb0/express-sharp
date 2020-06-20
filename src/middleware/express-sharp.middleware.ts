@@ -53,6 +53,6 @@ export function expressSharp(options: ExpressSharpOptions): Router {
   ])
 
   const router = Router()
-  router.get('/:url', ...middlewares)
+  router.get('/:url(*)', ...middlewares)
   return router
 }
