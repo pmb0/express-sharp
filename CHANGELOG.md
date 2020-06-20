@@ -1,3 +1,10 @@
+## [4.2.1](https://github.com/pmb0/express-sharp/compare/v4.2.0...v4.2.1) (2020-06-20)
+
+
+### Bug Fixes
+
+* **crop:** round crop dimensions ([8891d81](https://github.com/pmb0/express-sharp/commit/8891d815ded98b42f4fd61a6d18b437779c1008b))
+
 # [4.2.0](https://github.com/pmb0/express-sharp/compare/v4.1.3...v4.2.0) (2020-06-20)
 
 
