@@ -1,3 +1,17 @@
+# [4.2.0](https://github.com/pmb0/express-sharp/compare/v4.1.3...v4.2.0) (2020-06-20)
+
+
+### Bug Fixes
+
+* do not set image adapter globally ([dbf7911](https://github.com/pmb0/express-sharp/commit/dbf79115ca7c7d7fc8b3effb9fb3e9f7d5ea02ab))
+* image IDs may contain slashes again ([34811d0](https://github.com/pmb0/express-sharp/commit/34811d042e75c5fb78c9ca84161304801a1663a1))
+* slicing the image url seems no longer needed ([35107dc](https://github.com/pmb0/express-sharp/commit/35107dc63bd9f23abd41c27e7ebe53fab8f8d4b4))
+
+
+### Features
+
+* **image-adapters:** add Amazon S3 adapter ([edc628d](https://github.com/pmb0/express-sharp/commit/edc628ded14133c26d784dc00894130c86095427))
+
 ## [4.1.3](https://github.com/pmb0/express-sharp/compare/v4.1.2...v4.1.3) (2020-06-18)
 
 
