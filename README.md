@@ -58,9 +58,10 @@ See [sharp installation](https://sharp.pixelplumbing.com/install) for additional
 Example *app.js* (See also `example/app.ts` in this project):
 
 ```js
-const express = require('express')
+import express from 'express'
+import { expressSharp, FsAdapter, HttpAdapter } from 'express-sharp'
+
 const app = express()
-const { expressSharp, FsAdapter, HttpAdapter } = require('express-sharp')
 
 // Fetch original images via HTTP
 app.use(
@@ -98,11 +99,12 @@ curl http://my-server/express-sharp-endpoint/images/image.jpg?w=400&h=400&f=webp
 ## Server configuration
 
 ```js
-const { expressSharp } = require('express-sharp')
+import { expressSharp } from 'express-sharp'
+
 app.use('/some-http-endpoint', expressSharp(options))
 ```
 
-Supported options:
+Supported `options`:
 
 | Name | Description | Default |
 |------|-------------|---------|
@@ -121,7 +123,7 @@ express-sharp contains the following standard image adapters.
 With this adapter original images are loaded from the hard disk.
 
 ```js
-const { FsAdapter } = require('express-sharp')
+import { FsAdapter } from 'express-sharp'
 
 const adapter = new FsAdapter('/path/to/images')
 ```
@@ -131,7 +133,7 @@ const adapter = new FsAdapter('/path/to/images')
 Loads original images via HTTP.
 
 ```js
-const { HttpAdapter } = require('express-sharp')
+import { HttpAdapter } from 'express-sharp'
 
 const adapter = new HttpAdapter({
   prefixUrl: 'http://localhost:3000/images',
@@ -149,7 +151,7 @@ $ yarn add aws-sdk
 ```
 
 ```js
-const { S3Adapter } = require('express-sharp')
+import { S3Adapter } from 'express-sharp'
 
 const bucketName = 'my-bucketname'
 const adapter = new S3Adapter(bucketname)
@@ -215,7 +217,7 @@ By setting the environment variable `EXPRESS_SHARP_SIGNED_URL_SECRET` or by spec
 In order to compute the signature, the supplied client should be used:
 
 ```js
-const { createClient } = require('express-sharp')
+import { createClient } from 'express-sharp'
 
 const endpoint = 'https://example.com/my-express-sharp-endpoint'
 const secret = 'test'
@@ -240,7 +242,7 @@ $ export DEBUG='my-app:*,express-sharp*'
 express-sharp comes with a client that can be used to generate URLs for images.
 
 ```js
-const { createClient } = require('express-sharp')
+import { createClient } from 'express-sharp'
 
 const client = createClient('http://my-base-host', 'optional secret')
 
