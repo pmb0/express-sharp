@@ -38,6 +38,7 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
     - [File System](#file-system)
     - [HTTP](#http)
     - [Amazon S3](#amazon-s3)
+    - [Custom](#custom)
   - [Caching](#caching)
   - [URL signing](#url-signing)
   - [Debug logging](#debug-logging)
@@ -155,6 +156,24 @@ const adapter = new S3Adapter(bucketname)
 ```
 
 The AWS SDK expects the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to be set.
+
+### Custom
+
+If you needed your own adapters can be used. An "image adapter" is a class that implements the `ImageAdapter` interface:
+
+```ts
+import { ImageAdapter } from 'express-sharp'
+
+class MyAdapter implements ImageAdapter {
+  async fetch(id: string): Promise<Buffer | undefined> {
+    if (imageDoesNotExist(id)) {
+      return undefined
+    }
+
+    return Buffer.from('my image blob')
+  }
+}
+```
 
 ## Caching
 
