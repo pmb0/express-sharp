@@ -24,7 +24,7 @@ export class Transformer {
     if (width <= maxSize && height <= maxSize) return [width, height]
     const aspectRatio = width / height
     if (width > height) return [maxSize, Math.round(maxSize / aspectRatio)]
-    return [maxSize * aspectRatio, maxSize]
+    return [maxSize * aspectRatio, maxSize].map((number) => Math.round(number))
   }
 
   buildCacheKey(id: string, options: ResizeDto, adapterName: string): string {
