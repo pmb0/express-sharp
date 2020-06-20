@@ -21,7 +21,7 @@ describe('HttpAdapter', () => {
       expect(image?.toString()).toBe('test')
 
       // @ts-ignore
-      expect(adapter.client.get).toBeCalledWith('foo/bar', {
+      expect(adapter.client.get).toBeCalledWith('/foo/bar', {
         responseType: 'buffer',
       })
     })

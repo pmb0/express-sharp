@@ -18,7 +18,6 @@ export class HttpAdapter implements ImageAdapter {
   }
 
   async fetch(url: string): Promise<Buffer | undefined> {
-    url = url.slice(1)
     this.log(`Fetching: ${this.getPrefixUrl()}${url}`)
     try {
       const response = await this.client.get(url, {
