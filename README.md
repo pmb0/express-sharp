@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.github.com/pmb0/express-sharp/master/docs/express-sharp.gif" />
+  <img src="https://raw.github.com/pmb0/express-sharp/master/docs/express-sharp.gif" width="100%" />
   <p>Real-time image processing for your express application.</p>
 </div>
 
