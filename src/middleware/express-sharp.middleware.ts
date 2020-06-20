@@ -1,5 +1,11 @@
 import cors from 'cors'
-import { RequestHandler, Router } from 'express'
+import {
+  NextFunction,
+  Request,
+  RequestHandler,
+  Response,
+  Router,
+} from 'express'
 import Keyv from 'keyv'
 import { container } from 'tsyringe'
 import { ConfigService } from '../config.service'
@@ -28,9 +34,15 @@ export function expressSharp(options: ExpressSharpOptions): Router {
   }
 
   container.register<Keyv>(Keyv, { useValue: options.cache || new Keyv() })
-  container.registerInstance('imageAdapter', options.imageAdapter)
 
   const middlewares = extractActiveMiddlewares([
+    [
+      (req: Request, res: Response, next: NextFunction) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        res.locals.imageAdapter = options.imageAdapter
+        next()
+      },
+    ],
     [transformQueryParams],
     [validate<ResizeDto>(ResizeDto)],
     [useWebpIfSupported, options.autoUseWebp ?? true],

@@ -1,6 +1,6 @@
 import Keyv from 'keyv'
 import sharp from 'sharp'
-import { inject, singleton } from 'tsyringe'
+import { singleton } from 'tsyringe'
 import { CachedImage } from './cached-image'
 import { format, ImageAdapter, Result } from './interfaces'
 import { getLogger } from './logger'
@@ -13,15 +13,11 @@ const DEFAULT_CROP_MAX_SIZE = 2000
 export class Transformer {
   log = getLogger('transformer')
   cropMaxSize = DEFAULT_CROP_MAX_SIZE
-  private readonly cachedImage: CachedImage
 
   constructor(
-    @inject('imageAdapter') private readonly imageAdapter: ImageAdapter,
     private readonly objectHasher: ObjectHash,
     private readonly cache: Keyv<Result>
-  ) {
-    this.cachedImage = new CachedImage(cache as Keyv, imageAdapter)
-  }
+  ) {}
 
   getCropDimensions(maxSize: number, width: number, height?: number): number[] {
     height = height || width
@@ -31,13 +27,21 @@ export class Transformer {
     return [maxSize * aspectRatio, maxSize]
   }
 
-  buildCacheKey(id: string, options: ResizeDto): string {
+  buildCacheKey(id: string, options: ResizeDto, adapterName: string): string {
     const hash = this.objectHasher.hash(options)
-    return `transform:${id}:${this.imageAdapter.constructor.name}:${hash}`
+    return `transform:${id}:${adapterName}:${hash}`
   }
 
-  async transform(id: string, options: ResizeDto): Promise<Result> {
-    const cacheKey = this.buildCacheKey(id, options)
+  async transform(
+    id: string,
+    options: ResizeDto,
+    imageAdapter: ImageAdapter
+  ): Promise<Result> {
+    const cacheKey = this.buildCacheKey(
+      id,
+      options,
+      imageAdapter.constructor.name
+    )
 
     const cachedImage = await this.cache.get(cacheKey)
     if (cachedImage) {
@@ -47,7 +51,11 @@ export class Transformer {
 
     this.log(`Resizing ${id} with options:`, JSON.stringify(options))
 
-    const originalImage = await this.cachedImage.fetch(id)
+    const cachedOriginalImage = new CachedImage(
+      this.cache as Keyv,
+      imageAdapter
+    )
+    const originalImage = await cachedOriginalImage.fetch(id)
     if (!originalImage) {
       return {
         // eslint-disable-next-line unicorn/no-null

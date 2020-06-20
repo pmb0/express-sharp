@@ -29,11 +29,6 @@ describe('expressSharp', () => {
   describe('expressSharp()', () => {
     const imageAdapter = new HttpAdapter({})
 
-    it('uses the cache imageAdapter', () => {
-      expressSharp({ imageAdapter })
-      expect(container.resolve('imageAdapter')).toBe(imageAdapter)
-    })
-
     describe('signed url', () => {
       let router: Router
 

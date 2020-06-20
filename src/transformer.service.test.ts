@@ -16,11 +16,7 @@ describe('Transformer', () => {
     let transformer: Transformer
 
     beforeEach(() => {
-      transformer = new Transformer(
-        new ImageMockAdapter(),
-        container.resolve(ObjectHash),
-        new Keyv()
-      )
+      transformer = new Transformer(container.resolve(ObjectHash), new Keyv())
     })
 
     it('throws an exception if the format can not be determined', async () => {
@@ -28,7 +24,7 @@ describe('Transformer', () => {
 
       try {
         // @ts-ignore
-        await transformer.transform('foo', {})
+        await transformer.transform('foo', {}, new ImageMockAdapter())
       } catch (error) {
         expect((error as Error).message).toBe(
           'Input buffer contains unsupported image format'
