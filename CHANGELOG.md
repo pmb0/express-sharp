@@ -1,3 +1,10 @@
+## [4.2.2](https://github.com/pmb0/express-sharp/compare/v4.2.1...v4.2.2) (2020-06-20)
+
+
+### Bug Fixes
+
+* provide missing interface exports ([3cf55e8](https://github.com/pmb0/express-sharp/commit/3cf55e86228edf4478871325037ff6a3899826d9))
+
 ## [4.2.1](https://github.com/pmb0/express-sharp/compare/v4.2.0...v4.2.1) (2020-06-20)
 
 
