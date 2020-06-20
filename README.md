@@ -37,6 +37,7 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
     - [Amazon S3](#amazon-s3)
   - [Caching](#caching)
   - [URL signing](#url-signing)
+  - [Debug logging](#debug-logging)
 - [Client integration](#client-integration)
 - [License](#license)
 
@@ -202,6 +203,15 @@ const imageUrl = client.url('/foo.png', { width: 500 })
 
 // https://example.com/my-express-sharp-endpoint/foo.png?w=500&s=Of3ty8QY-NDhCsIrgIHvPvbokkDcxV8KtaYUB4NFRd8
 ```
+
+## Debug logging
+
+This project uses [debug](https://www.npmjs.com/package/debug). To display debug messages from `express-sharp`, the `DEBUG` environment variable must be exported so that it contains the value `express-sharp*`. Example:
+
+```sh
+$ export DEBUG='my-app:*,express-sharp*'
+```
+
 
 # Client integration
 
