@@ -244,7 +244,7 @@ Currently the following transformations can be applied to images:
 
 # License
 
-[MIT](LICENSE)
+express-sharp is distributed under the MIT license. [See LICENSE](./LICENSE) for details.
 
 [coveralls-image]: https://img.shields.io/coveralls/pmb0/express-sharp/master.svg
 [coveralls-url]: https://coveralls.io/r/pmb0/express-sharp?branch=master
