@@ -32,8 +32,9 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
 - [Express server integration](#express-server-integration)
   - [Server configuration](#server-configuration)
   - [Image Adapters](#image-adapters)
-    - [FsAdapter](#fsadapter)
-    - [HttpAdapter](#httpadapter)
+    - [File System](#file-system)
+    - [HTTP](#http)
+    - [Amazon S3](#amazon-s3)
   - [Caching](#caching)
   - [URL signing](#url-signing)
 - [Client integration](#client-integration)
@@ -108,9 +109,9 @@ Supported options:
 
 ## Image Adapters
 
-express-sharp contains the following two standard image adapters.
+express-sharp contains the following some standard image adapters.
 
-### FsAdapter
+### File System
 
 With this adapter original images are loaded from the hard disk.
 
@@ -120,7 +121,7 @@ const { FsAdapter } = require('express-sharp')
 const adapter = new FsAdapter('/path/to/images')
 ```
 
-### HttpAdapter
+### HTTP
 
 Loads original images via HTTP.
 
@@ -133,6 +134,23 @@ const adapter = new HttpAdapter({
 ```
 
 The constructor can be passed any [got options](https://github.com/sindresorhus/got#options).
+
+### Amazon S3
+
+Loads images from Amazon S3. To use this adapter, the optional dependency `aws-sdk` must be installed:
+
+```sh
+$ yarn add `aws-sdk`
+```
+
+```js
+const { S3Adapter } = require('express-sharp')
+
+const bucketName = 'my-bucketname'
+const adapter = new S3Adapter(bucketname)
+```
+
+The AWS SDK expects the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` to be set.
 
 ## Caching
 

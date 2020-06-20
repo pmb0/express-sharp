@@ -89,5 +89,8 @@
   "bugs": {
     "url": "https://github.com/pmb0/express-sharp/issues"
   },
-  "homepage": "https://github.com/pmb0/express-sharp#readme"
+  "homepage": "https://github.com/pmb0/express-sharp#readme",
+  "optionalDependencies": {
+    "aws-sdk": "^2.699.0"
+  }
 }
