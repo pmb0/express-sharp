@@ -16,8 +16,8 @@
     "tsyringe": "^4.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
     "@heise/eslint-config": "^11.0.1",
     "@keyv/redis": "^2.1.1",
     "@semantic-release/changelog": "^5.0.1",
