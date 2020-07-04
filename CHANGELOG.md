@@ -1,3 +1,10 @@
+## [4.2.3](https://github.com/pmb0/express-sharp/compare/v4.2.2...v4.2.3) (2020-07-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency got to v11.4.0 ([3f12e2c](https://github.com/pmb0/express-sharp/commit/3f12e2cd0fb7108a30a409d31bf8b218486c90fa))
+
 ## [4.2.2](https://github.com/pmb0/express-sharp/compare/v4.2.1...v4.2.2) (2020-06-20)
 
 
