@@ -1,3 +1,10 @@
+## [4.2.8](https://github.com/pmb0/express-sharp/compare/v4.2.7...v4.2.8) (2020-07-11)
+
+
+### Bug Fixes
+
+* **exception:** set the `stack` property on exception objects ([5a15e14](https://github.com/pmb0/express-sharp/commit/5a15e14b1be2a8fe2825ef9213b6123ad08964ba))
+
 ## [4.2.7](https://github.com/pmb0/express-sharp/compare/v4.2.6...v4.2.7) (2020-07-11)
 
 
