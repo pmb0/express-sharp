@@ -1,8 +1,9 @@
+import * as ClassValidator from 'class-validator'
 import { IsDefined, IsOptional, Min } from 'class-validator'
 import { NextFunction } from 'express'
+import { ToNumber } from '../decorators'
 import { BadRequestException, HttpException } from '../http-exception'
 import { validate } from './validator.middleware'
-import { ToNumber } from '../decorators'
 
 class TestDto {
   @IsDefined()
@@ -60,6 +61,19 @@ describe('Validator', () => {
     expect(next).toBeCalledWith()
   })
 
+  test('`error.constraints` might be missing', async () => {
+    const validateSpy = jest
+      .spyOn(ClassValidator, 'validate')
+      .mockImplementation()
+      .mockResolvedValue([{ property: 'bla', children: [] }])
+
+    await handle({})
+
+    expect(next).toBeCalledWith(new BadRequestException('Unknown error'))
+
+    validateSpy.mockRestore()
+  })
+
   test('class-validator decorators work', async () => {
     await handle({ foo: '', bar: '1' })
 
@@ -68,7 +82,7 @@ describe('Validator', () => {
     )
   })
 
-  test('catches all errors', async () => {
+  it('catches all errors', async () => {
     const assignSpy = jest.spyOn(Object, 'assign').mockImplementation(() => {
       throw new Error('ohoh')
     })

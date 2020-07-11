@@ -14,10 +14,11 @@ export function validate<T>(Dto: { new (...args: any[]): T }): RequestHandler {
       if (errors.length > 0) {
         const message = errors
           .map((error: ValidationError) =>
-            Object.values(error.constraints || {})
+            Object.values(error.constraints ?? {})
           )
           .join(', ')
-        next(new BadRequestException(message))
+
+        next(new BadRequestException(message || 'Unknown error'))
       } else {
         ;(res.locals as { dto: T }).dto = dto
         next()
