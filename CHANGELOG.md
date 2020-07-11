@@ -1,3 +1,11 @@
+## [4.2.5](https://github.com/pmb0/express-sharp/compare/v4.2.4...v4.2.5) (2020-07-11)
+
+
+### Bug Fixes
+
+* **deps:** set aws-sdk as peer dependency ([e2be316](https://github.com/pmb0/express-sharp/commit/e2be3160e65671301c2e8f6357edc71955db1ad1))
+* **deps:** set got as peer dependency ([21517e7](https://github.com/pmb0/express-sharp/commit/21517e7f7ad887f8b65b98c4e466458022103a07))
+
 ## [4.2.4](https://github.com/pmb0/express-sharp/compare/v4.2.3...v4.2.4) (2020-07-08)
 
 
