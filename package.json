@@ -40,6 +40,7 @@
     "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.1.0",
+    "aws-sdk": "^2.713.0",
     "express": "^4.17.1",
     "husky": "^4.2.5",
     "jest": "^26.0.0",
@@ -54,7 +55,8 @@
     "typescript": "^3.8.3"
   },
   "peerDependencies": {
-    "express": "^4.0.0"
+    "express": "^4.0.0",
+    "aws-sdk": "^2.713.0"
   },
   "scripts": {
     "build:test": "tsc --noEmit",
@@ -90,7 +92,5 @@
     "url": "https://github.com/pmb0/express-sharp/issues"
   },
   "homepage": "https://github.com/pmb0/express-sharp#readme",
-  "optionalDependencies": {
-    "aws-sdk": "^2.699.0"
-  }
+  "optionalDependencies": {}
 }
