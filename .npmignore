@@ -2,6 +2,7 @@ docs
 __mocks__
 __tests__
 .*
+*.old
 *.log
 *.tgz
 **/*.test.js
