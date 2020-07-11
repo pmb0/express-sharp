@@ -20,7 +20,7 @@ https://example.com/path/to/my-scaler/images/my-image.jpg?w=100&h=50
 
 Original images are loaded via an image adapter. Currently this includes HTTP and file system adapters.
 
-# Highlights
+# Highlights <!-- omit in toc -->
 
 - Fast resizing of images (see [sharp Performance](https://sharp.pixelplumbing.com/performance))
 - [Supports multiple backends, from which the original images are downloaded](#image-adapters)
@@ -30,7 +30,6 @@ Original images are loaded via an image adapter. Currently this includes HTTP an
 
 # Table of contents <!-- omit in toc -->
 
-- [Highlights](#highlights)
 - [Install](#install)
 - [Express server integration](#express-server-integration)
   - [Server configuration](#server-configuration)
