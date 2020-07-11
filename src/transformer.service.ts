@@ -21,9 +21,17 @@ export class Transformer {
 
   getCropDimensions(maxSize: number, width: number, height?: number): number[] {
     height = height || width
-    if (width <= maxSize && height <= maxSize) return [width, height]
+
+    if (width <= maxSize && height <= maxSize) {
+      return [width, height]
+    }
+
     const aspectRatio = width / height
-    if (width > height) return [maxSize, Math.round(maxSize / aspectRatio)]
+
+    if (width > height) {
+      return [maxSize, Math.round(maxSize / aspectRatio)]
+    }
+
     return [maxSize * aspectRatio, maxSize].map((number) => Math.round(number))
   }
 
