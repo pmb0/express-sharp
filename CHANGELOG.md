@@ -1,3 +1,10 @@
+## [4.2.6](https://github.com/pmb0/express-sharp/compare/v4.2.5...v4.2.6) (2020-07-11)
+
+
+### Bug Fixes
+
+* **image-url:** filter query params without values ([563fb07](https://github.com/pmb0/express-sharp/commit/563fb07f24626c33e1de315098bc1baccd7666ff))
+
 ## [4.2.5](https://github.com/pmb0/express-sharp/compare/v4.2.4...v4.2.5) (2020-07-11)
 
 
