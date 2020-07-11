@@ -129,7 +129,11 @@ const adapter = new FsAdapter('/path/to/images')
 
 ### HTTP
 
-Loads original images via HTTP.
+Loads original images via HTTP. To use this adapter, the peer dependency `got` must be installed:
+
+```sh
+$ yarn add got
+```
 
 ```js
 import { HttpAdapter } from 'express-sharp'
@@ -143,7 +147,7 @@ The constructor can be passed any [got options](https://github.com/sindresorhus/
 
 ### Amazon S3
 
-Loads images from Amazon S3. To use this adapter, the optional dependency `aws-sdk` must be installed:
+Loads images from Amazon S3. To use this adapter, the peer dependency `aws-sdk` must be installed:
 
 ```sh
 $ yarn add aws-sdk
