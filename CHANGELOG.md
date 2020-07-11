@@ -1,3 +1,10 @@
+## [4.2.7](https://github.com/pmb0/express-sharp/compare/v4.2.6...v4.2.7) (2020-07-11)
+
+
+### Bug Fixes
+
+* **validation:** handle missing error constraints ([df84f76](https://github.com/pmb0/express-sharp/commit/df84f76186191de587b72fb4d4e7364088cbcbb6))
+
 ## [4.2.6](https://github.com/pmb0/express-sharp/compare/v4.2.5...v4.2.6) (2020-07-11)
 
 
