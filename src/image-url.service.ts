@@ -26,11 +26,17 @@ export class ImageUrl {
     url.pathname = url.pathname.replace(/\/\/+/, '')
 
     Object.entries(params)
+      .filter(([, value]) => value !== undefined)
       .sort()
       .forEach(([name, value]) => {
         url.searchParams.set(
           QueryParams[name as Exclude<keyof ResizeDto, 'url'>],
-          value?.toString() || ''
+
+          // Type Guard in .filter() does not work:
+          // > A type predicate cannot reference element 'value' in a binding
+          // > pattern.
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          value!.toString()
         )
       })
 
