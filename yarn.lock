@@ -1118,20 +1118,15 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.0.tgz#69a23a3ad29caf0097f06eda59b361ee2f0639f6"
   integrity sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
 
-"@types/node@*":
-  version "14.0.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.19.tgz#994d99708822bca643a2364f8aeed04a16e0f5a1"
-  integrity sha512-yf3BP/NIXF37BjrK5klu//asUWitOEoUP5xE1mhSUjazotwJ/eJDgEmMQNlOeWOVv72j24QQ+3bqXHE++CFGag==
+"@types/node@*", "@types/node@^14.0.20":
+  version "14.0.23"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.23.tgz#676fa0883450ed9da0bb24156213636290892806"
+  integrity sha512-Z4U8yDAl5TFkmYsZdFPdjeMa57NOvnaf1tljHzhouaPEp7LCj2JKkejpI1ODviIAQuW4CcQmxkQ77rnLsOOoKw==
 
 "@types/node@>= 8":
   version "14.0.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.14.tgz#24a0b5959f16ac141aeb0c5b3cd7a15b7c64cbce"
   integrity sha512-syUgf67ZQpaJj01/tRTknkMNoBBLWJOBODF0Zm4NrXmiSuxjymFrxnTu1QVYRubhVkRcZLYZG8STTwJRdVm/WQ==
-
-"@types/node@^14.0.20":
-  version "14.0.23"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.23.tgz#676fa0883450ed9da0bb24156213636290892806"
-  integrity sha512-Z4U8yDAl5TFkmYsZdFPdjeMa57NOvnaf1tljHzhouaPEp7LCj2JKkejpI1ODviIAQuW4CcQmxkQ77rnLsOOoKw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -4006,9 +4001,9 @@ google-libphonenumber@^3.2.8:
   integrity sha512-TsckE9O8QgqaIeaOXPjcJa4/kX3BzFdO1oCbMfmUpRZckml4xJhjJVxaT9Mdt/VrZZkT9lX44eHAEWfJK1tHtw==
 
 got@^11.5.0:
-  version "11.5.0"
-  resolved "https://registry.yarnpkg.com/got/-/got-11.5.0.tgz#55dd61050f666679f46c49c877e1b2e064a7a523"
-  integrity sha512-vOZEcEaK0b6x11uniY0HcblZObKPRO75Jvz53VKuqGSaKCM/zEt0sj2LGYVdqDYJzO3wYdG+FPQQ1hsgoXy7vQ==
+  version "11.5.1"
+  resolved "https://registry.yarnpkg.com/got/-/got-11.5.1.tgz#bf098a270fe80b3fb88ffd5a043a59ebb0a391db"
+  integrity sha512-reQEZcEBMTGnujmQ+Wm97mJs/OK6INtO6HmLI+xt3+9CvnRwWjXutUvb2mqr+Ao4Lu05Rx6+udx9sOQAmExMxA==
   dependencies:
     "@sindresorhus/is" "^3.0.0"
     "@szmarczak/http-timer" "^4.0.5"
@@ -4017,7 +4012,7 @@ got@^11.5.0:
     cacheable-lookup "^5.0.3"
     cacheable-request "^7.0.1"
     decompress-response "^6.0.0"
-    http2-wrapper "^1.0.0-beta.4.8"
+    http2-wrapper "^1.0.0-beta.5.0"
     lowercase-keys "^2.0.0"
     p-cancelable "^2.0.0"
     responselike "^2.0.0"
@@ -4246,7 +4241,7 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-http2-wrapper@^1.0.0-beta.4.8:
+http2-wrapper@^1.0.0-beta.5.0:
   version "1.0.0-beta.5.2"
   resolved "https://registry.yarnpkg.com/http2-wrapper/-/http2-wrapper-1.0.0-beta.5.2.tgz#8b923deb90144aea65cf834b016a340fc98556f3"
   integrity sha512-xYz9goEyBnC8XwXDTuC/MZ6t+MrKVQZOk4s7+PaDkwIsQd8IwqvM+0M6bA/2lvG8GHXcPdf+MejTUeO2LCPCeQ==
