@@ -18,6 +18,7 @@
   "packageRules": [
     {
       "depTypeList": ["devDependencies"],
+      "extends": ["schedule:weekly"],
       "automerge": true
     }
   ],
