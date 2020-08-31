@@ -651,7 +651,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@keyv/redis@^2.1.1":
+"@keyv/redis@^2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@keyv/redis/-/redis-2.1.2.tgz#a6dac1ca95a60cbc8be77d51951959f5a6456fa2"
   integrity sha512-D6vNOuyH/5cBNfHcyxzck1l7V+Qd4RAT7uz2SHYAjutbXQ03o3SSneRyvrp76H4/uvHyutPWTJ1Za3EpGSVe5g==
