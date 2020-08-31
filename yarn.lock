@@ -428,7 +428,7 @@
   resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-9.1.2.tgz#d05f66db03e3a3638a654e8badf2deb489eb220d"
   integrity sha512-r3fwVbVH+M8W0qYlBBZFsUwKe6NT5qvz+EmU7sr8VeN1cQ63z+3cfXyTo7WGGEMEgKiT0jboNAK3b1FZp8k9LQ==
 
-"@heise/eslint-config@^11.0.1":
+"@heise/eslint-config@^11.0.7":
   version "11.0.7"
   resolved "https://registry.yarnpkg.com/@heise/eslint-config/-/eslint-config-11.0.7.tgz#22a682ba2661383407f1586a74f121569202e2f2"
   integrity sha512-6PrLqBBbOyZJdyiZEjEtYcXBj01pIFGnQrDfAa6PQkfEckKc0tZeu/qcdkvFPfZHjpI6ZYZERwgp9tF9CYIJ5Q==
