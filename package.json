@@ -25,7 +25,7 @@
     "@semantic-release/npm": "^7.0.5",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/cache-manager": "^2.10.3",
-    "@types/cors": "^2.8.6",
+    "@types/cors": "^2.8.7",
     "@types/debug": "^4.1.5",
     "@types/dotenv": "^8.2.0",
     "@types/etag": "^1.8.0",
