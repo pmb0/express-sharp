@@ -191,7 +191,18 @@ describe('GET /my-scale/resize', () => {
     expect(response.body).toEqual({})
   })
 
-  it('allows underscores in file names', async () => {
+  it.only('allows underscores in file names', async () => {
     await request(app).get(url('/foo-_A.jpg', {})).expect(200)
+  })
+
+  it.only('transforms zade4np6qh-bardokat-designs-makramee-schlusselanhanger-noa-hellgrau.jpg', async () => {
+    await request(app)
+      .get(
+        url(
+          '/zade4np6qh-bardokat-designs-makramee-schlusselanhanger-noa-hellgrau.jpg',
+          {}
+        )
+      )
+      .expect(200)
   })
 })

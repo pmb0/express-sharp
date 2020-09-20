@@ -7,7 +7,6 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  IsUrl,
   Max,
   Min,
 } from 'class-validator'
@@ -15,6 +14,7 @@ import 'reflect-metadata'
 import { GravityEnum } from 'sharp'
 import { Transform } from './decorators'
 import { format } from './interfaces'
+import { IsUrl } from './validator/is-url'
 
 export class ResizeDto {
   constructor(args: Partial<ResizeDto>) {
@@ -69,6 +69,6 @@ export class ResizeDto {
   @IsOptional()
   public gravity?: keyof GravityEnum
 
-  @IsUrl({ require_host: false, require_tld: false, allow_underscores: true })
+  @IsUrl({ message: 'Invalid image url' })
   public url?: string
 }
