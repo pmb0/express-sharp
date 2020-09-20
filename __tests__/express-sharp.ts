@@ -190,4 +190,8 @@ describe('GET /my-scale/resize', () => {
 
     expect(response.body).toEqual({})
   })
+
+  it('allows underscores in file names', async () => {
+    await request(app).get(url('/foo-_A.jpg', {})).expect(200)
+  })
 })

@@ -69,6 +69,6 @@ export class ResizeDto {
   @IsOptional()
   public gravity?: keyof GravityEnum
 
-  @IsUrl({ require_host: false, require_tld: false })
+  @IsUrl({ require_host: false, require_tld: false, allow_underscores: true })
   public url?: string
 }
