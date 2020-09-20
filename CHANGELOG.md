@@ -1,3 +1,10 @@
+## [4.2.11](https://github.com/pmb0/express-sharp/compare/v4.2.10...v4.2.11) (2020-09-20)
+
+
+### Bug Fixes
+
+* allow underscores in image file names ([be9fbeb](https://github.com/pmb0/express-sharp/commit/be9fbeb52b745a11572472b30518c7ac522e7515))
+
 ## [4.2.10](https://github.com/pmb0/express-sharp/compare/v4.2.9...v4.2.10) (2020-09-19)
 
 
