@@ -1,3 +1,10 @@
+## [4.2.12](https://github.com/pmb0/express-sharp/compare/v4.2.11...v4.2.12) (2020-09-20)
+
+
+### Bug Fixes
+
+* validate image URLs more effectively ([8e4ff79](https://github.com/pmb0/express-sharp/commit/8e4ff7939a26469f2db7b13881a8aaf2f0e76289))
+
 ## [4.2.11](https://github.com/pmb0/express-sharp/compare/v4.2.10...v4.2.11) (2020-09-20)
 
 
