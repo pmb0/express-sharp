@@ -1,3 +1,10 @@
+## [4.2.14](https://github.com/pmb0/express-sharp/compare/v4.2.13...v4.2.14) (2020-10-13)
+
+
+### Bug Fixes
+
+* improve URL validating ([899baf2](https://github.com/pmb0/express-sharp/commit/899baf2ae7be46d3f841679f27faf183c85c4764))
+
 ## [4.2.13](https://github.com/pmb0/express-sharp/compare/v4.2.12...v4.2.13) (2020-09-20)
 
 
