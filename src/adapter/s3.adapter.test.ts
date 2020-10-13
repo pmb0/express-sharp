@@ -27,13 +27,16 @@ describe('S3Adapter', () => {
     it('fetches the image', async () => {
       expect(await adapter.fetch('foo')).toEqual(Buffer.from('mocked'))
 
-      expect(getObjectMock).toBeCalledWith({ Bucket: 'my-bucket', Key: 'foo' })
+      expect(getObjectMock).toHaveBeenCalledWith({
+        Bucket: 'my-bucket',
+        Key: 'foo',
+      })
     })
 
     it('does not find the image', async () => {
       awsPromiseMock.mockReturnValue({ Body: undefined })
 
-      expect(await adapter.fetch('foo')).toEqual(undefined)
+      expect(await adapter.fetch('foo')).toBeUndefined()
     })
   })
 })

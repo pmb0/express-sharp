@@ -18,7 +18,7 @@ describe('useWebpIfSupported()', () => {
     expect(response.locals.dto.format).toBe('webp')
   })
 
-  it('does not change the image format ', () => {
+  it('does not change the image format', () => {
     // @ts-ignore
     useWebpIfSupported({ headers: { accept: 'image/other' } }, response, next)
     expect(response.locals.dto.format).toBeUndefined()

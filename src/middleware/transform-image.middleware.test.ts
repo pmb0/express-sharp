@@ -26,7 +26,7 @@ describe('transformImage', () => {
     // @ts-ignore
     await transformImage({}, response, next)
 
-    expect(next).toBeCalledWith()
+    expect(next).toHaveBeenCalledWith()
   })
 
   it('sends the transformed image', async () => {
@@ -43,9 +43,9 @@ describe('transformImage', () => {
     // @ts-ignore
     await transformImage({}, response, next)
 
-    expect(next).not.toBeCalled()
-    expect(response.type).toBeCalledWith('image/jpeg')
-    expect(response.send).toBeCalledWith(image)
+    expect(next).not.toHaveBeenCalled()
+    expect(response.type).toHaveBeenCalledWith('image/jpeg')
+    expect(response.send).toHaveBeenCalledWith(image)
   })
 
   it('calls the next error middleware on error', async () => {
@@ -60,7 +60,7 @@ describe('transformImage', () => {
       next
     )
 
-    expect(next).toBeCalledWith(new Error('ohoh'))
+    expect(next).toHaveBeenCalledWith(new Error('ohoh'))
   })
 
   it('throws an error if the image url is missing', async () => {
@@ -71,6 +71,6 @@ describe('transformImage', () => {
       next
     )
 
-    expect(next).toBeCalledWith(new Error('Image url missing'))
+    expect(next).toHaveBeenCalledWith(new Error('Image url missing'))
   })
 })

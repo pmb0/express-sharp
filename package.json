@@ -17,7 +17,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@heise/eslint-config": "^11.0.7",
+    "@heise/eslint-config": "^12.0.7",
     "@keyv/redis": "^2.1.2",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/commit-analyzer": "^8.0.1",
@@ -37,8 +37,6 @@
     "@types/reflect-metadata": "^0.1.0",
     "@types/sharp": "^0.26.0",
     "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
     "aws-sdk": "^2.713.0",
     "express": "^4.17.1",
     "got": "^11.5.0",

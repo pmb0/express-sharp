@@ -1,31 +1,19 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    tsconfigRootDir: __dirname,
-    project: 'tsconfig.json',
-  },
   extends: ['@heise'],
   rules: {
     'no-prototype-builtins': 'off',
     'no-unused-vars': 'off',
     'security/detect-non-literal-fs-filename': 'off',
+    'unicorn/import-style': 'off',
     'unicorn/no-null': 'off',
+    'unicorn/prevent-abbreviations': 'off',
   },
   env: {
     node: true,
-    browser: true,
     es6: true,
   },
   overrides: [
-    {
-      files: ['src/**/*.ts', '*.tsx'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        'prettier/@typescript-eslint',
-      ]
-    },
     {
       files: ['*.test.ts', '*.js', '__tests__/**/*.ts'],
       rules: {

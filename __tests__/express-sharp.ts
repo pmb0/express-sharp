@@ -25,13 +25,11 @@ function url(...args: Parameters<typeof client.url>): string {
 }
 
 describe('GET /my-scale/resize', () => {
-  it('responds with a 400 if signed urls are enabled', () => {})
-
   it('should respond with 404', async () => {
     await request(app).get('/my-scale/resize').expect(404)
   })
 
-  it('should respond with 400', async () => {
+  it('should respond with 400 (invalid width)', async () => {
     await request(app).get('/my-scale/whatever?w=100a').expect(400)
   })
 
@@ -41,25 +39,25 @@ describe('GET /my-scale/resize', () => {
       .expect(400)
   })
 
-  it('should respond with 200', async () => {
+  it('should respond with 200 (quality=1)', async () => {
     await request(app)
       .get(url('/a.jpg', { width: 100, quality: 1 }))
       .expect(200)
   })
 
-  it('should respond with 400', async () => {
+  it('should respond with 400 (invalid quality)', async () => {
     await request(app)
       .get(url('/a.jpg', { width: 100, quality: 101 }))
       .expect(400)
   })
 
-  it('should respond with 200', async () => {
+  it('should respond with 200 (quality=100)', async () => {
     await request(app)
       .get(url('/a.jpg', { width: 100, quality: 100 }))
       .expect(200)
   })
 
-  it('should respond with 404', async () => {
+  it('should respond with 404 (image id does not exist)', async () => {
     await request(app)
       .get(url('/does-not-exist.jpg', { width: 100 }))
       .expect(404)
@@ -131,7 +129,7 @@ describe('GET /my-scale/resize', () => {
     expect(height).toBe(42)
   })
 
-  it('should restrict crop to cropMaxSize', async () => {
+  it('should restrict crop to cropMaxSize (width > height)', async () => {
     const res = await request(app)
       .get(
         url('/a.jpg', {
@@ -146,7 +144,7 @@ describe('GET /my-scale/resize', () => {
     expect(height).toBe(1000)
   })
 
-  it('should restrict crop to cropMaxSize', async () => {
+  it('should restrict crop to cropMaxSize (height > width)', async () => {
     const res = await request(app)
       .get(
         url('/a.jpg', {

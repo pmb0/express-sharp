@@ -38,16 +38,12 @@ describe('Transformer', () => {
 
   describe('transform()', () => {
     it('throws an exception if the format can not be determined', async () => {
-      expect.assertions(1)
-
-      try {
+      await expect(
         // @ts-ignore
-        await transformer.transform('foo', {}, new ImageMockAdapter())
-      } catch (error) {
-        expect((error as Error).message).toBe(
-          'Input buffer contains unsupported image format'
-        )
-      }
+        () => transformer.transform('foo', {}, new ImageMockAdapter())
+      ).rejects.toThrow(
+        new Error('Input buffer contains unsupported image format')
+      )
     })
   })
 })

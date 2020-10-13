@@ -14,5 +14,6 @@ export function etagCaching(
     return
   }
 
+  // eslint-disable-next-line no-magic-numbers
   res.sendStatus(304)
 }

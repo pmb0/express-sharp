@@ -27,7 +27,7 @@ describe('signedUrl()', () => {
     // @ts-ignore
     signedUrl(request, {}, next)
 
-    expect(next).toBeCalledWith()
+    expect(next).toHaveBeenCalledWith()
   })
 
   it('throws a ForbiddenException if the signature is invalid', () => {
@@ -42,6 +42,8 @@ describe('signedUrl()', () => {
     // @ts-ignore
     signedUrl(request, {}, next)
 
-    expect(next).toBeCalledWith(new ForbiddenException('Invalid signature'))
+    expect(next).toHaveBeenCalledWith(
+      new ForbiddenException('Invalid signature')
+    )
   })
 })

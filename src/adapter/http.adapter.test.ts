@@ -10,7 +10,7 @@ describe('HttpAdapter', () => {
   })
 
   test('constructor()', () => {
-    expect(got.extend).toBeCalledWith({
+    expect(got.extend).toHaveBeenCalledWith({
       prefixUrl: 'http://example.com/foo',
     })
   })
@@ -21,7 +21,7 @@ describe('HttpAdapter', () => {
       expect(image?.toString()).toBe('test')
 
       // @ts-ignore
-      expect(adapter.client.get).toBeCalledWith('/foo/bar', {
+      expect(adapter.client.get).toHaveBeenCalledWith('/foo/bar', {
         responseType: 'buffer',
       })
     })
@@ -39,8 +39,6 @@ describe('HttpAdapter', () => {
     })
 
     it('re-throws other HTTP errors', async () => {
-      expect.assertions(1)
-
       // @ts-ignore
       adapter.client.get.mockImplementation(() => {
         const error = new Error() as any
@@ -48,26 +46,20 @@ describe('HttpAdapter', () => {
         throw error
       })
 
-      try {
-        await adapter.fetch('/foo/bar')
-      } catch (error) {
-        expect(error.response.statusCode).toBe(500)
-      }
+      await expect(() => adapter.fetch('/foo/bar')).rejects.toThrow(
+        expect.objectContaining({
+          response: { statusCode: 500 },
+        })
+      )
     })
 
     it('re-throws other errors', async () => {
-      expect.assertions(1)
-
       // @ts-ignore
       adapter.client.get.mockImplementation(() => {
         throw new Error('ohoh')
       })
 
-      try {
-        await adapter.fetch('/foo/bar')
-      } catch (error) {
-        expect((error as Error).message).toBe('ohoh')
-      }
+      await expect(() => adapter.fetch('/foo/bar')).rejects.toThrow('ohoh')
     })
   })
 })

@@ -25,6 +25,7 @@ export class HttpAdapter implements ImageAdapter {
       })
       return response.body
     } catch (error) {
+      // eslint-disable-next-line no-magic-numbers
       if ((error as RequestError).response?.statusCode === 404) return undefined
 
       throw error

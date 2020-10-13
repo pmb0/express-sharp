@@ -18,7 +18,7 @@ describe('FsAdapter', () => {
       const image = await adapter.fetch('/foo/bar')
       expect(image?.toString()).toBe('test')
 
-      expect(fs.readFile).toBeCalledWith('/tmp/foo/bar')
+      expect(fs.readFile).toHaveBeenCalledWith('/tmp/foo/bar')
     })
 
     it('returns undefined if the image does not exist', async () => {
@@ -32,20 +32,16 @@ describe('FsAdapter', () => {
     })
 
     it('re-throws other HTTP errors', async () => {
-      expect.assertions(1)
-
       // @ts-ignore
       mocked(fs.readFile).mockImplementation(() => {
-        const error = new Error() as any
+        const error = new Error() as NodeJS.ErrnoException
         error.code = 'any other'
         throw error
       })
 
-      try {
-        await adapter.fetch('/foo/bar')
-      } catch (error) {
-        expect(error.code).toBe('any other')
-      }
+      await expect(() => adapter.fetch('/foo/bar')).rejects.toThrow(
+        expect.objectContaining({ code: 'any other' })
+      )
     })
   })
 })

@@ -20,23 +20,23 @@ describe('etagCaching()', () => {
     // @ts-ignore
     etagCaching({ fresh: true }, response, next)
 
-    expect(response.setHeader).toBeCalledWith(
+    expect(response.setHeader).toHaveBeenCalledWith(
       'ETag',
       'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"'
     )
-    expect(next).not.toBeCalled()
-    expect(response.sendStatus).toBeCalledWith(304)
+    expect(next).not.toHaveBeenCalled()
+    expect(response.sendStatus).toHaveBeenCalledWith(304)
   })
 
   it('does not send 304', () => {
     // @ts-ignore
     etagCaching({ fresh: false }, response, next)
 
-    expect(response.setHeader).toBeCalledWith(
+    expect(response.setHeader).toHaveBeenCalledWith(
       'ETag',
       'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"'
     )
-    expect(next).toBeCalled()
-    expect(response.sendStatus).not.toBeCalled()
+    expect(next).toHaveBeenCalled()
+    expect(response.sendStatus).not.toHaveBeenCalled()
   })
 })

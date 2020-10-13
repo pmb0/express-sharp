@@ -50,7 +50,7 @@ describe('Validator', () => {
   it('throws an exception if required perperties are missing', async () => {
     await handle()
 
-    expect(next).toBeCalledWith(
+    expect(next).toHaveBeenCalledWith(
       new BadRequestException('foo should not be null or undefined')
     )
   })
@@ -58,7 +58,7 @@ describe('Validator', () => {
   it('does not throw an exception if required properties are passed', async () => {
     await handle({ foo: '' })
 
-    expect(next).toBeCalledWith()
+    expect(next).toHaveBeenCalledWith()
   })
 
   test('`error.constraints` might be missing', async () => {
@@ -69,7 +69,7 @@ describe('Validator', () => {
 
     await handle({})
 
-    expect(next).toBeCalledWith(new BadRequestException('Unknown error'))
+    expect(next).toHaveBeenCalledWith(new BadRequestException('Unknown error'))
 
     validateSpy.mockRestore()
   })
@@ -77,7 +77,7 @@ describe('Validator', () => {
   test('class-validator decorators work', async () => {
     await handle({ foo: '', bar: '1' })
 
-    expect(next).toBeCalledWith(
+    expect(next).toHaveBeenCalledWith(
       new BadRequestException('bar must not be less than 10')
     )
   })
@@ -88,7 +88,7 @@ describe('Validator', () => {
     })
 
     await handle({ foo: '' })
-    expect(next).toBeCalledWith(new Error('ohoh'))
+    expect(next).toHaveBeenCalledWith(new Error('ohoh'))
 
     assignSpy.mockRestore()
   })

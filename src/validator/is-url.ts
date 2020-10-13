@@ -14,7 +14,7 @@ export class IsUrlConstraint implements ValidatorConstraintInterface {
       // by using any base URL
       new URL(url, 'https://example.com')
       return true
-    } catch (error) {
+    } catch {
       return false
     }
   }
