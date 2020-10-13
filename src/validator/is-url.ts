@@ -9,11 +9,16 @@ import { URL } from 'url'
 @ValidatorConstraint()
 export class IsUrlConstraint implements ValidatorConstraintInterface {
   validate(url: string): boolean {
+    if (!url) {
+      return false
+    }
+
     try {
       // `url` is an absolute URI without host and protocol. Validating it by
       // by using any base URL
-      new URL(url, 'https://example.com')
-      return true
+      const parsedUrl = new URL(url, 'https://example.com')
+
+      return !/^\/+$/.test(parsedUrl.pathname)
     } catch {
       return false
     }
