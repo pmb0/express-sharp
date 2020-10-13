@@ -25,13 +25,13 @@ function makePropertyMapper<T, U>(
 }
 
 export function Transform<T, U = string>(transformer: (value: U) => T) {
-  return function (target: any, key: string): void {
+  return function (target: unknown, key: string): void {
     makePropertyMapper<T, U>(target, key, transformer)
   }
 }
 
 export function ToNumber() {
-  return function (target: any, key: string): void {
+  return function (target: unknown, key: string): void {
     makePropertyMapper(target, key, Number)
   }
 }

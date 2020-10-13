@@ -104,6 +104,8 @@ describe('GET /my-scale/resize', () => {
       .expect(200)
   })
 
+  // (false-positive)
+  // eslint-disable-next-line jest/expect-expect
   it('should use webp if supported', async () => {
     await request(app)
       .get(url('/a.jpg', { width: 110 }))

@@ -6,10 +6,12 @@ import { ConfigService } from './config.service'
 export class ObjectHash {
   constructor(private readonly config: ConfigService) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   stringify(object: any): string {
     return JSON.stringify(object, Object.keys(object).sort())
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   hash(object: any): string {
     return crypto
       .createHash(this.config.get('objectHash.alogorithm', 'sha256'))

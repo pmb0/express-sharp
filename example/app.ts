@@ -27,11 +27,16 @@ app.use(
   })
 )
 
+const awsBucket = process.env.AWS_BUCKET
+if (!awsBucket) {
+  throw new Error('AWS_BUCKET not set')
+}
+
 app.use(
   '/s3',
   expressSharp({
     cache: new Keyv(),
-    imageAdapter: new S3Adapter(process.env.AWS_BUCKET!),
+    imageAdapter: new S3Adapter(awsBucket),
   })
 )
 
@@ -59,5 +64,6 @@ app.get('/', (req, res) => {
 
 const server = app.listen(PORT, function () {
   const { address, port } = server.address() as AddressInfo
+  // eslint-disable-next-line no-console
   console.log('✔ Example app listening at http://%s:%s', address, port)
 })
