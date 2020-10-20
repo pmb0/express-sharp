@@ -17,7 +17,9 @@ export async function transformImage(
   try {
     const transformer = container.resolve(Transformer)
 
-    if (!dto.url) throw new Error('Image url missing')
+    if (!dto.url) {
+      throw new Error('Image url missing')
+    }
     const { format, image } = await transformer.transform(
       dto.url,
       dto,

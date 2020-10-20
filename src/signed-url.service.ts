@@ -32,14 +32,18 @@ export class UrlSigner {
   }
 
   sign(url: string | URL): string {
-    if (typeof url === 'string') url = new URL(url)
+    if (typeof url === 'string') {
+      url = new URL(url)
+    }
 
     url.searchParams.set(this.getParamName(), this.getSignature(url.toString()))
     return url.toString()
   }
 
   verify(url: string | URL): boolean {
-    if (typeof url === 'string') url = new URL(url)
+    if (typeof url === 'string') {
+      url = new URL(url)
+    }
 
     const signature = url.searchParams.get(this.getParamName())
     url.searchParams.delete(this.getParamName())

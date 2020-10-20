@@ -16,7 +16,10 @@ export class FsAdapter implements ImageAdapter {
     try {
       return await fs.readFile(imagePath)
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return undefined
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        return undefined
+      }
+
       throw error
     }
   }

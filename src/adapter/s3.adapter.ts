@@ -19,7 +19,9 @@ export class S3Adapter implements ImageAdapter {
       .getObject({ Bucket: this.bucketName, Key: id })
       .promise()
 
-    if (!object.Body) return undefined
+    if (!object.Body) {
+      return undefined
+    }
 
     return Buffer.from(object.Body)
   }
