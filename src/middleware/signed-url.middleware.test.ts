@@ -20,8 +20,8 @@ describe('signedUrl()', () => {
       get() {
         return 'example.com'
       },
-      protocol: 'https',
       originalUrl: '/foo?s=5llwo-ByfwrHXVIfMv-c6VRF4D8c9891t4tJ1oitcC8',
+      protocol: 'https',
     }
 
     // @ts-ignore
@@ -35,8 +35,8 @@ describe('signedUrl()', () => {
       get() {
         return 'example.com'
       },
-      protocol: 'https',
       originalUrl: '/foo?s=invalid',
+      protocol: 'https',
     }
 
     // @ts-ignore

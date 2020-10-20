@@ -38,6 +38,7 @@
     "@types/sharp": "^0.26.0",
     "@types/supertest": "^2.0.10",
     "aws-sdk": "^2.713.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.1",
     "express": "^4.17.1",
     "got": "^11.5.0",
     "husky": "^4.2.5",
@@ -63,7 +64,7 @@
     "prebuild": "yarn clean",
     "clean": "rimraf dist",
     "start:example": "DEBUG=express-sharp* nodemon --exec 'node -r ts-node/register' -w . --inspect example/app.ts",
-    "lint": "eslint --cache --ext .js,.ts .",
+    "lint": "eslint --cache .",
     "test": "jest"
   },
   "husky": {

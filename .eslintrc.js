@@ -1,7 +1,9 @@
 module.exports = {
   root: true,
   extends: ['@heise'],
+  plugins: ['sort-keys-fix'],
   rules: {
+    'sort-keys-fix/sort-keys-fix': 'error',
     'no-prototype-builtins': 'off',
     'no-unused-vars': 'off',
     'security/detect-non-literal-fs-filename': 'off',

@@ -16,7 +16,7 @@ const imageAdapter = new FsAdapter(join(__dirname, 'images'))
 app.use('/scale1', expressSharp({ imageAdapter }))
 app.use(
   '/scale2',
-  expressSharp({ imageAdapter, cors: { origin: 'http://example.com' } })
+  expressSharp({ cors: { origin: 'http://example.com' }, imageAdapter })
 )
 
 afterAll(() => server.close())

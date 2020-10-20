@@ -49,12 +49,12 @@ describe('expressSharp', () => {
 
     describe('auto-use webp', () => {
       it('is used', () => {
-        const router = expressSharp({ imageAdapter, autoUseWebp: true })
+        const router = expressSharp({ autoUseWebp: true, imageAdapter })
         expect(getMiddlewaresFromRouter(router)).toContain(useWebpIfSupported)
       })
 
       it('is not used', () => {
-        const router = expressSharp({ imageAdapter, autoUseWebp: false })
+        const router = expressSharp({ autoUseWebp: false, imageAdapter })
         expect(getMiddlewaresFromRouter(router)).not.toContain(
           useWebpIfSupported
         )
@@ -65,7 +65,7 @@ describe('expressSharp', () => {
       it('uses the cache instance', () => {
         const cache = new Keyv({ namespace: 'foo' })
 
-        expressSharp({ imageAdapter, cache })
+        expressSharp({ cache, imageAdapter })
         expect(container.resolve(Keyv)).toBe(cache)
       })
 

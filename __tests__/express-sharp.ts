@@ -35,25 +35,25 @@ describe('GET /my-scale/resize', () => {
 
   it('should respond with 400 if quality is invalid', async () => {
     await request(app)
-      .get(url('/a.jpg', { width: 100, quality: -1 }))
+      .get(url('/a.jpg', { quality: -1, width: 100 }))
       .expect(400)
   })
 
   it('should respond with 200 (quality=1)', async () => {
     await request(app)
-      .get(url('/a.jpg', { width: 100, quality: 1 }))
+      .get(url('/a.jpg', { quality: 1, width: 100 }))
       .expect(200)
   })
 
   it('should respond with 400 (invalid quality)', async () => {
     await request(app)
-      .get(url('/a.jpg', { width: 100, quality: 101 }))
+      .get(url('/a.jpg', { quality: 101, width: 100 }))
       .expect(400)
   })
 
   it('should respond with 200 (quality=100)', async () => {
     await request(app)
-      .get(url('/a.jpg', { width: 100, quality: 100 }))
+      .get(url('/a.jpg', { quality: 100, width: 100 }))
       .expect(200)
   })
 
@@ -76,7 +76,7 @@ describe('GET /my-scale/resize', () => {
 
   it('should resize /images/a.jpg to 110px, 5% quality', async () => {
     const res = await request(app)
-      .get(url('/a.jpg', { width: 110, quality: 5 }))
+      .get(url('/a.jpg', { quality: 5, width: 110 }))
       .expect(200)
     expect(res.body.byteLength).toBeLessThan(5000)
     const { width } = await sharp(res.body).metadata()
@@ -85,7 +85,7 @@ describe('GET /my-scale/resize', () => {
 
   it('should change content type to image/png', async () => {
     await request(app)
-      .get(url('/a.jpg', { width: 110, format: 'png' }))
+      .get(url('/a.jpg', { format: 'png', width: 110 }))
       .expect('Content-Type', 'image/png')
       .expect(200)
   })
@@ -118,10 +118,10 @@ describe('GET /my-scale/resize', () => {
     const response = await request(app)
       .get(
         url('/a.jpg', {
-          width: 55,
-          height: 42,
           crop: true,
           gravity: 'west',
+          height: 42,
+          width: 55,
         })
       )
       .expect(200)
@@ -135,9 +135,9 @@ describe('GET /my-scale/resize', () => {
     const res = await request(app)
       .get(
         url('/a.jpg', {
-          width: 4000,
-          height: 2000,
           crop: true,
+          height: 2000,
+          width: 4000,
         })
       )
       .expect(200)
@@ -150,9 +150,9 @@ describe('GET /my-scale/resize', () => {
     const res = await request(app)
       .get(
         url('/a.jpg', {
-          width: 3000,
-          height: 6000,
           crop: true,
+          height: 6000,
+          width: 3000,
         })
       )
       .expect(200)
@@ -165,11 +165,13 @@ describe('GET /my-scale/resize', () => {
     await request(app)
       .get(
         url('/a.jpg', {
-          width: 100,
-          height: 100,
           crop: true,
           // @ts-ignore
           gravity: 'does not exist',
+
+          height: 100,
+
+          width: 100,
         })
       )
       .expect(400)

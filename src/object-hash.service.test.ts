@@ -18,18 +18,18 @@ describe('ObjectHash', () => {
 
   describe('stringify()', () => {
     it('should sort properties', () => {
-      expect(hasher.stringify({ z: 'z', a: 'a' })).toBe('{"a":"a","z":"z"}')
+      expect(hasher.stringify({ a: 'a', z: 'z' })).toBe('{"a":"a","z":"z"}')
     })
 
     it('should stringify all enumerable properties', () => {
-      const object = { c: 'c', bar: undefined }
+      const object = { bar: undefined, c: 'c' }
       Object.defineProperties(object, {
+        bar: {
+          enumerable: true,
+          get: () => 'bar',
+        },
         foo: {
           get: () => 'foo',
-        },
-        bar: {
-          get: () => 'bar',
-          enumerable: true,
         },
       })
 
@@ -42,8 +42,8 @@ describe('ObjectHash', () => {
       }
       const foo = new Foo()
       Object.defineProperty(foo, 'bar', {
-        get: () => 'bar',
         enumerable: true,
+        get: () => 'bar',
       })
 
       expect(hasher.stringify(foo)).toBe('{"bar":"bar","foo":"bar"}')

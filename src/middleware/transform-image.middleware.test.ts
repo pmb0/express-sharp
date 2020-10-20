@@ -32,8 +32,8 @@ describe('transformImage', () => {
   it('sends the transformed image', async () => {
     const response = {
       locals: { dto: { url: 'http://example.com/foo.png' } },
-      type: jest.fn(),
       send: jest.fn(),
+      type: jest.fn(),
     }
 
     const image = Buffer.from('image mock')

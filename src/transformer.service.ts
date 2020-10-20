@@ -66,9 +66,9 @@ export class Transformer {
     const originalImage = await cachedOriginalImage.fetch(id)
     if (!originalImage) {
       return {
+        format: options.format,
         // eslint-disable-next-line unicorn/no-null
         image: null,
-        format: options.format,
       }
     }
 
@@ -96,14 +96,14 @@ export class Transformer {
 
     const image = await transformer
       .toFormat(options.format, {
-        quality: options.quality,
         progressive: options.progressive,
+        quality: options.quality,
       })
       .toBuffer()
 
     this.log('Resizing done')
 
-    const result = { image, format: options.format }
+    const result = { format: options.format, image }
 
     this.log(`Caching ${cacheKey} ...`)
     await this.cache.set(cacheKey, result)

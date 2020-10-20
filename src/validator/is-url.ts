@@ -29,11 +29,13 @@ export function IsUrl(validationOptions?: ValidationOptions) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
   return function (object: any, propertyName: string): void {
     registerDecorator({
+      constraints: [],
+
+      options: validationOptions,
+
+      propertyName: propertyName,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       target: object.constructor,
-      propertyName: propertyName,
-      options: validationOptions,
-      constraints: [],
       validator: IsUrlConstraint,
     })
   }

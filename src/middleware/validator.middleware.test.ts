@@ -31,8 +31,8 @@ describe('Validator', () => {
     await handler(
       // @ts-ignore
       {
-        query,
         params,
+        query,
       },
       { locals: {} },
       next
@@ -65,7 +65,7 @@ describe('Validator', () => {
     const validateSpy = jest
       .spyOn(ClassValidator, 'validate')
       .mockImplementation()
-      .mockResolvedValue([{ property: 'bla', children: [] }])
+      .mockResolvedValue([{ children: [], property: 'bla' }])
 
     await handle({})
 
@@ -75,7 +75,7 @@ describe('Validator', () => {
   })
 
   test('class-validator decorators work', async () => {
-    await handle({ foo: '', bar: '1' })
+    await handle({ bar: '1', foo: '' })
 
     expect(next).toHaveBeenCalledWith(
       new BadRequestException('bar must not be less than 10')

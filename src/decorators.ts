@@ -6,21 +6,21 @@ function makePropertyMapper<T, U>(
   mapper: (value: U) => T
 ) {
   Object.defineProperty(prototype, key, {
+    enumerable: true,
     set(value: U) {
       Object.defineProperty(this, key, {
+        enumerable: true,
         get() {
           return Reflect.getMetadata(key, this) as T
         },
         set(value: U) {
           Reflect.defineMetadata(key, mapper(value), this)
         },
-        enumerable: true,
       })
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       this[key] = value
     },
-    enumerable: true,
   })
 }
 

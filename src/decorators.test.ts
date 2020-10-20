@@ -16,10 +16,10 @@ describe('Transform', () => {
       }
     }
 
-    const test = new Test({ foo: '100', bar: '300' })
-    expect(test).toEqual({ foo: 100, bar: '300' })
+    const test = new Test({ bar: '300', foo: '100' })
+    expect(test).toEqual({ bar: '300', foo: 100 })
 
-    const test2 = new Test({ foo: '1100', bar: '300', baz: '200' })
-    expect(test2).toEqual({ foo: 1100, bar: '300', baz: 200 })
+    const test2 = new Test({ bar: '300', baz: '200', foo: '1100' })
+    expect(test2).toEqual({ bar: '300', baz: 200, foo: 1100 })
   })
 })

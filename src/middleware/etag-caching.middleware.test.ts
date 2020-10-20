@@ -10,9 +10,9 @@ describe('etagCaching()', () => {
 
     // @ts-ignore
     response = {
+      locals: { dto: {} },
       sendStatus: jest.fn(),
       setHeader: jest.fn(),
-      locals: { dto: {} },
     }
   })
 
