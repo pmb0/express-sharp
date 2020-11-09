@@ -1,3 +1,10 @@
+## [4.2.16](https://github.com/pmb0/express-sharp/compare/v4.2.15...v4.2.16) (2020-11-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tsyringe to v4.4.0 ([ec4e454](https://github.com/pmb0/express-sharp/commit/ec4e454875f3ddedc7f938a40aaa6342cf68343e))
+
 ## [4.2.15](https://github.com/pmb0/express-sharp/compare/v4.2.14...v4.2.15) (2020-10-14)
 
 
