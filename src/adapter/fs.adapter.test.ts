@@ -40,7 +40,7 @@ describe('FsAdapter', () => {
       })
 
       await expect(() => adapter.fetch('/foo/bar')).rejects.toThrow(
-        expect.objectContaining({ code: 'any other' })
+        expect.objectContaining({ code: 'any other' }),
       )
     })
   })

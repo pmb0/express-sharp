@@ -4,7 +4,7 @@ import { ResizeDto } from '../resize.dto'
 export function useWebpIfSupported(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void {
   const { dto } = res.locals as { dto: ResizeDto }
 

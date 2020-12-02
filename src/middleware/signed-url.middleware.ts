@@ -6,7 +6,7 @@ import { UrlSigner } from '../signed-url.service'
 export function signedUrl(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void {
   const signer = container.resolve(UrlSigner)
 

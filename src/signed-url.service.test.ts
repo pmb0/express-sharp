@@ -20,7 +20,7 @@ describe('URLSigner', () => {
     config.set('signedUrl.paramName', 'bar')
 
     expect(signer.sign('https://example.com/?foo=bar')).toBe(
-      'https://example.com/?foo=bar&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk'
+      'https://example.com/?foo=bar&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk',
     )
   })
 
@@ -33,16 +33,16 @@ describe('URLSigner', () => {
     it('detects a valid signature', () => {
       expect(
         signer.verify(
-          'https://example.com/?foo=bar&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk'
-        )
+          'https://example.com/?foo=bar&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk',
+        ),
       ).toBeTruthy()
     })
 
     it('detects an invalid signature', () => {
       expect(
         signer.verify(
-          'https://example.com/?foo=bar&additional-param&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk'
-        )
+          'https://example.com/?foo=bar&additional-param&bar=MCv4YIAKZv0bxQBmTnwGrU6GjT8bRUmsW9rhVtkMyIk',
+        ),
       ).toBeFalsy()
     })
 
@@ -58,8 +58,8 @@ describe('URLSigner', () => {
         signer.verify('https://example.com/?foo=bar&bar=whatever')
       }).toThrow(
         new Error(
-          'Secret is missing. Please set EXPRESS_SHARP_SIGNED_URL_SECRET'
-        )
+          'Secret is missing. Please set EXPRESS_SHARP_SIGNED_URL_SECRET',
+        ),
       )
     })
   })

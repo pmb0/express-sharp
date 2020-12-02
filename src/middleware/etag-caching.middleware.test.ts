@@ -22,7 +22,7 @@ describe('etagCaching()', () => {
 
     expect(response.setHeader).toHaveBeenCalledWith(
       'ETag',
-      'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"'
+      'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"',
     )
     expect(next).not.toHaveBeenCalled()
     expect(response.sendStatus).toHaveBeenCalledWith(304)
@@ -34,7 +34,7 @@ describe('etagCaching()', () => {
 
     expect(response.setHeader).toHaveBeenCalledWith(
       'ETag',
-      'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"'
+      'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"',
     )
     expect(next).toHaveBeenCalled()
     expect(response.sendStatus).not.toHaveBeenCalled()

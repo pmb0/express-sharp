@@ -10,12 +10,12 @@ export class ImageUrl {
   constructor(
     @inject('endpoint') private readonly endpoint: string,
     @inject(UrlSigner) private readonly urlSigner: Signer,
-    private readonly config: ConfigService
+    private readonly config: ConfigService,
   ) {}
 
   private _buildUrl(
     imageId: string,
-    params: Partial<Omit<ResizeDto, 'url'>>
+    params: Partial<Omit<ResizeDto, 'url'>>,
   ): URL {
     const url = new URL(this.endpoint)
 
@@ -36,7 +36,7 @@ export class ImageUrl {
           // > A type predicate cannot reference element 'value' in a binding
           // > pattern.
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          value!.toString()
+          value!.toString(),
         )
       })
 

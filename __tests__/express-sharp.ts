@@ -122,7 +122,7 @@ describe('GET /my-scale/resize', () => {
           gravity: 'west',
           height: 42,
           width: 55,
-        })
+        }),
       )
       .expect(200)
 
@@ -138,7 +138,7 @@ describe('GET /my-scale/resize', () => {
           crop: true,
           height: 2000,
           width: 4000,
-        })
+        }),
       )
       .expect(200)
     const { width, height } = await sharp(res.body).metadata()
@@ -153,7 +153,7 @@ describe('GET /my-scale/resize', () => {
           crop: true,
           height: 6000,
           width: 3000,
-        })
+        }),
       )
       .expect(200)
     const { width, height } = await sharp(res.body).metadata()
@@ -172,7 +172,7 @@ describe('GET /my-scale/resize', () => {
           height: 100,
 
           width: 100,
-        })
+        }),
       )
       .expect(400)
   })
@@ -202,8 +202,8 @@ describe('GET /my-scale/resize', () => {
       .get(
         url(
           '/zade4np6qh-bardokat-designs-makramee-schlusselanhanger-noa-hellgrau.jpg',
-          {}
-        )
+          {},
+        ),
       )
       .expect(200)
   })

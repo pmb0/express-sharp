@@ -4,7 +4,7 @@ import { QueryParams } from '../interfaces'
 export function transformQueryParams(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void {
   Object.entries(QueryParams)
     .filter(([, shortName]: [string, string]) => shortName in req.query)

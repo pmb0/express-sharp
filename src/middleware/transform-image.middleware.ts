@@ -7,7 +7,7 @@ import { Transformer } from '../transformer.service'
 export async function transformImage(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> {
   const { dto, imageAdapter } = res.locals as {
     dto: ResizeDto
@@ -23,7 +23,7 @@ export async function transformImage(
     const { format, image } = await transformer.transform(
       dto.url,
       dto,
-      imageAdapter
+      imageAdapter,
     )
 
     if (!image || !format) {

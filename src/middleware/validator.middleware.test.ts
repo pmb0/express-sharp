@@ -35,7 +35,7 @@ describe('Validator', () => {
         query,
       },
       { locals: {} },
-      next
+      next,
     )
   }
 
@@ -51,7 +51,7 @@ describe('Validator', () => {
     await handle()
 
     expect(next).toHaveBeenCalledWith(
-      new BadRequestException('foo should not be null or undefined')
+      new BadRequestException('foo should not be null or undefined'),
     )
   })
 
@@ -78,7 +78,7 @@ describe('Validator', () => {
     await handle({ bar: '1', foo: '' })
 
     expect(next).toHaveBeenCalledWith(
-      new BadRequestException('bar must not be less than 10')
+      new BadRequestException('bar must not be less than 10'),
     )
   })
 

@@ -7,7 +7,7 @@ export class CachedImage {
 
   constructor(
     private readonly cache: Keyv<Buffer>,
-    private readonly adapter: ImageAdapter
+    private readonly adapter: ImageAdapter,
   ) {}
 
   async fetch(id: string): Promise<Buffer | undefined> {

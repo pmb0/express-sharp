@@ -17,7 +17,7 @@ describe('ImaegUrl', () => {
   describe('buildUrl()', () => {
     it('builds a valid image url', () => {
       expect(url.url('/bla/fasel.jpg', { height: 300, width: 100 })).toBe(
-        'http://example.com/base/bla/fasel.jpg?h=300&w=100'
+        'http://example.com/base/bla/fasel.jpg?h=300&w=100',
       )
     })
 
@@ -25,13 +25,13 @@ describe('ImaegUrl', () => {
       container.resolve(ConfigService).set('signedUrl.secret', 'foo')
 
       expect(url.url('/bla/fasel.jpg', { height: 300, width: 100 })).toBe(
-        'http://example.com/base/bla/fasel.jpg?h=300&w=100&s=xE2D9Z8Q7DqksFiHeJSyJqGsnbKXTU8jcs-ucS8KdTc'
+        'http://example.com/base/bla/fasel.jpg?h=300&w=100&s=xE2D9Z8Q7DqksFiHeJSyJqGsnbKXTU8jcs-ucS8KdTc',
       )
     })
 
     it('filters undefined values', () => {
       expect(url.url('/bla/fasel.jpg', { height: undefined, width: 100 })).toBe(
-        'http://example.com/base/bla/fasel.jpg?w=100'
+        'http://example.com/base/bla/fasel.jpg?w=100',
       )
     })
   })

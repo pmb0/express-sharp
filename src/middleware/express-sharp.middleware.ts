@@ -19,7 +19,7 @@ import { useWebpIfSupported } from './use-webp-if-supported.middleware'
 import { validate } from './validator.middleware'
 
 function extractActiveMiddlewares(
-  middlewaresDefinitions: [RequestHandler, boolean?][]
+  middlewaresDefinitions: [RequestHandler, boolean?][],
 ): RequestHandler[] {
   return middlewaresDefinitions
     .filter(([, active]) => active ?? true)

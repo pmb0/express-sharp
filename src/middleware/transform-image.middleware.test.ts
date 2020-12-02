@@ -57,7 +57,7 @@ describe('transformImage', () => {
       // @ts-ignore
       {},
       { locals: { dto: { url: 'http://example.com/foo.png' } } },
-      next
+      next,
     )
 
     expect(next).toHaveBeenCalledWith(new Error('ohoh'))
@@ -68,7 +68,7 @@ describe('transformImage', () => {
       // @ts-ignore
       {},
       { locals: { dto: {} } },
-      next
+      next,
     )
 
     expect(next).toHaveBeenCalledWith(new Error('Image url missing'))

@@ -7,7 +7,7 @@ export class S3Adapter implements ImageAdapter {
 
   constructor(
     public readonly bucketName: string,
-    private readonly s3client = new S3()
+    private readonly s3client = new S3(),
   ) {
     this.log(`Using bucket name: ${bucketName}`)
   }

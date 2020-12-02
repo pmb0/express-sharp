@@ -24,7 +24,7 @@ app.use(
     imageAdapter: new HttpAdapter({
       prefixUrl: 'http://localhost:3000/',
     }),
-  })
+  }),
 )
 
 const awsBucket = process.env.AWS_BUCKET
@@ -37,7 +37,7 @@ app.use(
   expressSharp({
     cache: new Keyv(),
     imageAdapter: new S3Adapter(awsBucket),
-  })
+  }),
 )
 
 app.use(
@@ -45,14 +45,14 @@ app.use(
   expressSharp({
     cache,
     imageAdapter: new HttpAdapter({ prefixUrl: 'http://lorempixel.com' }),
-  })
+  }),
 )
 app.use(
   '/fs',
   expressSharp({
     cache,
     imageAdapter: new FsAdapter(join(__dirname, 'images')),
-  })
+  }),
 )
 
 app.set('views', join(__dirname, 'views'))

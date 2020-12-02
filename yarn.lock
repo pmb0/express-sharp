@@ -490,10 +490,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@heise/eslint-config@^13.0.0":
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/@heise/eslint-config/-/eslint-config-13.0.2.tgz#04d4123dbaeb6cdbe0a78846495aa30b26374e6c"
-  integrity sha512-G/q9PjZinw8MzHL9JuS3ul6IRJHRVeacbomDltIJg0OdP9GLkkWezQjIKLxTFXJLYAaWGy9ShTeMsZ7qFsS1wA==
+"@heise/eslint-config@^14.0.2":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@heise/eslint-config/-/eslint-config-14.0.2.tgz#f4fb32db734c77ec5374d833154840a2257f3c6f"
+  integrity sha512-DS86yOjlNGQUjyNUwXWszniH1+4r1Nc7oNmRDNWv++8CJMxT+B1Qoxn1YMcJWE+0kYfGjqFWfN0gm7fghFesSA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.4.0"
     "@typescript-eslint/parser" "^4.4.0"
@@ -507,7 +507,7 @@
     eslint-plugin-security "^1.4.0"
     eslint-plugin-sonarjs "^0.5.0"
     eslint-plugin-toplevel "^1.0.1"
-    eslint-plugin-unicorn "^22.0.0"
+    eslint-plugin-unicorn "^23.0.0"
     prettier "^2.1.2"
 
 "@iarna/cli@^1.2.0":
@@ -3349,10 +3349,10 @@ eslint-plugin-toplevel@^1.0.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-toplevel/-/eslint-plugin-toplevel-1.0.1.tgz#147e108b3468f3b8c67f4215a5c590bb41be5d39"
   integrity sha512-qSJFK86cy0VZ9gSPE8ux9h6Qe8gG5/Kif9LDq2Ve1w8/JPdNXle9jzDaHO1sNeciJKwRo3nnsV4XysXIr9lPsA==
 
-eslint-plugin-unicorn@^22.0.0:
-  version "22.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-22.0.0.tgz#46a93d8de393b865e04c2057a4ed3510864dd3be"
-  integrity sha512-jXPOauNiVFYLr+AeU3l21Ao+iDl/G08vUWui21RCI2L1TJIIoJvAMjMR6I+QPKr8FgIumzuR6gzDKCtEx2IkzA==
+eslint-plugin-unicorn@^23.0.0:
+  version "23.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-23.0.0.tgz#b2820212874735f9d91ecc8678b263ecfa6cf5f6"
+  integrity sha512-Vabo3cjl6cjyhcf+76CdQEY6suOFzK0Xh3xo0uL9VDYrDJP5+B6PjV0tHTYm82WZmFWniugFJM3ywHSNYTi/ZQ==
   dependencies:
     ci-info "^2.0.0"
     clean-regexp "^1.0.0"
@@ -6845,7 +6845,6 @@ npm@^6.14.8:
     cmd-shim "^3.0.3"
     columnify "~1.5.4"
     config-chain "^1.1.12"
-    debuglog "*"
     detect-indent "~5.0.0"
     detect-newline "^2.1.0"
     dezalgo "~1.0.3"
@@ -6860,7 +6859,6 @@ npm@^6.14.8:
     has-unicode "~2.0.1"
     hosted-git-info "^2.8.8"
     iferr "^1.0.2"
-    imurmurhash "*"
     infer-owner "^1.0.4"
     inflight "~1.0.6"
     inherits "^2.0.4"
@@ -6879,14 +6877,8 @@ npm@^6.14.8:
     libnpx "^10.2.4"
     lock-verify "^2.1.0"
     lockfile "^1.0.4"
-    lodash._baseindexof "*"
     lodash._baseuniq "~4.6.0"
-    lodash._bindcallback "*"
-    lodash._cacheindexof "*"
-    lodash._createcache "*"
-    lodash._getnative "*"
     lodash.clonedeep "~4.5.0"
-    lodash.restparam "*"
     lodash.union "~4.6.0"
     lodash.uniq "~4.5.0"
     lodash.without "~4.4.0"

@@ -38,7 +38,7 @@ describe('expressSharp', () => {
 
       it('sets the secret', () => {
         expect(container.resolve(ConfigService).get('signedUrl.secret')).toBe(
-          'foo'
+          'foo',
         )
       })
 
@@ -56,7 +56,7 @@ describe('expressSharp', () => {
       it('is not used', () => {
         const router = expressSharp({ autoUseWebp: false, imageAdapter })
         expect(getMiddlewaresFromRouter(router)).not.toContain(
-          useWebpIfSupported
+          useWebpIfSupported,
         )
       })
     })

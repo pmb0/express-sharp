@@ -49,7 +49,7 @@ describe('HttpAdapter', () => {
       await expect(() => adapter.fetch('/foo/bar')).rejects.toThrow(
         expect.objectContaining({
           response: { statusCode: 500 },
-        })
+        }),
       )
     })
 

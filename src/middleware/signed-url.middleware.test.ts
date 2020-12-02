@@ -43,7 +43,7 @@ describe('signedUrl()', () => {
     signedUrl(request, {}, next)
 
     expect(next).toHaveBeenCalledWith(
-      new ForbiddenException('Invalid signature')
+      new ForbiddenException('Invalid signature'),
     )
   })
 })

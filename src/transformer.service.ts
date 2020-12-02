@@ -16,7 +16,7 @@ export class Transformer {
 
   constructor(
     private readonly objectHasher: ObjectHash,
-    private readonly cache: Keyv<Result>
+    private readonly cache: Keyv<Result>,
   ) {}
 
   getCropDimensions(maxSize: number, width: number, height?: number): number[] {
@@ -43,12 +43,12 @@ export class Transformer {
   async transform(
     id: string,
     options: ResizeDto,
-    imageAdapter: ImageAdapter
+    imageAdapter: ImageAdapter,
   ): Promise<Result> {
     const cacheKey = this.buildCacheKey(
       id,
       options,
-      imageAdapter.constructor.name
+      imageAdapter.constructor.name,
     )
 
     const cachedImage = await this.cache.get(cacheKey)
@@ -61,7 +61,7 @@ export class Transformer {
 
     const cachedOriginalImage = new CachedImage(
       this.cache as Keyv,
-      imageAdapter
+      imageAdapter,
     )
     const originalImage = await cachedOriginalImage.fetch(id)
     if (!originalImage) {
@@ -82,7 +82,7 @@ export class Transformer {
       const [cropWidth, cropHeight] = this.getCropDimensions(
         this.cropMaxSize,
         options.width,
-        options.height
+        options.height,
       )
       transformer.resize(cropWidth, cropHeight, {
         position: options.gravity,

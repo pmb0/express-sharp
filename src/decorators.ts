@@ -3,7 +3,7 @@ import 'reflect-metadata'
 function makePropertyMapper<T, U>(
   prototype: unknown,
   key: string,
-  mapper: (value: U) => T
+  mapper: (value: U) => T,
 ) {
   Object.defineProperty(prototype, key, {
     enumerable: true,

@@ -15,7 +15,7 @@ export class UrlSigner {
     const secret = this.config.get('signedUrl.secret')
     if (!secret) {
       throw new TypeError(
-        `Secret is missing. Please set ${ConfigService.GLOBAL_PREFIX}SIGNED_URL_SECRET`
+        `Secret is missing. Please set ${ConfigService.GLOBAL_PREFIX}SIGNED_URL_SECRET`,
       )
     }
 
@@ -23,7 +23,7 @@ export class UrlSigner {
       crypto
         .createHmac(this.config.get('signedUrl.algorithm', 'sha256'), secret)
         .update(string)
-        .digest('base64')
+        .digest('base64'),
     )
   }
 
