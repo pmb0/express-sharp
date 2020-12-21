@@ -531,10 +531,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@heise/eslint-config@^14.0.2":
-  version "14.0.5"
-  resolved "https://registry.yarnpkg.com/@heise/eslint-config/-/eslint-config-14.0.5.tgz#b484b58cd4c791f823e9846e1f5aef59edb0889b"
-  integrity sha512-LyYu6AnjjbMnv08fAcMps+G9OzmcTn2O23ozVFhpdpZ9s0E92ZY6rFNFcZGwV4DTk6eD4cvk0mNgDecs3dg7vQ==
+"@heise/eslint-config@^15.0.0":
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/@heise/eslint-config/-/eslint-config-15.0.2.tgz#8ec91e32784eeb66d850fa1ee71e00a476bcb6bf"
+  integrity sha512-5r+PuhBJ9BTkAJssD1Xv9iSUKjGjlh5GH+q22cH58UYdZEg56b0okT2PM8rAP7Bi+uUImSlUoluiEe9s3Fatdw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.4.0"
     "@typescript-eslint/parser" "^4.4.0"
