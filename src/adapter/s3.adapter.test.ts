@@ -40,5 +40,14 @@ describe('S3Adapter', () => {
 
       expect(await adapter.fetch('foo')).toBeUndefined()
     })
+
+    it('catches errors', async () => {
+      awsPromiseMock.mockRejectedValueOnce(new Error('ohoh'))
+      // @ts-ignore
+      const logSpy = jest.spyOn(adapter, 'log')
+
+      expect(await adapter.fetch('foo')).toBeUndefined()
+      expect(logSpy).toHaveBeenCalledWith('Fetching bucket "foo" failed: {}')
+    })
   })
 })
