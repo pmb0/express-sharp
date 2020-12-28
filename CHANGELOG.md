@@ -1,3 +1,10 @@
+## [4.2.22](https://github.com/pmb0/express-sharp/compare/v4.2.21...v4.2.22) (2020-12-28)
+
+
+### Bug Fixes
+
+* **s3-adapter:** catch S3 errors ([9ce4efc](https://github.com/pmb0/express-sharp/commit/9ce4efc6cea2e9f4de5812b03278c223943c2ef7))
+
 ## [4.2.21](https://github.com/pmb0/express-sharp/compare/v4.2.20...v4.2.21) (2020-12-28)
 
 
