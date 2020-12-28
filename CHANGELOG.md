@@ -1,3 +1,11 @@
+## [4.2.21](https://github.com/pmb0/express-sharp/compare/v4.2.20...v4.2.21) (2020-12-28)
+
+
+### Bug Fixes
+
+* upgrade deps ([2c9ec46](https://github.com/pmb0/express-sharp/commit/2c9ec4635e069a6be049565739660b3a56bd7986))
+* **s3-adapter:** add missing runtime check ([5140051](https://github.com/pmb0/express-sharp/commit/5140051c54a7ad6a3b8ff59765b0768811c9f731))
+
 ## [4.2.20](https://github.com/pmb0/express-sharp/compare/v4.2.19...v4.2.20) (2020-12-26)
 
 
