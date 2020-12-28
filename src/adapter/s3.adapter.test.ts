@@ -1,7 +1,9 @@
 import { S3Adapter } from './s3.adapter'
 import { container } from 'tsyringe'
 
-const awsPromiseMock = jest.fn().mockReturnValue({ Body: 'mocked' })
+const awsPromiseMock = jest
+  .fn()
+  .mockReturnValue({ Body: Buffer.from('mocked') })
 const getObjectMock = jest.fn().mockReturnValue({ promise: awsPromiseMock })
 
 jest.mock('aws-sdk', () => {
