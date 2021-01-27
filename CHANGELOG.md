@@ -1,3 +1,10 @@
+## [4.2.23](https://github.com/pmb0/express-sharp/compare/v4.2.22...v4.2.23) (2021-01-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sharp to v0.27.1 ([265cec9](https://github.com/pmb0/express-sharp/commit/265cec906cf45bb046736a8d5f4de370db1ebde9))
+
 ## [4.2.22](https://github.com/pmb0/express-sharp/compare/v4.2.21...v4.2.22) (2020-12-28)
 
 
