@@ -49,7 +49,7 @@
     "nodemon": "^2.0.3",
     "pug": "^3.0.0",
     "semantic-release": "^17.0.8",
-    "supertest": "^5.0.0",
+    "supertest": "^6.0.0",
     "ts-jest": "^26.0.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.0"
