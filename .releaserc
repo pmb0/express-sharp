@@ -1,5 +1,5 @@
   {
-  "branches": ["master"],f
+  "branches": ["master"],
   "repositoryUrl": "git@github.com:pmb0/express-sharp.git",
   "plugins": [
     "@semantic-release/commit-analyzer",
