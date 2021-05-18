@@ -2,8 +2,8 @@ import { validate as validate_, ValidationError } from 'class-validator'
 import { NextFunction, Request, Response } from 'express'
 import { BadRequestException } from '../http-exception'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function validate<T>(Dto: {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function validate<T extends {}>(Dto: {
   new (...args: any[]): T
 }): (req: Request, res: Response, next: NextFunction) => Promise<void> {
   return async (req: Request, res: Response, next: NextFunction) => {
