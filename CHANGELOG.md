@@ -1,3 +1,12 @@
+## [4.2.26](https://github.com/pmb0/express-sharp/compare/v4.2.25...v4.2.26) (2021-05-18)
+
+
+### Bug Fixes
+
+* upgrade class-validator@^0.13 ([91a55c2](https://github.com/pmb0/express-sharp/commit/91a55c285694c9ba1cce634576d798a71ff3e66d))
+* upgrade dotenv@^9 ([73c6fa2](https://github.com/pmb0/express-sharp/commit/73c6fa2dd74b6f6c532c8d634a8fcb24147983e3))
+* upgrade sharp@^0.28 ([e7c2838](https://github.com/pmb0/express-sharp/commit/e7c28385dd4acf63ad0fbd2d367316e6ecfbfd05))
+
 ## [4.2.25](https://github.com/pmb0/express-sharp/compare/v4.2.24...v4.2.25) (2021-05-18)
 
 
