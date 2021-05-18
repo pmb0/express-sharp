@@ -22,7 +22,7 @@ export class ResizeDto {
   }
 
   @IsOptional()
-  @IsIn(['heic', 'heif', 'jpeg', 'jpg', 'png', 'raw', 'tiff', 'webp'])
+  @IsIn(['heif', 'jpeg', 'jpg', 'png', 'raw', 'tiff', 'webp'])
   @IsString()
   public format?: format
 

@@ -1,15 +1,7 @@
 import { CorsOptions } from 'cors'
 import Keyv from 'keyv'
 
-export type format =
-  | 'heic'
-  | 'heif'
-  | 'jpeg'
-  | 'jpg'
-  | 'png'
-  | 'raw'
-  | 'tiff'
-  | 'webp'
+export type format = 'heif' | 'jpeg' | 'jpg' | 'png' | 'raw' | 'tiff' | 'webp'
 
 export interface Result {
   // format: 'heic' | 'heif' | 'jpeg' | 'jpg' | 'png' | 'raw' | 'tiff' | 'webp'
