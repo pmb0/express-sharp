@@ -31,13 +31,13 @@ export class ResizeDto {
   @IsNumber({ allowInfinity: false, allowNaN: false })
   @IsInt()
   @Min(1)
-  @Max(10000)
+  @Max(10_000)
   public height?: number
 
   @Transform(Number)
   @IsNumber()
   @Min(1)
-  @Max(10000)
+  @Max(10_000)
   public width: number = 500
 
   @Transform(Number)

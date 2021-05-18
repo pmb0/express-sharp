@@ -10,6 +10,7 @@ module.exports = {
     'unicorn/import-style': 'off',
     'unicorn/no-null': 'off',
     'unicorn/prevent-abbreviations': 'off',
+    'unicorn/prefer-module': 'off',
   },
   env: {
     node: true,

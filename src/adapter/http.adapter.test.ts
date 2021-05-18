@@ -1,5 +1,5 @@
-import { HttpAdapter } from './http.adapter'
 import got from 'got'
+import { HttpAdapter } from './http.adapter'
 
 jest.mock('got')
 
@@ -27,7 +27,7 @@ describe('HttpAdapter', () => {
     })
 
     it('returns undefined on 404', async () => {
-      const error = new Error() as any
+      const error = new Error('ohoh') as any
       error.response = { statusCode: 404 }
 
       // @ts-ignore
@@ -41,7 +41,7 @@ describe('HttpAdapter', () => {
     it('re-throws other HTTP errors', async () => {
       // @ts-ignore
       adapter.client.get.mockImplementation(() => {
-        const error = new Error() as any
+        const error = new Error('ohoh') as any
         error.response = { statusCode: 500 }
         throw error
       })
