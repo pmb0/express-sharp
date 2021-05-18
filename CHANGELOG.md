@@ -1,3 +1,11 @@
+## [4.2.25](https://github.com/pmb0/express-sharp/compare/v4.2.24...v4.2.25) (2021-05-18)
+
+
+### Bug Fixes
+
+* `heic` is no longer supported in Sharp ([9da9a73](https://github.com/pmb0/express-sharp/commit/9da9a73d3e5f2a1bcca01fa4c862145368ac5d5e))
+* upgrade deps ([265526a](https://github.com/pmb0/express-sharp/commit/265526af388d281cb3d357c870e1c168e1045a77))
+
 ## [4.2.24](https://github.com/pmb0/express-sharp/compare/v4.2.23...v4.2.24) (2021-02-23)
 
 
