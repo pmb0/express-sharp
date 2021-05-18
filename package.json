@@ -42,10 +42,10 @@
     "eslint-plugin-sort-keys-fix": "^1.1.1",
     "express": "^4.17.1",
     "got": "^11.5.0",
-    "husky": "^5.0.0",
+    "husky": "^6.0.0",
     "jest": "^26.0.0",
     "keyv": "^4.0.0",
-    "lint-staged": "^10.2.9",
+    "lint-staged": "^11.0.0",
     "nodemon": "^2.0.3",
     "pug": "^3.0.0",
     "semantic-release": "^17.0.8",
@@ -66,13 +66,8 @@
     "clean": "rimraf dist",
     "start:example": "DEBUG=express-sharp* nodemon --exec 'node -r ts-node/register' -w . --inspect example/app.ts",
     "lint": "eslint --cache .",
-    "test": "jest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "test": "jest",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">= 12.0.0"
