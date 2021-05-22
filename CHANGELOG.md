@@ -1,3 +1,10 @@
+## [4.2.27](https://github.com/pmb0/express-sharp/compare/v4.2.26...v4.2.27) (2021-05-22)
+
+
+### Bug Fixes
+
+* use EXIF orientation tag ([#343](https://github.com/pmb0/express-sharp/issues/343)) ([f4f9022](https://github.com/pmb0/express-sharp/commit/f4f9022674eab60114f2ea5b75e22441c884fd53))
+
 ## [4.2.26](https://github.com/pmb0/express-sharp/compare/v4.2.25...v4.2.26) (2021-05-18)
 
 
