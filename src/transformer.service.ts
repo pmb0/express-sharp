@@ -64,6 +64,7 @@ export class Transformer {
       imageAdapter,
     )
     const originalImage = await cachedOriginalImage.fetch(id)
+
     if (!originalImage) {
       return {
         format: options.format,
@@ -72,7 +73,7 @@ export class Transformer {
       }
     }
 
-    const transformer = sharp(originalImage)
+    const transformer = sharp(originalImage).rotate()
 
     if (!options.format) {
       options.format = (await transformer.metadata()).format as format
