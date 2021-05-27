@@ -1,3 +1,10 @@
+## [4.2.29](https://github.com/pmb0/express-sharp/compare/v4.2.28...v4.2.29) (2021-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v10 ([7c95fd5](https://github.com/pmb0/express-sharp/commit/7c95fd5fb7fd0298906a9a10f7bbd5b1498147ed))
+
 ## [4.2.28](https://github.com/pmb0/express-sharp/compare/v4.2.27...v4.2.28) (2021-05-24)
 
 
