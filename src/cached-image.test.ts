@@ -20,15 +20,15 @@ describe('CachedImage', () => {
     adapter = new ImageAdapterMock()
     cache = new Map()
 
-    cachedImage = new CachedImage(new Keyv({ store: cache }), adapter)
+    cachedImage = new CachedImage(new Keyv({ store: cache }))
   })
 
   describe('fetch()', () => {
     it('stores the image in the cache', async () => {
-      expect(await cachedImage.fetch('abc')).toBeUndefined()
+      expect(await cachedImage.fetch('abc', adapter)).toBeUndefined()
 
       adapter.fetchMock = Buffer.from('foo')
-      expect((await cachedImage.fetch('def'))?.toString()).toBe('foo')
+      expect((await cachedImage.fetch('def', adapter))?.toString()).toBe('foo')
 
       expect(cache).toMatchInlineSnapshot(`
         Map {
@@ -41,7 +41,7 @@ describe('CachedImage', () => {
       // @ts-ignore
       await cachedImage.cache.set('image:foo', 'bar')
 
-      expect((await cachedImage.fetch('foo'))?.toString()).toBe('bar')
+      expect((await cachedImage.fetch('foo', adapter))?.toString()).toBe('bar')
     })
   })
 })
