@@ -36,7 +36,7 @@ export class ImageUrl {
           // > A type predicate cannot reference element 'value' in a binding
           // > pattern.
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          value!.toString(),
+          value.toString(),
         )
       })
 
