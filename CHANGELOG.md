@@ -1,3 +1,10 @@
+## [4.2.30](https://github.com/pmb0/express-sharp/compare/v4.2.29...v4.2.30) (2021-06-21)
+
+
+### Bug Fixes
+
+* resolve memory leak in CachedImage ([f1a8849](https://github.com/pmb0/express-sharp/commit/f1a88496dd2d117dacf79738475d974194cca554))
+
 ## [4.2.29](https://github.com/pmb0/express-sharp/compare/v4.2.28...v4.2.29) (2021-05-27)
 
 
