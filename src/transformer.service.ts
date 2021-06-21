@@ -17,6 +17,7 @@ export class Transformer {
   constructor(
     private readonly objectHasher: ObjectHash,
     private readonly cache: Keyv<Result>,
+    private readonly cachedOriginalImage: CachedImage,
   ) {}
 
   getCropDimensions(maxSize: number, width: number, height?: number): number[] {
@@ -59,11 +60,7 @@ export class Transformer {
 
     this.log(`Resizing ${id} with options:`, JSON.stringify(options))
 
-    const cachedOriginalImage = new CachedImage(
-      this.cache as Keyv,
-      imageAdapter,
-    )
-    const originalImage = await cachedOriginalImage.fetch(id)
+    const originalImage = await this.cachedOriginalImage.fetch(id, imageAdapter)
 
     if (!originalImage) {
       return {

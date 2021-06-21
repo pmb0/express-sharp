@@ -3,6 +3,7 @@ import { container } from 'tsyringe'
 import { ImageAdapter } from './interfaces'
 import { ObjectHash } from './object-hash.service'
 import { Transformer } from './transformer.service'
+import { CachedImage } from './cached-image'
 
 class ImageMockAdapter implements ImageAdapter {
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -15,7 +16,12 @@ describe('Transformer', () => {
   let transformer: Transformer
 
   beforeEach(() => {
-    transformer = new Transformer(container.resolve(ObjectHash), new Keyv())
+    const cache = new Keyv()
+    transformer = new Transformer(
+      container.resolve(ObjectHash),
+      cache,
+      new CachedImage(cache),
+    )
   })
 
   describe('getCropDimensions()', () => {

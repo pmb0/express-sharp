@@ -1,16 +1,15 @@
 import Keyv from 'keyv'
 import { ImageAdapter } from './interfaces'
 import { getLogger } from './logger'
+import { singleton } from 'tsyringe'
 
+@singleton()
 export class CachedImage {
   log = getLogger('cached-image')
 
-  constructor(
-    private readonly cache: Keyv<Buffer>,
-    private readonly adapter: ImageAdapter,
-  ) {}
+  constructor(private readonly cache: Keyv<Buffer>) {}
 
-  async fetch(id: string): Promise<Buffer | undefined> {
+  async fetch(id: string, adapter: ImageAdapter): Promise<Buffer | undefined> {
     const cacheKey = `image:${id}`
 
     let image = await this.cache.get(cacheKey)
@@ -20,7 +19,7 @@ export class CachedImage {
       return image
     }
 
-    image = await this.adapter.fetch(id)
+    image = await adapter.fetch(id)
 
     if (image) {
       this.log(`Caching original image ${id} ...`)
