@@ -1,3 +1,10 @@
+## [4.2.33](https://github.com/pmb0/express-sharp/compare/v4.2.32...v4.2.33) (2021-07-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tsyringe to v4.6.0 ([4760b4e](https://github.com/pmb0/express-sharp/commit/4760b4e57658ac0250049dd625f3fcb386163463))
+
 ## [4.2.32](https://github.com/pmb0/express-sharp/compare/v4.2.31...v4.2.32) (2021-07-04)
 
 
