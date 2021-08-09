@@ -569,10 +569,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@heise/eslint-config@^18.0.1":
-  version "18.0.5"
-  resolved "https://registry.yarnpkg.com/@heise/eslint-config/-/eslint-config-18.0.5.tgz#a5d711faab790f6eaa251bba668172a52ad677d6"
-  integrity sha512-jfoeR3YsogjgoDnR1kGcqpVvrJ56GRxDqnrJkc71iC60+71XmM9uSX32aecT7tyu0nV852SLANlyeGuIiH8Paw==
+"@heise/eslint-config@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@heise/eslint-config/-/eslint-config-19.0.0.tgz#46f9ac5fab308771d927adb9cf8f93b168aae857"
+  integrity sha512-C4RBW2Iloq8RiDRF84l4FBEnLv7CpeUb09VoXzSMHLxvEgkExLNtEzB24+05M0rwZdJos4TuYGUFuW5hHB+jgA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.4.0"
     "@typescript-eslint/parser" "^4.4.0"
@@ -586,7 +586,7 @@
     eslint-plugin-security "^1.4.0"
     eslint-plugin-sonarjs "^0.9.1"
     eslint-plugin-toplevel "^1.0.1"
-    eslint-plugin-unicorn "^34.0.1"
+    eslint-plugin-unicorn "^35.0.0"
     prettier "^2.1.2"
 
 "@humanwhocodes/config-array@^0.5.0":
@@ -3274,11 +3274,12 @@ eslint-plugin-toplevel@^1.0.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-toplevel/-/eslint-plugin-toplevel-1.0.1.tgz#147e108b3468f3b8c67f4215a5c590bb41be5d39"
   integrity sha512-qSJFK86cy0VZ9gSPE8ux9h6Qe8gG5/Kif9LDq2Ve1w8/JPdNXle9jzDaHO1sNeciJKwRo3nnsV4XysXIr9lPsA==
 
-eslint-plugin-unicorn@^34.0.1:
-  version "34.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-34.0.1.tgz#e31cfaf487591599ff1f1b1e74776cce59dcc3ae"
-  integrity sha512-GUBtRYRhPVOW/GDu6QtOjrneSZxY/MulOT8puJU+47VKCzNmMgS/iHO2gZqoQ7KPMrpNYlebUlvCWy3IR1USVQ==
+eslint-plugin-unicorn@^35.0.0:
+  version "35.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-35.0.0.tgz#40797793d4f645bafaaa7a1396b8f4ca7b2a7dbd"
+  integrity sha512-FHsaO68tDPQILfs/mGF8eSISJp8RswR4FpUuBDnueK2wyEHC6zmsc9WxjYyldXoIsBuVmru6jQyFCbCWPoW/KQ==
   dependencies:
+    "@babel/helper-validator-identifier" "^7.14.9"
     ci-info "^3.2.0"
     clean-regexp "^1.0.0"
     eslint-template-visitor "^2.3.2"
@@ -3288,7 +3289,6 @@ eslint-plugin-unicorn@^34.0.1:
     pluralize "^8.0.0"
     read-pkg-up "^7.0.1"
     regexp-tree "^0.1.23"
-    reserved-words "^0.1.2"
     safe-regex "^2.1.1"
     semver "^7.3.5"
 
@@ -7179,11 +7179,6 @@ requireindex@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
   integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
-
-reserved-words@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/reserved-words/-/reserved-words-0.1.2.tgz#00a0940f98cd501aeaaac316411d9adc52b31ab1"
-  integrity sha1-AKCUD5jNUBrqqsMWQR2a3FKzGrE=
 
 resolve-alpn@^1.0.0:
   version "1.1.2"
