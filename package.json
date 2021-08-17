@@ -11,7 +11,7 @@
     "dotenv": "^10.0.0",
     "etag": "^1.8.1",
     "reflect-metadata": "^0.1.13",
-    "sharp": "^0.28.2",
+    "sharp": "^0.29.0",
     "tsyringe": "^4.2.0"
   },
   "devDependencies": {
