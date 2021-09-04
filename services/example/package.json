@@ -1,0 +1,22 @@
+{
+  "name": "@edged/example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json",
+    "build:docker": "pnpm run build && pkg -t alpine-x64 --compress GZip dist/main.js && docker build -t test .",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "start:dev": "DEBUG=express-sharp* nodemon --exec 'node -r ts-node/register' -w . --inspect src/main.ts"
+  },
+  "author": "Philipp Busse",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-sharp": "^4.2.39",
+    "keyv": "^4.0.3",
+    "pkg": "^5.3.2",
+    "pug": "^3.0.2",
+    "tslib": "^2.3.1"
+  }
+}

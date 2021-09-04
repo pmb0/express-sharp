@@ -1,0 +1,8 @@
+{
+  "name": "@edged/tsconfig",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tsconfig.json",
+  "private": true,
+  "author": "Philipp Busse"
+}

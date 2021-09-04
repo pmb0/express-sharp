@@ -1,0 +1,9 @@
+{
+  "extends": "@edged/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*", "__tests__/**/*", "example/**/*", "__mocks__/**/*"],
+  "references": []
+}
