@@ -36,7 +36,7 @@ jobs:
         run: pnpm run lint
 
       - name: Run tests
-        run: pnpm run test --coverage
+        run: pnpm run ci:test
 
       - name: Coveralls
         uses: coverallsapp/github-action@master
