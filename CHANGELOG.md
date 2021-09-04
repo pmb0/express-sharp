@@ -1,3 +1,10 @@
+## [4.2.36](https://github.com/pmb0/express-sharp/compare/v4.2.35...v4.2.36) (2021-09-04)
+
+
+### Bug Fixes
+
+* publish only necessary files to npm ([26a9191](https://github.com/pmb0/express-sharp/commit/26a91913b1a771e60fe0131523bd5b9d81af93af))
+
 ## [4.2.35](https://github.com/pmb0/express-sharp/compare/v4.2.34...v4.2.35) (2021-09-04)
 
 
