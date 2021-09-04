@@ -75,6 +75,7 @@
     "start:example": "DEBUG=express-sharp* nodemon --exec 'node -r ts-node/register' -w . --inspect example/app.ts",
     "lint": "eslint --cache .",
     "test": "jest",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install"
   },
   "engines": {
