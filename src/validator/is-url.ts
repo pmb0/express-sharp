@@ -13,15 +13,11 @@ export class IsUrlConstraint implements ValidatorConstraintInterface {
       return false
     }
 
-    try {
-      // `url` is an absolute URI without host and protocol. Validating it by
-      // by using any base URL
-      const parsedUrl = new URL(url, 'https://example.com')
+    // `url` is an absolute URI without host and protocol. Validating it by
+    // by using any base URL
+    const parsedUrl = new URL(url, 'https://example.com')
 
-      return !/^\/+$/.test(parsedUrl.pathname)
-    } catch {
-      return false
-    }
+    return !/^\/+$/.test(parsedUrl.pathname)
   }
 }
 
