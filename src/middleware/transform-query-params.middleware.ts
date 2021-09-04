@@ -3,7 +3,7 @@ import { QueryParams } from '../interfaces'
 
 export function transformQueryParams(
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ): void {
   Object.entries(QueryParams)

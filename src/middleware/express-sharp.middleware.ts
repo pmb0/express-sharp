@@ -44,7 +44,7 @@ export function expressSharp(options: ExpressSharpOptions): Router {
       },
     ],
     [transformQueryParams],
-    [validate<ResizeDto>(ResizeDto)],
+    [validate(ResizeDto)],
     [useWebpIfSupported, options.autoUseWebp ?? true],
     [cors(options.cors)],
     [signedUrl, configService.get('signedUrl.secret') !== undefined],
