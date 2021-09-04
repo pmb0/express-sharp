@@ -59,6 +59,14 @@
     "express": "^4.0.0",
     "got": "^11.5.0"
   },
+  "peerDependenciesMeta": {
+    "aws-sdk": {
+      "optional": true
+    },
+    "got": {
+      "optional": true
+    }
+  },
   "scripts": {
     "build:test": "tsc --noEmit",
     "build": "tsc --build tsconfig.build.json",
