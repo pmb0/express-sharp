@@ -1,3 +1,10 @@
+## [4.2.35](https://github.com/pmb0/express-sharp/compare/v4.2.34...v4.2.35) (2021-09-04)
+
+
+### Bug Fixes
+
+* aws-sdk and got are optional dependencies ([#554](https://github.com/pmb0/express-sharp/issues/554)) ([5d7f6b3](https://github.com/pmb0/express-sharp/commit/5d7f6b39980156574c08127d366b34dbf087d225))
+
 ## [4.2.34](https://github.com/pmb0/express-sharp/compare/v4.2.33...v4.2.34) (2021-08-17)
 
 
