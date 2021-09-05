@@ -1,3 +1,10 @@
+## [4.2.38](https://github.com/pmb0/express-sharp/compare/v4.2.37...v4.2.38) (2021-09-05)
+
+
+### Bug Fixes
+
+* upgrade deps ([80c4ae8](https://github.com/pmb0/express-sharp/commit/80c4ae8934d7fefc687620cb20d2685dcb3e4827))
+
 ## [4.2.37](https://github.com/pmb0/express-sharp/compare/v4.2.36...v4.2.37) (2021-09-05)
 
 
