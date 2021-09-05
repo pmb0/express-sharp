@@ -1,52 +1,52 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@commitlint/cli': ^13.0.0
-  '@commitlint/config-conventional': ^13.0.0
-  '@heise/eslint-config': ^19.0.0
+  '@commitlint/cli': ^13.1.0
+  '@commitlint/config-conventional': ^13.1.0
+  '@heise/eslint-config': ^19.0.4
   '@keyv/redis': ^2.1.2
   '@semantic-release/changelog': ^5.0.1
   '@semantic-release/commit-analyzer': ^8.0.1
-  '@semantic-release/git': ^9.0.0
-  '@semantic-release/npm': ^7.0.6
-  '@semantic-release/release-notes-generator': ^9.0.1
-  '@types/cache-manager': ^3.0.0
-  '@types/cors': ^2.8.7
-  '@types/debug': ^4.1.5
-  '@types/etag': ^1.8.0
-  '@types/express': ^4.17.3
-  '@types/got': ^9.6.11
-  '@types/jest': ^27.0.0
-  '@types/keyv': ^3.1.1
-  '@types/node': ^14.6.4
-  '@types/sharp': ^0.28.1
-  '@types/supertest': ^2.0.10
-  aws-sdk: ^2.713.0
+  '@semantic-release/git': ^9.0.1
+  '@semantic-release/npm': ^7.1.3
+  '@semantic-release/release-notes-generator': ^9.0.3
+  '@types/cache-manager': ^3.4.2
+  '@types/cors': ^2.8.12
+  '@types/debug': ^4.1.7
+  '@types/etag': ^1.8.1
+  '@types/express': ^4.17.13
+  '@types/got': ^9.6.12
+  '@types/jest': ^27.0.1
+  '@types/keyv': ^3.1.2
+  '@types/node': ^14.17.14
+  '@types/sharp': ^0.28.6
+  '@types/supertest': ^2.0.11
+  aws-sdk: ^2.983.0
   class-validator: ^0.13.1
-  cors: ^2.8.4
-  debug: ^4.1.1
+  cors: ^2.8.5
+  debug: ^4.3.2
   dotenv: ^10.0.0
-  eslint-plugin-no-only-tests: ^2.4.0
-  eslint-plugin-sort-keys-fix: ^1.1.1
+  eslint-plugin-no-only-tests: ^2.6.0
+  eslint-plugin-sort-keys-fix: ^1.1.2
   etag: ^1.8.1
   express: ^4.17.1
-  got: ^11.5.0
-  husky: ^7.0.0
-  jest: ^27.0.0
-  keyv: ^4.0.0
-  lint-staged: ^11.0.0
-  nodemon: ^2.0.3
+  got: ^11.8.2
+  husky: ^7.0.2
+  jest: ^27.1.0
+  keyv: ^4.0.3
+  lint-staged: ^11.1.2
+  nodemon: ^2.0.12
   prettier: ^2.3.2
-  pug: ^3.0.0
+  pug: ^3.0.2
   reflect-metadata: ^0.1.13
   rimraf: ^3.0.2
-  semantic-release: ^17.0.8
+  semantic-release: ^17.4.7
   sharp: ^0.29.0
-  supertest: ^6.0.0
-  ts-jest: ^27.0.0
-  ts-node: ^10.0.0
-  tsyringe: ^4.2.0
-  typescript: ^4.0.0
+  supertest: ^6.1.6
+  ts-jest: ^27.0.5
+  ts-node: ^10.2.1
+  tsyringe: ^4.6.0
+  typescript: ^4.4.2
 
 dependencies:
   class-validator: 0.13.1
@@ -65,7 +65,7 @@ devDependencies:
   '@keyv/redis': 2.1.2
   '@semantic-release/changelog': 5.0.1_semantic-release@17.4.7
   '@semantic-release/commit-analyzer': 8.0.1_semantic-release@17.4.7
-  '@semantic-release/git': 9.0.0_semantic-release@17.4.7
+  '@semantic-release/git': 9.0.1_semantic-release@17.4.7
   '@semantic-release/npm': 7.1.3_semantic-release@17.4.7
   '@semantic-release/release-notes-generator': 9.0.3_semantic-release@17.4.7
   '@types/cache-manager': 3.4.2
@@ -173,7 +173,7 @@ packages:
       '@babel/compat-data': 7.15.0
       '@babel/core': 7.15.5
       '@babel/helper-validator-option': 7.14.5
-      browserslist: 4.16.8
+      browserslist: 4.17.0
       semver: 6.3.0
     dev: true
 
@@ -1036,8 +1036,8 @@ packages:
     resolution: {integrity: sha512-9Tj/qn+y2j+sjCI3Jd+qseGtHjOAeg7dU2/lVcqIQ9TV3QDaDXDYXcoOHU+7o2Hwh8L8ymL4gfuO7KxDs3q2zg==}
     dev: true
 
-  /@semantic-release/git/9.0.0_semantic-release@17.4.7:
-    resolution: {integrity: sha512-AZ4Zha5NAPAciIJH3ipzw/WU9qLAn8ENaoVAhD6srRPxTpTzuV3NhNh14rcAo8Paj9dO+5u4rTKcpetOBluYVw==}
+  /@semantic-release/git/9.0.1_semantic-release@17.4.7:
+    resolution: {integrity: sha512-75P03s9v0xfrH9ffhDVWRIX0fgWBvJMmXhUU0rMTKYz47oMXU5O95M/ocgIKnVJlWZYoC+LpIe4Ye6ev8CrlUQ==}
     engines: {node: '>=10.18'}
     peerDependencies:
       semantic-release: '>=16.0.0 <18.0.0'
@@ -1046,7 +1046,7 @@ packages:
       aggregate-error: 3.1.0
       debug: 4.3.2
       dir-glob: 3.0.1
-      execa: 4.1.0
+      execa: 5.1.1
       lodash: 4.17.21
       micromatch: 4.0.4
       p-reduce: 2.1.0
@@ -1942,8 +1942,8 @@ packages:
     resolution: {integrity: sha512-9o5UecI3GhkpM6DrXr69PblIuWxPKk9Y0jHBRhdocZ2y7YECBFCsHm79Pr3OyR2AvjhDkabFJaDJMYRazHgsow==}
     dev: true
 
-  /browserslist/4.16.8:
-    resolution: {integrity: sha512-sc2m9ohR/49sWEbPj14ZSSZqp+kbi16aLao42Hmn3Z8FpjuMaq2xCA2l4zl9ITfyzvnvyE0hcg62YkIGKxgaNQ==}
+  /browserslist/4.17.0:
+    resolution: {integrity: sha512-g2BJ2a0nEYvEFQC208q8mVAhfNwpZ5Mu8BwgtCdZKO3qx98HChmeg448fPdUzld8aFmfLgVh7yymqV+q1lJZ5g==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
@@ -2141,7 +2141,7 @@ packages:
     resolution: {integrity: sha512-zWIeYFhUitvAHBwNhDdCRK09hWx+P0HUwFE8US8/CxFpMVzkUK8RJl7yOIE+BVu2lxyPNgeOaFv78tLE47jBIg==}
     dependencies:
       '@types/validator': 13.6.3
-      libphonenumber-js: 1.9.25
+      libphonenumber-js: 1.9.26
       validator: 13.6.0
     dev: false
 
@@ -2538,8 +2538,8 @@ packages:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
     engines: {node: '>=4.0.0'}
 
-  /deep-is/0.1.3:
-    resolution: {integrity: sha1-s2nW+128E+7PUk+RsHD+7cNXzzQ=}
+  /deep-is/0.1.4:
+    resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
 
   /deepmerge/4.2.2:
@@ -4847,8 +4847,8 @@ packages:
       type-check: 0.4.0
     dev: true
 
-  /libphonenumber-js/1.9.25:
-    resolution: {integrity: sha512-LsSjcmXXGujESsrOsF2rrLdmuABj3OluCzPJKVNslJ2qc7xF5KdKXN8y0OcxHVurqosVf1/r4itrVrKSrlbVHA==}
+  /libphonenumber-js/1.9.26:
+    resolution: {integrity: sha512-j0brmDsZLSKJCrcli1HjzHYP29VOf5P/Yz+xxe7WmKTe+0XVnKa0J+UEAaT96D21w1mfLPhlm0ZXBQ13EVF+XQ==}
     dev: false
 
   /lines-and-columns/1.1.6:
@@ -5492,7 +5492,7 @@ packages:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==}
     engines: {node: '>= 0.8.0'}
     dependencies:
-      deep-is: 0.1.3
+      deep-is: 0.1.4
       fast-levenshtein: 2.0.6
       levn: 0.3.0
       prelude-ls: 1.1.2
@@ -5504,7 +5504,7 @@ packages:
     resolution: {integrity: sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw==}
     engines: {node: '>= 0.8.0'}
     dependencies:
-      deep-is: 0.1.3
+      deep-is: 0.1.4
       fast-levenshtein: 2.0.6
       levn: 0.4.1
       prelude-ls: 1.2.1
