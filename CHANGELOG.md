@@ -5,6 +5,13 @@
 
 * only require `pnpm` for contributors ([a20813f](https://github.com/pmb0/express-sharp/commit/a20813f4f15cd3576663b2c8496f6c13b7e8c776)), closes [#560](https://github.com/pmb0/express-sharp/issues/560)
 
+## [4.2.37](https://github.com/pmb0/express-sharp/compare/v4.2.36...v4.2.37) (2021-09-05)
+
+
+### Bug Fixes
+
+* only require `pnpm` for contributors ([a20813f](https://github.com/pmb0/express-sharp/commit/a20813f4f15cd3576663b2c8496f6c13b7e8c776)), closes [#560](https://github.com/pmb0/express-sharp/issues/560)
+
 ## [4.2.36](https://github.com/pmb0/express-sharp/compare/v4.2.35...v4.2.36) (2021-09-04)
 
 
