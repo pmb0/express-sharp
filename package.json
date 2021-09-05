@@ -76,7 +76,7 @@
     "lint": "eslint --cache .",
     "test": "jest",
     "ci:test": "jest --coverage",
-    "prepare": "husky install && npx only-allow pnpm"
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">= 12.0.0"
