@@ -1,3 +1,10 @@
+## [4.2.39](https://github.com/pmb0/express-sharp/compare/v4.2.38...v4.2.39) (2021-09-05)
+
+
+### Bug Fixes
+
+* release process ([41afb20](https://github.com/pmb0/express-sharp/commit/41afb2006549343746ac1bb081089b1695522e5c))
+
 ## [4.2.38](https://github.com/pmb0/express-sharp/compare/v4.2.37...v4.2.38) (2021-09-05)
 
 
