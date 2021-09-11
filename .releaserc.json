@@ -1,6 +1,6 @@
 {
   "tagFormat": "@edged/repo@v${version}",
-  "branches": ["master", "refactor/monorepo"],
+  "branches": ["master"],
   "repositoryUrl": "git@github.com:pmb0/express-sharp.git",
   "plugins": [
     "@semantic-release/commit-analyzer",
