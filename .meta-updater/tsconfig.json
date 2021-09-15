@@ -6,5 +6,6 @@
     "module": "ES2020"
   },
   "include": ["src/**/*"],
-  "references": []
+  "references": [],
+  "exclude": ["node_modules", "dist"]
 }

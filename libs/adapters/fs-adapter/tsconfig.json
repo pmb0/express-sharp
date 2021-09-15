@@ -4,15 +4,11 @@
     "outDir": "./dist",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*"
-  ],
+  "include": ["src/**/*"],
   "references": [
-    {
-      "path": "../../../tools/tsconfig"
-    },
     {
       "path": "../../core"
     }
-  ]
+  ],
+  "exclude": ["node_modules", "dist"]
 }

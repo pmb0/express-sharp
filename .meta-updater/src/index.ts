@@ -33,6 +33,7 @@ export default async (
       return { tagFormat: `${manifest.name}@v\${version}`, ...releaseRc }
     },
     'package.json': updatePackageJson(workspaceDir, lockfile),
+    'tsconfig.build.json': updateTsConfig(workspaceDir, lockfile),
     'tsconfig.json': updateTsConfig(workspaceDir, lockfile),
   }
 }
@@ -71,6 +72,7 @@ function updateTsConfig(workspaceDir: string, lockfile: LockfileFile) {
 
     const references = Object.values(deps)
       .filter((dep) => dep.startsWith('link:'))
+      .filter((dep) => !dep.endsWith('tsconfig'))
       .map((dep) => dep.slice('link:'.length))
       .filter((relativePath) =>
         existsSync(path.join(dir, relativePath, 'tsconfig.json')),
@@ -81,6 +83,7 @@ function updateTsConfig(workspaceDir: string, lockfile: LockfileFile) {
 
     return {
       ...tsConfig,
+      exclude: ['node_modules', 'dist'],
       ...(references && {
         references: references.sort((r1, r2) => r1.path.localeCompare(r2.path)),
       }),

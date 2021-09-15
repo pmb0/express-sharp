@@ -4,15 +4,7 @@
     "outDir": "./dist",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*",
-    "__tests__/**/*",
-    "example/**/*",
-    "__mocks__/**/*"
-  ],
-  "references": [
-    {
-      "path": "../../tools/tsconfig"
-    }
-  ]
+  "include": ["src/**/*", "__tests__/**/*", "example/**/*", "__mocks__/**/*"],
+  "references": [],
+  "exclude": ["node_modules", "dist"]
 }

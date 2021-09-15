@@ -4,16 +4,8 @@
     "outDir": "./dist",
     "rootDir": "src"
   },
-  "include": [
-    "src/**/*",
-    "__tests__/**/*",
-    "example/**/*",
-    "__mocks__/**/*"
-  ],
+  "include": ["src/**/*"],
   "references": [
-    {
-      "path": "../../tools/tsconfig"
-    },
     {
       "path": "../adapters/fs-adapter"
     },
@@ -32,5 +24,6 @@
     {
       "path": "../core"
     }
-  ]
+  ],
+  "exclude": ["node_modules", "dist"]
 }
