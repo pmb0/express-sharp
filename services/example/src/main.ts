@@ -1,6 +1,8 @@
 /* eslint-disable toplevel/no-toplevel-side-effect */
+import { HttpAdapter } from '@edged/http-adapter'
+import { S3Adapter } from '@edged/s3-adapter'
 import express from 'express'
-import { expressSharp, FsAdapter, HttpAdapter, S3Adapter } from 'express-sharp'
+import { expressSharp, FsAdapter } from 'express-sharp'
 import Keyv from 'keyv'
 import { AddressInfo } from 'net'
 import { join } from 'path'
@@ -22,7 +24,7 @@ app.use(
   expressSharp({
     cache,
     imageAdapter: new HttpAdapter({
-      prefixUrl: 'http://localhost:3000/',
+      baseURL: 'http://localhost:3000/',
     }),
   }),
 )
@@ -44,7 +46,7 @@ app.use(
   '/lorempixel',
   expressSharp({
     cache,
-    imageAdapter: new HttpAdapter({ prefixUrl: 'http://lorempixel.com' }),
+    imageAdapter: new HttpAdapter({ baseURL: 'http://lorempixel.com' }),
   }),
 )
 app.use(

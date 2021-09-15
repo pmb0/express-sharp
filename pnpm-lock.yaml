@@ -261,19 +261,26 @@ importers:
 
   services/example:
     specifiers:
+      '@edged/http-adapter': workspace:^1.0.0
+      '@edged/s3-adapter': workspace:^1.0.0
+      '@edged/tsconfig': workspace:^1.0.0
       express: ^4.17.1
-      express-sharp: ^4.2.39
+      express-sharp: workspace:*
       keyv: ^4.0.3
       pkg: ^5.3.2
       pug: ^3.0.2
       tslib: ^2.3.1
     dependencies:
+      '@edged/http-adapter': link:../../libs/adapters/http-adapter
+      '@edged/s3-adapter': link:../../libs/adapters/s3-adapter
       express: 4.17.1
-      express-sharp: 4.2.39_express@4.17.1
+      express-sharp: link:../../libs/express-sharp
       keyv: 4.0.3
       pkg: 5.3.2
       pug: 3.0.2
       tslib: 2.3.1
+    devDependencies:
+      '@edged/tsconfig': link:../../tools/tsconfig
 
   tools/jest-config:
     specifiers:
@@ -3650,32 +3657,6 @@ packages:
       jest-message-util: 27.1.1
       jest-regex-util: 27.0.6
     dev: true
-
-  /express-sharp/4.2.39_express@4.17.1:
-    resolution: {integrity: sha512-cBCku8xjGF0XB4BMMnxSV2fbnBk13up2vcniumnOl46z9p2kz2T7xTww3LoMB3GDzlvRfSZxDNAivFeLlrBi7A==}
-    engines: {node: '>= 12.0.0'}
-    peerDependencies:
-      aws-sdk: ^2.713.0
-      express: ^4.0.0
-      got: ^11.5.0
-    peerDependenciesMeta:
-      aws-sdk:
-        optional: true
-      got:
-        optional: true
-    dependencies:
-      class-validator: 0.13.1
-      cors: 2.8.5
-      debug: 4.3.2
-      dotenv: 10.0.0
-      etag: 1.8.1
-      express: 4.17.1
-      reflect-metadata: 0.1.13
-      sharp: 0.29.1
-      tsyringe: 4.6.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /express/4.17.1:
     resolution: {integrity: sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==}
