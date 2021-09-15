@@ -1,6 +1,6 @@
 !.eslintrc.js
+!.meta-updater
 coverage
 dist
-test/setup.ts
+services/**/*.mjs
 *.js
-*.mjs

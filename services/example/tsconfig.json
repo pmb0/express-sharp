@@ -1,0 +1,20 @@
+{
+  "extends": "@edged/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*", "__tests__/**/*", "example/**/*", "__mocks__/**/*"],
+  "references": [
+    {
+      "path": "../../libs/adapters/http-adapter"
+    },
+    {
+      "path": "../../libs/adapters/s3-adapter"
+    },
+    {
+      "path": "../../libs/express-sharp"
+    }
+  ],
+  "exclude": ["node_modules", "dist"]
+}

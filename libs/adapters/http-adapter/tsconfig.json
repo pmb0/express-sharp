@@ -1,0 +1,17 @@
+{
+  "extends": "@edged/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../../core"
+    },
+    {
+      "path": "../../testing"
+    }
+  ],
+  "exclude": ["node_modules", "dist"]
+}

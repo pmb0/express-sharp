@@ -1,100 +1,48 @@
 {
-  "name": "express-sharp",
-  "version": "4.2.39",
-  "description": "Real-time image processing for your express application",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "dependencies": {
-    "class-validator": "^0.13.1",
-    "cors": "^2.8.5",
-    "debug": "^4.3.2",
-    "dotenv": "^10.0.0",
-    "etag": "^1.8.1",
-    "reflect-metadata": "^0.1.13",
-    "sharp": "^0.29.0",
-    "tsyringe": "^4.6.0"
-  },
+  "name": "@edged/repo",
+  "private": "true",
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@heise/eslint-config": "^19.0.4",
-    "@keyv/redis": "^2.1.2",
+    "@edged/jest-config": "workspace:^1.0.0",
+    "@edged/tsconfig": "workspace:^1.0.0",
+    "@heise/eslint-config": "^19.0.6",
+    "@jest/types": "^27.1.1",
+    "@pnpm/meta-updater": "^0.0.6",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.1",
     "@semantic-release/npm": "^7.1.3",
     "@semantic-release/release-notes-generator": "^9.0.3",
-    "@types/cache-manager": "^3.4.2",
-    "@types/cors": "^2.8.12",
-    "@types/debug": "^4.1.7",
-    "@types/etag": "^1.8.1",
-    "@types/express": "^4.17.13",
-    "@types/got": "^9.6.12",
     "@types/jest": "^27.0.1",
-    "@types/keyv": "^3.1.2",
-    "@types/node": "^14.17.14",
-    "@types/sharp": "^0.28.6",
-    "@types/supertest": "^2.0.11",
-    "aws-sdk": "^2.983.0",
-    "eslint-plugin-no-only-tests": "^2.6.0",
+    "@types/node": "^14.17.15",
+    "commitlint": "^13.1.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
-    "express": "^4.17.1",
-    "got": "^11.8.2",
     "husky": "^7.0.2",
-    "jest": "^27.1.0",
-    "keyv": "^4.0.3",
+    "jest": "^27.1.1",
+    "jest-config": "^27.1.1",
     "lint-staged": "^11.1.2",
+    "multi-semantic-release": "^2.8.5",
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2",
-    "pug": "^3.0.2",
     "rimraf": "^3.0.2",
     "semantic-release": "^17.4.7",
-    "supertest": "^6.1.6",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.2"
-  },
-  "peerDependencies": {
-    "aws-sdk": "^2.713.0",
-    "express": "^4.0.0",
-    "got": "^11.5.0"
-  },
-  "peerDependenciesMeta": {
-    "aws-sdk": {
-      "optional": true
-    },
-    "got": {
-      "optional": true
-    }
+    "typescript": "^4.4.3"
   },
   "scripts": {
-    "build:test": "tsc --noEmit",
-    "build": "tsc --build tsconfig.build.json",
-    "prebuild": "yarn clean",
-    "clean": "rimraf dist",
-    "start:example": "DEBUG=express-sharp* nodemon --exec 'node -r ts-node/register' -w . --inspect example/app.ts",
+    "update-manifests": "pnpm run meta-updater && pnpm install",
+    "meta-updater": "pnpm --filter=@edged/updater build && pnpm --config.use-node-version=16.4.0 exec meta-updater",
+    "build": "pnpm run -r --sort build",
+    "clean": "pnpm run -r clean",
+    "rebuild": "pnpm run clean && pnpm run build",
     "lint": "eslint --cache .",
     "test": "jest",
     "ci:test": "jest --coverage",
-    "prepare": "husky install"
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install",
+    "release": "multi-semantic-release --ignore-packages=tools/**,services/**"
   },
-  "engines": {
-    "node": ">= 12.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pmb0/express-sharp.git"
-  },
-  "keywords": [
-    "express",
-    "sharp",
-    "image",
-    "scale"
-  ],
   "author": "Philipp Busse",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pmb0/express-sharp/issues"
-  },
   "homepage": "https://github.com/pmb0/express-sharp#readme"
 }

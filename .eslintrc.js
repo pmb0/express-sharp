@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: ['@heise'],
-  plugins: ['sort-keys-fix', 'eslint-plugin-no-only-tests'],
+  plugins: ['sort-keys-fix'],
   rules: {
     'sort-keys-fix/sort-keys-fix': 'error',
     'no-prototype-builtins': 'off',
@@ -17,6 +17,10 @@ module.exports = {
     es6: true,
   },
   overrides: [
+    {
+      files: ['jest.config.ts'],
+      rules: {'node/no-extraneous-import': 'off'},
+    },
     {
       files: ['*.test.ts', '*.js', '__tests__/**/*.ts'],
       rules: {

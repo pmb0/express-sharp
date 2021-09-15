@@ -1,0 +1,29 @@
+{
+  "extends": "@edged/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../adapters/fs-adapter"
+    },
+    {
+      "path": "../adapters/http-adapter"
+    },
+    {
+      "path": "../client"
+    },
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../core"
+    }
+  ],
+  "exclude": ["node_modules", "dist"]
+}

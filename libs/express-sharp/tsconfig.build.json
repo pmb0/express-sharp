@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "dist"],
+  "references": [
+    {
+      "path": "../adapters/fs-adapter"
+    },
+    {
+      "path": "../adapters/http-adapter"
+    },
+    {
+      "path": "../client"
+    },
+    {
+      "path": "../common"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../core"
+    }
+  ]
+}
