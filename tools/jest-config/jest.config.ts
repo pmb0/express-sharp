@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
     ...defaults.coveragePathIgnorePatterns,
     'libs/testing',
     '.dto.ts$',
+    '/dist/',
   ],
   coverageReporters: ['text', 'lcov'],
   modulePathIgnorePatterns: ['/dist/'],
