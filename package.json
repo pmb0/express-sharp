@@ -1,6 +1,6 @@
 {
   "name": "express-sharp",
-  "version": "4.2.39",
+  "version": "4.2.40",
   "description": "Real-time image processing for your express application",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

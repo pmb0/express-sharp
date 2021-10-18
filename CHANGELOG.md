@@ -1,3 +1,12 @@
+## [4.2.40](https://github.com/pmb0/express-sharp/compare/v4.2.39...v4.2.40) (2021-10-18)
+
+
+### Bug Fixes
+
+* import optional deps gracefully ([#554](https://github.com/pmb0/express-sharp/issues/554)) ([e2254dc](https://github.com/pmb0/express-sharp/commit/e2254dc0c1528f709f61ca50a61691218603aed7))
+* keyv is a prod dependency ([4998f56](https://github.com/pmb0/express-sharp/commit/4998f566399b44893df889f68d0d78845d1ecc5a))
+* upgrade deps ([972babb](https://github.com/pmb0/express-sharp/commit/972babbf2a701bd0b78feffbaa07883735a5c9e1))
+
 ## [4.2.39](https://github.com/pmb0/express-sharp/compare/v4.2.38...v4.2.39) (2021-09-05)
 
 
