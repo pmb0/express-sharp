@@ -35,3 +35,7 @@ export interface Signer {
   sign(string: string | URL): string
   verify(string: string): boolean
 }
+
+export interface Type<T = unknown> extends Function {
+  new (...args: unknown[]): T
+}

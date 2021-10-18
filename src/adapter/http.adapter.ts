@@ -1,15 +1,19 @@
+import type { ExtendOptions, Got, RequestError } from 'got'
 import { ImageAdapter } from '../interfaces'
-import got, { Got, ExtendOptions, RequestError } from 'got'
 import { getLogger } from '../logger'
+import { optionalRequire } from '../optional-require'
 
 export class HttpAdapter implements ImageAdapter {
   private client: Got
   private log = getLogger('adapter:http')
 
   constructor(gotOptions: ExtendOptions) {
+    const got = optionalRequire<{ default: Got }>('got').default
+
     this.client = got.extend({
       ...gotOptions,
     })
+
     this.log(`Using prefixUrl: ${this.getPrefixUrl()}`)
   }
 
