@@ -8,7 +8,7 @@
     "class-validator": "^0.13.1",
     "cors": "^2.8.5",
     "debug": "^4.3.2",
-    "dotenv": "^10.0.0",
+    "dotenv": "^11.0.0",
     "etag": "^1.8.1",
     "keyv": "^4.0.3",
     "reflect-metadata": "^0.1.13",
