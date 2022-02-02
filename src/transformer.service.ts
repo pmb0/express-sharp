@@ -76,6 +76,10 @@ export class Transformer {
       options.format = (await transformer.metadata()).format as format
     }
 
+    if (options.trim) {
+      transformer.trim()
+    }
+
     if (options.crop) {
       const [cropWidth, cropHeight] = this.getCropDimensions(
         this.cropMaxSize,

@@ -54,6 +54,10 @@ export class ResizeDto {
   @IsBoolean()
   public crop: boolean = false
 
+  @Transform((value) => value === 'true')
+  @IsBoolean()
+  public trim: boolean = false
+
   @IsIn([
     'north',
     'northeast',
