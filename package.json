@@ -40,7 +40,7 @@
     "eslint-plugin-no-only-tests": "^2.6.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "express": "^4.17.1",
-    "got": "^11.8.2",
+    "got": "^12.0.0",
     "husky": "^8.0.0",
     "jest": "^27.3.0",
     "lint-staged": "^12.0.0",
@@ -57,7 +57,7 @@
   "peerDependencies": {
     "aws-sdk": "^2.713.0",
     "express": "^4.0.0",
-    "got": "^11.5.0"
+    "got": "^12.0.0"
   },
   "peerDependenciesMeta": {
     "aws-sdk": {
