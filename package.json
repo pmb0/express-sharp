@@ -25,7 +25,7 @@
     "@semantic-release/git": "^10.0.0",
     "@semantic-release/npm": "^9.0.0",
     "@semantic-release/release-notes-generator": "^10.0.2",
-    "@types/cache-manager": "^3.4.2",
+    "@types/cache-manager": "^4.0.0",
     "@types/cors": "^2.8.12",
     "@types/debug": "^4.1.7",
     "@types/etag": "^1.8.1",
