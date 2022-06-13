@@ -10,7 +10,7 @@ specifiers:
   '@semantic-release/git': ^10.0.0
   '@semantic-release/npm': ^9.0.0
   '@semantic-release/release-notes-generator': ^10.0.2
-  '@types/cache-manager': ^3.4.2
+  '@types/cache-manager': ^4.0.0
   '@types/cors': ^2.8.12
   '@types/debug': ^4.1.7
   '@types/etag': ^1.8.1
@@ -69,7 +69,7 @@ devDependencies:
   '@semantic-release/git': 10.0.0_semantic-release@19.0.2
   '@semantic-release/npm': 9.0.1_semantic-release@19.0.2
   '@semantic-release/release-notes-generator': 10.0.2_semantic-release@19.0.2
-  '@types/cache-manager': 3.4.2
+  '@types/cache-manager': 4.0.0
   '@types/cors': 2.8.12
   '@types/debug': 4.1.7
   '@types/etag': 1.8.1
@@ -1298,8 +1298,8 @@ packages:
       '@types/node': 14.17.27
     dev: true
 
-  /@types/cache-manager/3.4.2:
-    resolution: {integrity: sha512-1IwA74t5ID4KWo0Kndal16MhiPSZgMe1fGc+MLT6j5r+Ab7jku36PFTl4PP6MiWw0BJscM9QpZEo00qixNQoRg==}
+  /@types/cache-manager/4.0.0:
+    resolution: {integrity: sha512-uGnPOCM3PtlqZagds3i8mNyEwKLgZpKgswqmlF2ahmh4D1TN1aLYxYez2PDFDy42IGwLTbuHWSiF62I2jouM7g==}
     dev: true
 
   /@types/cacheable-request/6.0.2:
