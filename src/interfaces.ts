@@ -28,6 +28,7 @@ export enum QueryParams {
   format = 'f',
   progressive = 'p',
   crop = 'c',
+  trim = 't',
   gravity = 'g',
 }
 

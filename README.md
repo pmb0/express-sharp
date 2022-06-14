@@ -264,6 +264,7 @@ Currently the following transformations can be applied to images:
 | format | `f` | Output image format. Valid values: every valid [sharp output format string](https://sharp.pixelplumbing.com/api-output#toformat), i.e. `jpeg`, `gif`, `webp` or `raw`. |
 | progressive | `p` | Only available for jpeg and png formats. Enable progressive scan by passing `true`. |
 | crop | `c` | Setting crop to `true` enables the [sharp cropping feature](https://sharp.pixelplumbing.com/api-resize#crop). Note: Both `width` and `height` params are neccessary for crop to work. Default is `false`. |
+| trim | `t` | Setting trim to `true` enables the [sharp trim feature](https://sharp.pixelplumbing.com/api-resize#trim). |
 | gravity | `g` | When the crop option is activated you can specify the gravity of the cropping. Possible attributes of the optional `gravity` are `north`, `northeast`, `east`, `southeast`, `south`, `southwest`, `west`, `northwest`, `center` and `centre`. Default is `center`. |
 
 # License
