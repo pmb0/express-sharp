@@ -18,7 +18,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
-    "@heise/eslint-config": "^19.0.13",
+    "@heise/eslint-config": "^20.0.0",
     "@keyv/redis": "^2.1.3",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/commit-analyzer": "^9.0.1",
