@@ -26,7 +26,7 @@ specifiers:
   cors: ^2.8.5
   debug: ^4.3.2
   dotenv: ^10.0.0
-  eslint-plugin-no-only-tests: ^2.6.0
+  eslint-plugin-no-only-tests: ^3.0.0
   eslint-plugin-sort-keys-fix: ^1.1.2
   etag: ^1.8.1
   express: ^4.17.1
@@ -81,7 +81,7 @@ devDependencies:
   '@types/sharp': 0.30.0
   '@types/supertest': 2.0.11
   aws-sdk: 2.1009.0
-  eslint-plugin-no-only-tests: 2.6.0
+  eslint-plugin-no-only-tests: 3.0.0
   eslint-plugin-sort-keys-fix: 1.1.2
   express: 4.17.1
   got: 11.8.2
@@ -2982,9 +2982,9 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-no-only-tests/2.6.0:
-    resolution: {integrity: sha512-T9SmE/g6UV1uZo1oHAqOvL86XWl7Pl2EpRpnLI8g/bkJu+h7XBCB+1LnubRZ2CUQXj805vh4/CYZdnqtVaEo2Q==}
-    engines: {node: '>=4.0.0'}
+  /eslint-plugin-no-only-tests/3.0.0:
+    resolution: {integrity: sha512-I0PeXMs1vu21ap45hey4HQCJRqpcoIvGcNTPJe+UhUm8TwjQ6//mCrDqF8q0WS6LgmRDwQ4ovQej0AQsAHb5yg==}
+    engines: {node: '>=5.0.0'}
     dev: true
 
   /eslint-plugin-node/11.1.0_eslint@7.32.0:
