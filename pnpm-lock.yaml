@@ -25,7 +25,7 @@ specifiers:
   class-validator: ^0.13.1
   cors: ^2.8.5
   debug: ^4.3.2
-  dotenv: ^10.0.0
+  dotenv: ^16.0.0
   eslint-plugin-no-only-tests: ^2.6.0
   eslint-plugin-sort-keys-fix: ^1.1.2
   etag: ^1.8.1
@@ -52,7 +52,7 @@ dependencies:
   class-validator: 0.13.1
   cors: 2.8.5
   debug: 4.3.2
-  dotenv: 10.0.0
+  dotenv: 16.0.0
   etag: 1.8.1
   keyv: 4.0.3
   reflect-metadata: 0.1.13
@@ -2801,9 +2801,9 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /dotenv/10.0.0:
-    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
-    engines: {node: '>=10'}
+  /dotenv/16.0.0:
+    resolution: {integrity: sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==}
+    engines: {node: '>=12'}
     dev: false
 
   /duplexer2/0.1.4:
