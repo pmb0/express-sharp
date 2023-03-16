@@ -22,7 +22,7 @@ specifiers:
   '@types/sharp': ^0.30.0
   '@types/supertest': ^2.0.11
   aws-sdk: ^2.1009.0
-  class-validator: ^0.13.1
+  class-validator: ^0.14.0
   cors: ^2.8.5
   debug: ^4.3.2
   dotenv: ^10.0.0
@@ -49,7 +49,7 @@ specifiers:
   typescript: ^4.4.4
 
 dependencies:
-  class-validator: 0.13.1
+  class-validator: 0.14.0
   cors: 2.8.5
   debug: 4.3.2
   dotenv: 10.0.0
@@ -1485,8 +1485,8 @@ packages:
     resolution: {integrity: sha512-Y0K95ThC3esLEYD6ZuqNek29lNX2EM1qxV8y2FTLUB0ff5wWrk7az+mLrnNFUnaXcgKye22+sFBRXOgpPILZNg==}
     dev: true
 
-  /@types/validator/13.6.3:
-    resolution: {integrity: sha512-fWG42pMJOL4jKsDDZZREnXLjc3UE0R8LOJfARWYg6U966rxDT7TYejYzLnUF5cvSObGg34nd0+H2wHHU5Omdfw==}
+  /@types/validator/13.7.14:
+    resolution: {integrity: sha512-J6OAed6rhN6zyqL9Of6ZMamhlsOEU/poBVvbHr/dKOYKTeuYYMlDkMv+b6UUV0o2i0tw73cgyv/97WTWaUl0/g==}
     dev: false
 
   /@types/yargs-parser/20.2.1:
@@ -2227,12 +2227,12 @@ packages:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
     dev: true
 
-  /class-validator/0.13.1:
-    resolution: {integrity: sha512-zWIeYFhUitvAHBwNhDdCRK09hWx+P0HUwFE8US8/CxFpMVzkUK8RJl7yOIE+BVu2lxyPNgeOaFv78tLE47jBIg==}
+  /class-validator/0.14.0:
+    resolution: {integrity: sha512-ct3ltplN8I9fOwUd8GrP8UQixwff129BkEtuWDKL5W45cQuLd19xqmTLu5ge78YDm/fdje6FMt0hGOhl0lii3A==}
     dependencies:
-      '@types/validator': 13.6.3
-      libphonenumber-js: 1.9.38
-      validator: 13.6.0
+      '@types/validator': 13.7.14
+      libphonenumber-js: 1.10.24
+      validator: 13.9.0
     dev: false
 
   /clean-regexp/1.0.0:
@@ -5037,8 +5037,8 @@ packages:
       type-check: 0.4.0
     dev: true
 
-  /libphonenumber-js/1.9.38:
-    resolution: {integrity: sha512-7CCl9NZPYtX4JNXdvV5RnrQqrXp7LsLOTpYSUfEJBiySEnC5hysdwouXAuWgPDB55D/fpKm4RjM2/tUUh8kuoA==}
+  /libphonenumber-js/1.10.24:
+    resolution: {integrity: sha512-3Dk8f5AmrcWqg+oHhmm9hwSTqpWHBdSqsHmjCJGroULFubi0+x7JEIGmRZCuL3TI8Tx39xaKqfnhsDQ4ALa/Nw==}
     dev: false
 
   /lilconfig/2.0.5:
@@ -7525,8 +7525,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /validator/13.6.0:
-    resolution: {integrity: sha512-gVgKbdbHgtxpRyR8K0O6oFZPhhB5tT1jeEHZR0Znr9Svg03U0+r9DXWMrnRAB+HtCStDQKlaIZm42tVsVjqtjg==}
+  /validator/13.9.0:
+    resolution: {integrity: sha512-B+dGG8U3fdtM0/aNK4/X8CXq/EcxU2WPrPEkJGslb47qyHsxmbggTWK0yEA4qnYVNF+nxNlN88o14hIcPmSIEA==}
     engines: {node: '>= 0.10'}
     dev: false
 
