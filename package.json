@@ -37,7 +37,7 @@
     "@types/sharp": "^0.30.0",
     "@types/supertest": "^2.0.11",
     "aws-sdk": "^2.1009.0",
-    "eslint-plugin-no-only-tests": "^2.6.0",
+    "eslint-plugin-no-only-tests": "^3.0.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "express": "^4.17.1",
     "got": "^11.8.2",
