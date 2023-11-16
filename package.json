@@ -12,7 +12,7 @@
     "etag": "^1.8.1",
     "keyv": "^4.0.3",
     "reflect-metadata": "^0.1.13",
-    "sharp": "^0.30.0",
+    "sharp": "^0.32.0",
     "tsyringe": "^4.6.0"
   },
   "devDependencies": {
