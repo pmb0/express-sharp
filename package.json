@@ -29,7 +29,7 @@
     "@types/cors": "^2.8.12",
     "@types/debug": "^4.1.7",
     "@types/etag": "^1.8.1",
-    "@types/express": "^4.17.13",
+    "@types/express": "^5.0.0",
     "@types/got": "^9.6.12",
     "@types/jest": "^27.0.2",
     "@types/keyv": "^3.1.3",
@@ -56,7 +56,7 @@
   },
   "peerDependencies": {
     "aws-sdk": "^2.713.0",
-    "express": "^4.0.0",
+    "express": "^5.0.0",
     "got": "^11.5.0"
   },
   "peerDependenciesMeta": {
